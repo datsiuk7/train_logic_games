@@ -1,0 +1,274 @@
+{
+  "id": "ou-lampa-iskryt",
+  "name": "Оу, лампа іскрить",
+  "description": "",
+  "descriptionNight": "",
+  "descriptionDay": "",
+  "category": "basics",
+  "width": 5,
+  "depth": 5,
+  "start": {
+    "x": 2,
+    "z": 3,
+    "dir": 0
+  },
+  "allowed": [
+    "forward",
+    "left",
+    "right",
+    "jump",
+    "light",
+    "fix"
+  ],
+  "hints": [
+    {
+      "text": "Іскрить лампа, візьми і полагоди спочатку",
+      "target": "command:fix"
+    },
+    {
+      "text": "Не пробуй її включати, поки не полагодиш!!!",
+      "target": "command:light"
+    },
+    {
+      "text": "В низу пише скільки у тебе Ремкомплектів",
+      "target": "scene"
+    }
+  ],
+  "limit": 10,
+  "repairKits": 1,
+  "cells": [
+    [
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false,
+        "house": false,
+        "bulb": false,
+        "kit": false,
+        "spark": false,
+        "lit": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false,
+        "house": false,
+        "bulb": false,
+        "kit": false,
+        "spark": false,
+        "lit": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false,
+        "house": false,
+        "bulb": false,
+        "kit": false,
+        "spark": false,
+        "lit": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false,
+        "house": false,
+        "bulb": false,
+        "kit": false,
+        "spark": false,
+        "lit": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false,
+        "house": false,
+        "lit": false
+      }
+    ],
+    [
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false,
+        "house": false,
+        "bulb": false,
+        "kit": false,
+        "spark": false,
+        "lit": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false,
+        "house": false,
+        "bulb": false,
+        "kit": false,
+        "spark": false,
+        "lit": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": true,
+        "house": false,
+        "bulb": false,
+        "kit": false,
+        "spark": true,
+        "lit": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false,
+        "house": false,
+        "bulb": false,
+        "kit": false,
+        "spark": false,
+        "lit": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false,
+        "house": false,
+        "lit": false
+      }
+    ],
+    [
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false,
+        "house": false,
+        "bulb": false,
+        "kit": false,
+        "spark": false,
+        "lit": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false,
+        "house": false,
+        "bulb": false,
+        "kit": false,
+        "spark": false,
+        "lit": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false,
+        "house": false,
+        "bulb": false,
+        "kit": false,
+        "spark": false,
+        "lit": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false,
+        "house": false,
+        "bulb": false,
+        "kit": false,
+        "spark": false,
+        "lit": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false,
+        "house": false,
+        "lit": false
+      }
+    ],
+    [
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false,
+        "house": false,
+        "bulb": false,
+        "kit": false,
+        "spark": false,
+        "lit": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false,
+        "house": false,
+        "bulb": false,
+        "kit": false,
+        "spark": false,
+        "lit": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false,
+        "house": false,
+        "bulb": false,
+        "kit": false,
+        "spark": false,
+        "lit": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false,
+        "house": false,
+        "bulb": false,
+        "kit": false,
+        "spark": false,
+        "lit": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false,
+        "house": false,
+        "lit": false
+      }
+    ],
+    [
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false,
+        "house": false,
+        "lit": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false,
+        "house": false,
+        "lit": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false,
+        "house": false,
+        "lit": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false,
+        "house": false,
+        "lit": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false,
+        "house": false,
+        "lit": false
+      }
+    ]
+  ]
+}

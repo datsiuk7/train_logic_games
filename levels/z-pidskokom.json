@@ -1,0 +1,158 @@
+{
+  "id": "z-pidskokom",
+  "name": "З підскоком",
+  "description": "",
+  "category": "loops",
+  "width": 4,
+  "depth": 6,
+  "start": {
+    "x": 0,
+    "z": 5,
+    "dir": 0
+  },
+  "allowed": [
+    "forward",
+    "left",
+    "right",
+    "loop",
+    "jump",
+    "light"
+  ],
+  "limit": 5,
+  "cells": [
+    [
+      {
+        "height": 1,
+        "tree": false,
+        "lamp": true
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      }
+    ],
+    [
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      }
+    ],
+    [
+      {
+        "height": 1,
+        "tree": false,
+        "lamp": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      }
+    ],
+    [
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      }
+    ],
+    [
+      {
+        "height": 1,
+        "tree": false,
+        "lamp": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      }
+    ],
+    [
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      }
+    ]
+  ],
+  "descriptionNight": "",
+  "descriptionDay": ""
+}

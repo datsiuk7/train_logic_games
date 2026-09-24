@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Редактор — Ліхтарник</title>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="editor.css">
+  <link rel="stylesheet" href="hints.css">
+</head>
+<body>
+  <header>
+    <a class="brand" href="../"><span class="brand-icon">✧</span> ліхтарник</a>
+    <nav class="admin-nav" aria-label="Розділи адмінки">
+      <a href="index.html" class="admin-tab active" aria-current="page">Редактор карти</a>
+      <a href="categories.html" class="admin-tab">Категорії</a>
+      <a href="levels.html" class="admin-tab">Рівні за розділами</a>
+      <a href="settings.html" class="admin-tab">Налаштування</a>
+    </nav>
+    <span class="header-note">ЛОКАЛЬНИЙ РЕДАКТОР</span>
+    <a class="back" href="../">До гри ↗</a>
+  </header>
+
+  <main>
+    <h1 style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Редактор рівнів</h1>
+    <div id="connection" class="notice" style="margin-bottom:12px;padding:8px 14px;font-size:11.5px">Перевіряємо локальний сервер…</div>
+
+    <div class="admin-layout">
+      <!-- Ліва панель: Список рівнів, назва, завдання -->
+      <section class="panel editor-sidebar-left">
+        <div class="admin-fields">
+          <div class="level-nav-panel">
+            <div class="level-nav-head">
+              <span class="level-nav-title">Категорії та рівні</span>
+              <button type="button" id="new" class="btn-new-global" title="Створити новий рівень">＋ Новий</button>
+            </div>
+            <div id="level-tree" class="level-tree-container">
+              <div class="tree-loading">Завантаження структури рівнів…</div>
+            </div>
+          </div>
+
+          <hr class="nav-divider">
+
+          <label class="field">Назва
+            <input id="name" maxlength="80">
+          </label>
+          <input type="hidden" id="id">
+          <div class="task-fields-container">
+            <div class="field task-field task-night">
+              <label for="descriptionNight" class="task-field-label">
+                <span class="theme-icon">🌙</span>
+                <span>Завдання для ночі</span>
+                <span class="task-badge night-badge">Темна</span>
+              </label>
+              <textarea id="descriptionNight" maxlength="500" placeholder="Завдання для темної теми (напр. «Запали всі ліхтарі»)" rows="2"></textarea>
+            </div>
+            <div class="field task-field task-day">
+              <label for="descriptionDay" class="task-field-label">
+                <span class="theme-icon">☀️</span>
+                <span>Завдання для дня</span>
+                <span class="task-badge day-badge">Світла</span>
+              </label>
+              <textarea id="descriptionDay" maxlength="500" placeholder="Завдання для світлої теми (напр. «Вимкни всі ліхтарі»)" rows="2"></textarea>
+            </div>
+            <input type="hidden" id="description">
+          </div>
+          <div class="field level-hints-section">
+            <strong>Підказки для гравця</strong>
+            <p class="level-hints-source">Додай до 5 підказок лише для цього рівня. Без підказок це поле залишиться порожнім у грі.</p>
+            <div id="level-hints" class="hint-editor-list"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Центральна панель: Карта та малювання -->
+      <section class="panel editor-main">
+        <div class="section-top" style="margin-top:0">
+          <h2>Карта</h2>
+          <span id="dirty" class="dirty"></span>
+        </div>
+        <div class="brush-panel">
+          <span class="brush-label">Чим малюємо</span>
+          <div class="toolbar" id="tools"></div>
+          <div id="height-tools" class="height-tools">
+            <span>Висота плитки</span>
+            <div id="heights"></div>
+          </div>
+          <div id="lamp-tools" class="lamp-tools" hidden>
+            <span id="light-tools-label">Стан світла (для ночі)</span>
+            <div class="lamp-state-buttons" role="radiogroup" aria-label="Стан світла для ночі">
+              <button type="button" id="lamp-state-off" class="lamp-state-btn selected" data-state="off" aria-pressed="true">
+                <span class="lamp-dot off">●</span>
+                <span>Вимкнений</span>
+              </button>
+              <button type="button" id="lamp-state-on" class="lamp-state-btn" data-state="on" aria-pressed="false">
+                <span class="lamp-dot on">✦</span>
+                <span>Ввімкнений</span>
+              </button>
+              <button type="button" id="lamp-state-spark" class="lamp-state-btn" data-state="spark" aria-pressed="false">
+                <span class="lamp-dot spark">⚡</span>
+                <span>Іскрить</span>
+              </button>
+              <button type="button" id="lamp-state-no-bulb" class="lamp-state-btn" data-state="no-bulb" aria-pressed="false">
+                <span class="lamp-dot no-bulb">💡⃠</span>
+                <span>Без лампочки</span>
+              </button>
+            </div>
+          </div>
+          <div id="house-tools" class="house-tools" hidden>
+            <span class="house-tools-label">Двері будиночка</span>
+            <div id="house-direction-buttons" class="direction-group" role="radiogroup" aria-label="Напрямок дверей будиночка">
+              <button type="button" class="dir-btn" data-dir="0" title="Північ (вгору)"><span class="dir-arrow">↑</span><span>Північ</span></button>
+              <button type="button" class="dir-btn" data-dir="1" title="Схід (вправо)"><span class="dir-arrow">→</span><span>Схід</span></button>
+              <button type="button" class="dir-btn selected" data-dir="2" title="Південь (вниз)"><span class="dir-arrow">↓</span><span>Південь</span></button>
+              <button type="button" class="dir-btn" data-dir="3" title="Захід (вліво)"><span class="dir-arrow">←</span><span>Захід</span></button>
+            </div>
+          </div>
+          <p id="brush-hint" class="brush-hint"></p>
+        </div>
+        <div class="toolbar">
+          <button id="view-grid" class="selected">Клітинки</button>
+          <button id="view-3d">3D-перегляд</button>
+          <button id="undo" disabled>↶ Скасувати зміну</button>
+          <button id="redo" disabled>↷ Повернути зміну</button>
+        </div>
+        <div id="map-workspace" class="map-workspace">
+          <div class="map-topbar">
+            <span>↑ Північ <span id="cell-info">· Наведи на клітинку</span></span>
+            <div class="zoom-tools">
+              <button id="zoom-out" aria-label="Зменшити карту">−</button>
+              <span id="zoom-value">100%</span>
+              <button id="zoom-in" aria-label="Збільшити карту">+</button>
+            </div>
+          </div>
+          <div id="map-scroll" class="map-scroll">
+            <div id="grid" class="edit-grid" aria-label="Редактор клітинок"></div>
+          </div>
+        </div>
+        <div id="preview" class="scene" hidden></div>
+        <p class="editor-legend">Затисни кнопку миші та малюй. Один рух — одна дія для скасування.<br>Гумка прибирає дерево або ліхтар. «Порожньо» прибирає саму плитку.</p>
+        <div class="admin-actions">
+          <button id="save" class="primary">Зберегти</button>
+          <button id="copy">Зберегти копію</button>
+          <button id="test">▶ Тестувати</button>
+          <button id="export">↓ JSON</button>
+        </div>
+        <p id="status" class="status" role="status" aria-live="polite"></p>
+        <p class="help">Збереження записує JSON у папку levels. Прохідність перевіряй кнопкою «Тестувати». Чернетка автоматично зберігається в цьому браузері.</p>
+      </section>
+
+      <!-- Права панель: Параметри рівня (Категорія, розмір, команди) -->
+      <section class="panel editor-sidebar-right">
+        <div class="admin-fields">
+          <div class="section-top" style="margin-top:0">
+            <h2>Параметри</h2>
+          </div>
+          <label class="field">Категорія (Тема)
+            <select id="category"></select>
+          </label>
+          <div class="field size-picker-container">
+            <div class="size-picker-header">
+              <span>Розмір поля (Ширина × Довжина)</span>
+              <span id="size-preview-badge" class="size-badge">4 × 4</span>
+            </div>
+            <div class="size-steppers">
+              <div class="size-stepper-item">
+                <span class="size-stepper-label">Ширина (X)</span>
+                <div class="size-stepper-control">
+                  <button type="button" id="btn-width-dec" class="size-step-btn" title="Зменшити ширину" aria-label="Зменшити ширину">−</button>
+                  <input type="number" id="width" min="2" max="10" value="4" class="size-input" aria-label="Ширина поля (від 2 до 10)">
+                  <button type="button" id="btn-width-inc" class="size-step-btn" title="Збільшити ширину" aria-label="Збільшити ширину">+</button>
+                </div>
+              </div>
+              <div class="size-stepper-item">
+                <span class="size-stepper-label">Довжина (Z)</span>
+                <div class="size-stepper-control">
+                  <button type="button" id="btn-depth-dec" class="size-step-btn" title="Зменшити довжину" aria-label="Зменшити довжину">−</button>
+                  <input type="number" id="depth" min="2" max="10" value="4" class="size-input" aria-label="Довжина поля (від 2 до 10)">
+                  <button type="button" id="btn-depth-inc" class="size-step-btn" title="Збільшити довжину" aria-label="Збільшити довжину">+</button>
+                </div>
+              </div>
+            </div>
+            <div id="size-matrix" class="size-matrix" role="grid" aria-label="Вибір розміру поля"></div>
+            <div class="size-picker-hint">
+              <span id="size-picker-info">Виділи прямокутник мишкою (від 2×2 до 10×10)</span>
+            </div>
+          </div>
+          <div class="field">
+            <span>Початковий напрямок</span>
+            <div id="direction-buttons" class="direction-group" role="radiogroup" aria-label="Початковий напрямок персонажа">
+              <button type="button" class="dir-btn" data-dir="0" title="Північ (верх карти)"><span class="dir-arrow">↑</span><span>Північ</span></button>
+              <button type="button" class="dir-btn" data-dir="1" title="Схід (вправо)"><span class="dir-arrow">→</span><span>Схід</span></button>
+              <button type="button" class="dir-btn" data-dir="2" title="Південь (вниз)"><span class="dir-arrow">↓</span><span>Південь</span></button>
+              <button type="button" class="dir-btn" data-dir="3" title="Захід (вліво)"><span class="dir-arrow">←</span><span>Захід</span></button>
+            </div>
+          </div>
+          <label class="field">Ліміт блоків (0 — без ліміту)
+            <input id="limit" type="number" min="0" max="100">
+          </label>
+          <label class="field">Комплекти ремонту на старті
+            <input id="repairKits" type="number" min="0" max="99" value="0">
+          </label>
+          <div class="field">
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <span>Доступні команди</span>
+              <div style="display:flex;gap:4px">
+                <button type="button" id="btn-all-cmds" style="padding:2px 7px;font-size:10px">Всі</button>
+                <button type="button" id="btn-basic-cmds" style="padding:2px 7px;font-size:10px">Базові</button>
+                <button type="button" id="btn-clear-cmds" style="padding:2px 7px;font-size:10px">Очистити</button>
+              </div>
+            </div>
+            <div id="allowed" class="check-list"></div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+  <script type="module" src="admin.js"></script>
+</body>
+</html>

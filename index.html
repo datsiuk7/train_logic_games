@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#101820">
+  <title>Ліхтарник — запали ніч</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="home.css">
+  <link rel="stylesheet" href="blocks.css">
+  <link rel="stylesheet" href="game.css">
+</head>
+<body>
+  <header>
+    <a class="brand" href="./"><span class="brand-icon">✧</span> ліхтарник</a>
+    <span class="header-note">МАЛЕНЬКІ КРОКИ. ТЕПЛЕ СВІТЛО.</span>
+    <div class="header-audio">
+      <button id="reset-progress" class="quiet btn-reset-progress" aria-label="Скинути прогрес гри" title="Скинути весь прогрес проходження гри">↺ Скинути прогрес</button>
+      <button id="theme" class="quiet" aria-label="Тема оформлення">🌙 Тема: Ніч</button>
+      <button id="sound" class="quiet" aria-pressed="true">🔊 Звуки: увімк.</button>
+      <button id="music" class="quiet" aria-pressed="true">♫ Музика: увімк.</button>
+    </div>
+  </header>
+
+  <main id="app">
+    <p class="loading">Запалюємо зорі…</p>
+  </main>
+
+  <footer>Ніч чекає на твою програму.</footer>
+  <script type="module" src="app.js"></script>
+</body>
+</html>

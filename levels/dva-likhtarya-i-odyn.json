@@ -1,0 +1,164 @@
+{
+  "id": "dva-likhtarya-i-odyn",
+  "name": "Два ліхтаря і один",
+  "description": "",
+  "category": "basics",
+  "width": 5,
+  "depth": 5,
+  "start": {
+    "x": 2,
+    "z": 4,
+    "dir": 0
+  },
+  "allowed": [
+    "forward",
+    "light"
+  ],
+  "limit": 10,
+  "cells": [
+    [
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false,
+        "house": false,
+        "bulb": false,
+        "kit": false,
+        "spark": false,
+        "lit": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      }
+    ],
+    [
+      {
+        "height": 0,
+        "tree": true,
+        "lamp": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false,
+        "house": false,
+        "lit": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      }
+    ],
+    [
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": true
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      }
+    ],
+    [
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": true
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      },
+      {
+        "height": 0,
+        "tree": true,
+        "lamp": false
+      }
+    ],
+    [
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      }
+    ]
+  ],
+  "descriptionNight": "",
+  "descriptionDay": ""
+}

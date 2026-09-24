@@ -1,0 +1,531 @@
+/* Blocks & Program Editor Design System */
+
+.program-panel .command-label,
+.program-panel .block-head .command-label,
+.program-panel .advanced-block>.block-head>.command-label {
+  display: none !important;
+}
+
+.program-panel .command {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border-radius: 9px;
+  box-sizing: border-box;
+}
+
+.program-panel .palette {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding-bottom: 8px;
+  margin-bottom: 10px;
+  overflow: visible;
+}
+
+.available-commands {
+  margin-top: 14px;
+}
+
+.program-panel .program,
+.program-panel .loop-body {
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: stretch;
+}
+
+.program-panel .program {
+  gap: 6px;
+  padding: 10px;
+  min-height: calc(5 * 48px + 4 * 6px + 22px);
+  box-sizing: border-box;
+}
+
+.program-panel .block-head {
+  min-height: 22px;
+  position: relative;
+  justify-content: flex-start;
+}
+
+.program-panel .block-head .icon {
+  margin: 0;
+  color: var(--gold);
+  font-size: 19px;
+}
+
+.program-panel .block-head .block-number {
+  position: absolute;
+  left: 34px;
+  margin-left: 0;
+}
+
+.program-panel .block-remove {
+  width: 18px;
+  min-width: 18px;
+  height: 18px;
+  margin-left: auto;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #e78682;
+  font-size: 16px;
+  line-height: 16px;
+}
+
+.program-panel .block-head .block-remove {
+  position: absolute;
+  right: 0;
+  margin-left: 0;
+}
+
+.program-panel .loop-times {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  position: absolute;
+  left: 50%;
+  right: auto;
+  transform: translateX(-50%);
+}
+
+.program-panel .loop-times>span {
+  min-width: 28px;
+  color: #e5d6ff;
+  text-align: center;
+}
+
+.program-panel .loop-times button {
+  width: 20px;
+  min-width: 20px;
+  height: 20px;
+  padding: 0;
+  border: 1px solid #6d6280;
+  color: #d9c8f7;
+  font-size: 14px;
+  line-height: 18px;
+}
+
+.program-panel .block-remove:hover {
+  color: #ffaaa3;
+  background: #542d32;
+}
+
+.program-panel .block {
+  width: 100%;
+  padding: 8px;
+}
+
+.program-panel .program:not(:empty)::after {
+  content: 'Поклади';
+  display: flex;
+  flex: 0 0 48px;
+  align-items: center;
+  justify-content: center;
+  border: 1px dashed #4b6371;
+  border-radius: 8px;
+  color: #819bab;
+  font-size: 12px;
+}
+
+.program-panel .loop-body {
+  margin-left: 14px;
+  min-width: 0;
+  gap: 10px;
+  padding: 8px;
+}
+
+.program-panel .loop-body:empty::before {
+  display: block;
+  width: 100%;
+  padding: 12px 4px;
+  color: #819bab;
+  content: 'Поклади';
+  text-align: center;
+}
+
+.program-panel .program:empty::before {
+  content: 'Поклади';
+}
+
+.program-panel .command .icon {
+  color: var(--gold);
+  font-size: 19px;
+}
+
+.program-panel .icon svg,
+.program-panel .command svg,
+.program-panel .block svg,
+.program-panel .block-head svg,
+.drag-floating svg,
+.insertion-preview svg {
+  display: block;
+  width: 26px;
+  height: 26px;
+  flex-shrink: 0;
+}
+
+.program-panel .command {
+  border-color: color-mix(in srgb, var(--command-color) 52%, #263944);
+  background: color-mix(in srgb, var(--command-color) 16%, #1b2b35);
+}
+
+.program-panel .command:hover {
+  background: color-mix(in srgb, var(--command-color) 25%, #1b2b35);
+}
+
+.program-panel .command-forward,
+.program-panel .block.command-forward {
+  --command-color: #73c6bb;
+}
+
+.program-panel .command-left,
+.program-panel .block.command-left {
+  --command-color: #91b9ef;
+}
+
+.program-panel .command-right,
+.program-panel .block.command-right {
+  --command-color: #e69a9a;
+}
+
+.program-panel .command-jump,
+.program-panel .block.command-jump {
+  --command-color: #e7b36b;
+}
+
+.program-panel .command-light,
+.program-panel .block.command-light {
+  --command-color: #f0cf78;
+}
+
+.program-panel .command-loop,
+.program-panel .block.command-loop {
+  --command-color: #c5a2e8;
+}
+
+.program-panel .command-if,
+.program-panel .block.command-if {
+  --command-color: #e5ba77;
+}
+
+.program-panel .command-while,
+.program-panel .block.command-while {
+  --command-color: #c5a2e8;
+}
+
+.program-panel .command-call,
+.program-panel .block.command-call {
+  --command-color: #8abfee;
+}
+
+.program-panel .command-take,
+.program-panel .block.command-take {
+  --command-color: #ffd043;
+}
+
+.program-panel .command-fix,
+.program-panel .block.command-fix {
+  --command-color: #e09653;
+}
+
+.program-panel .command-grip {
+  display: none;
+}
+
+/* Advanced block components */
+.program-panel .advanced-block {
+  min-width: 0 !important;
+  max-width: 100%;
+  background: linear-gradient(145deg, color-mix(in srgb, var(--command-color) 12%, #1b2832), #142028);
+  border-color: color-mix(in srgb, var(--command-color) 38%, #364a59);
+  border-left: 4.5px solid var(--command-color);
+  border-radius: 10px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+  padding: 10px;
+}
+
+.program-panel .advanced-block>.block-head {
+  padding-right: 24px;
+}
+
+.program-panel .advanced-block>.block-head>.icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 7px;
+  background: color-mix(in srgb, var(--command-color) 22%, transparent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--command-color);
+}
+
+.program-panel .advanced-block select,
+.program-panel .advanced-block input {
+  width: auto;
+  min-width: 0;
+  max-width: 100%;
+  font-size: 11px;
+  padding: 6px;
+}
+
+.program-panel .advanced-block>select {
+  margin: 10px 0 0;
+  width: 100%;
+}
+
+.program-panel .advanced-block .code-body {
+  min-width: 0;
+  margin: 8px 0 0;
+  padding: 8px;
+}
+
+.if-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 7px 0 3px;
+  padding: 6px 8px;
+  border-radius: 8px;
+  background: rgba(14, 22, 29, 0.7);
+  border: 1px solid #334755;
+}
+
+.if-header .condition-editor {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+.add-else-btn {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 9px;
+  min-height: 26px;
+  background: #1d2c38;
+  border: 1px solid #3a5062;
+  color: #e5ba77;
+  border-radius: 6px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.15s ease;
+}
+
+.add-else-btn:hover {
+  background: #2a3e4e;
+  border-color: #e5ba77;
+  box-shadow: 0 0 8px rgba(229, 186, 119, 0.3);
+}
+
+.else-section {
+  margin-top: 9px;
+  padding: 8px;
+  border-radius: 8px;
+  background: rgba(22, 28, 36, 0.4);
+  border-top: 1.5px dashed #523f4c;
+}
+
+.else-section .code-body {
+  border-left-color: #e69a9a;
+}
+
+.else-title {
+  font-size: 11px;
+  font-weight: 600;
+  color: #e69a9a;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+
+.remove-else-btn {
+  font-size: 9.5px;
+  padding: 2px 8px;
+  min-height: 22px;
+  background: #362024;
+  border: 1px solid #5d333a;
+  color: #ffaaa3;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.remove-else-btn:hover {
+  background: #4d242a;
+  border-color: #ff7e72;
+}
+
+.condition-editor {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 5px 8px;
+  border: 1px solid #4a5c6b;
+  border-radius: 6px;
+  background: #14232d;
+  margin: 6px 0;
+}
+
+.condition-editor select {
+  font-size: 11.5px;
+  font-weight: 550;
+  padding: 4px 8px;
+  border-radius: 6px;
+  background: #111e27;
+  border: 1px solid #3c5466;
+  color: #f5e2be;
+  cursor: pointer;
+}
+
+.not-btn {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 9px;
+  min-height: 26px;
+  border-radius: 6px;
+  background: #1b2833;
+  border: 1px solid #3d5161;
+  color: #8ea2b0;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.not-btn.selected {
+  background: #785426;
+  border-color: #e5ba77;
+  color: #ffe5b8;
+  box-shadow: 0 0 8px rgba(229, 186, 119, 0.35);
+}
+
+.condition-editor .value-editor {
+  display: flex;
+  flex: 1 1 100%;
+  flex-wrap: wrap;
+  gap: 5px;
+  align-items: center;
+}
+
+.value-editor>select {
+  flex: 1;
+}
+
+.value-editor input {
+  width: 75px !important;
+}
+
+.branch {
+  margin-top: 8px;
+}
+
+.branch-title {
+  font-size: 10px;
+  color: #d7ba85;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 5px;
+}
+
+.branch-actions {
+  display: flex;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.program-panel .body-caption {
+  display: none !important;
+}
+
+.program-panel .code-body.selected {
+  outline: 2px solid #ad98cf;
+  outline-offset: 1px;
+}
+
+.program-panel .code-body:empty:before {
+  font-size: 10.5px;
+  content: 'Перетягни команду сюди';
+  white-space: normal;
+  text-align: center;
+  display: block;
+  padding: 8px 4px;
+}
+
+.code-library:empty {
+  display: none;
+}
+
+.code-library {
+  margin-top: 14px;
+}
+
+.library-section {
+  border-top: 1px solid #3f535e;
+  padding-top: 12px;
+  margin-top: 12px;
+}
+
+.library-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  align-items: center;
+  font-size: 11px;
+  color: #abc3d1;
+}
+
+.library-heading button {
+  font-size: 10px;
+  padding: 6px 9px;
+}
+
+.function-card {
+  background: #15232d;
+  border: 1px solid #3e5462;
+  border-radius: 8px;
+  padding: 10px;
+  margin-top: 9px;
+}
+
+.function-card>input {
+  width: 65%;
+  font-size: 11px;
+}
+
+.function-card>button {
+  font-size: 9px;
+  padding: 5px;
+  margin: 4px 0;
+}
+
+.function-card .code-body {
+  margin-left: 0 !important;
+  min-width: 0 !important;
+}
+
+[data-theme="light"] .program-panel .block {
+  background: #ffffff;
+  border-color: #d1dde6;
+  color: #1a2730;
+}
+
+[data-theme="light"] .program-panel .block-head button {
+  color: #7b90a0;
+}
+
+[data-theme="light"] .program-panel .block-head button:hover {
+  color: #2c3e50;
+  background: #eef3f6;
+}

@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Категорії — Ліхтарник</title>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="editor.css">
+  <link rel="stylesheet" href="categories.css">
+</head>
+<body>
+  <header>
+    <a class="brand" href="../"><span class="brand-icon">✧</span> ліхтарник</a>
+    <nav class="admin-nav" aria-label="Розділи адмінки">
+      <a href="index.html" class="admin-tab">Редактор карти</a>
+      <a href="categories.html" class="admin-tab active" aria-current="page">Категорії</a>
+      <a href="levels.html" class="admin-tab">Рівні за розділами</a>
+      <a href="settings.html" class="admin-tab">Налаштування</a>
+    </nav>
+    <span class="header-note">ЛОКАЛЬНИЙ РЕДАКТОР</span>
+    <a class="back" href="../">До гри ↗</a>
+  </header>
+
+  <main>
+    <div class="admin-title">
+      <span class="eyebrow">ТЕМАТИЧНІ БЛОКИ</span>
+      <h1>Категорії гри</h1>
+      <p>Створюй нові теми, редагуй назви, іконки, короткі підписи, набір дозволених команд та порядок відкриття розділів.</p>
+    </div>
+
+    <div id="connection" class="notice">Перевіряємо локальний сервер…</div>
+
+    <section class="manage-card" style="max-width:960px;margin:0 auto">
+      <div class="section-head">
+        <div>
+          <h2>Теми та їх налаштування</h2>
+          <p>Всі зміни, включно зі списком доступних команд для кожної теми, зберігаються у levels/categories.json</p>
+        </div>
+        <div style="display:flex;gap:10px;align-items:center">
+          <button type="button" id="btn-add-cat" class="quiet">+ Додати тему</button>
+          <button type="button" id="btn-save-cats" class="primary">Зберегти категорії</button>
+        </div>
+      </div>
+
+      <div id="categories-list" class="cats-list">
+        <div style="padding:30px;text-align:center;color:#6b8292">Завантаження категорій…</div>
+      </div>
+
+      <div style="margin-top:24px;padding-top:16px;border-top:1px solid #233441;display:flex;justify-content:flex-end">
+        <button type="button" id="btn-save-cats-bottom" class="primary" style="padding:11px 24px">Зберегти категорії</button>
+      </div>
+    </section>
+  </main>
+
+  <div id="toast" class="toast-msg" style="display:none" role="alert"></div>
+
+  <script type="module" src="categories.js"></script>
+</body>
+</html>

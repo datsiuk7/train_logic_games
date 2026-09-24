@@ -1,0 +1,216 @@
+{
+  "id": "testovyy",
+  "name": "тестовий",
+  "description": "",
+  "descriptionNight": "",
+  "descriptionDay": "",
+  "category": "cat-mucmg9nd",
+  "width": 6,
+  "depth": 5,
+  "start": {
+    "x": 0,
+    "z": 3,
+    "dir": 1
+  },
+  "allowed": [
+    "forward",
+    "left",
+    "right",
+    "jump",
+    "light",
+    "loop",
+    "if",
+    "while",
+    "call"
+  ],
+  "limit": 0,
+  "cells": [
+    [
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": true,
+        "house": false,
+        "lit": true
+      }
+    ],
+    [
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false,
+        "house": false,
+        "lit": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false,
+        "house": false,
+        "lit": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false,
+        "house": false,
+        "lit": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false,
+        "house": false,
+        "lit": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      }
+    ],
+    [
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false,
+        "house": false,
+        "lit": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false,
+        "house": false,
+        "lit": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false,
+        "house": false,
+        "lit": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      }
+    ],
+    [
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      },
+      {
+        "height": 1,
+        "tree": false,
+        "lamp": false,
+        "house": false,
+        "lit": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false,
+        "lit": false,
+        "house": false
+      },
+      {
+        "height": 1,
+        "tree": false,
+        "lamp": false,
+        "house": false,
+        "lit": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false,
+        "house": false,
+        "lit": false
+      },
+      {
+        "height": 1,
+        "tree": false,
+        "lamp": false,
+        "house": true,
+        "dir": 2,
+        "lit": false
+      }
+    ],
+    [
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      }
+    ]
+  ]
+}

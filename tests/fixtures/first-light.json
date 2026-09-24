@@ -1,0 +1,161 @@
+{
+  "id": "first-light",
+  "name": "Перше світло",
+  "description": "Два кроки вперед — і перший ліхтар оживе.",
+  "width": 5,
+  "depth": 5,
+  "start": {
+    "x": 2,
+    "z": 3,
+    "dir": 0
+  },
+  "allowed": [
+    "forward",
+    "left",
+    "right",
+    "if",
+    "while",
+    "call",
+    "loop",
+    "jump",
+    "light"
+  ],
+  "limit": 50,
+  "cells": [
+    [
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      },
+      {
+        "height": 1,
+        "tree": false,
+        "lamp": false
+      }
+    ],
+    [
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      },
+      {
+        "height": 0,
+        "tree": true,
+        "lamp": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": true
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      },
+      {
+        "height": 1,
+        "tree": false,
+        "lamp": false
+      }
+    ],
+    [
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      },
+      {
+        "height": 0,
+        "tree": true,
+        "lamp": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      },
+      {
+        "height": 0,
+        "tree": true,
+        "lamp": false
+      },
+      {
+        "height": 1,
+        "tree": false,
+        "lamp": false
+      }
+    ],
+    [
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      },
+      {
+        "height": 1,
+        "tree": false,
+        "lamp": false
+      }
+    ],
+    [
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      },
+      {
+        "height": 1,
+        "tree": false,
+        "lamp": false
+      }
+    ]
+  ]
+}

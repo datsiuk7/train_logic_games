@@ -1,0 +1,164 @@
+{
+  "id": "khatynka",
+  "name": "Хатинка",
+  "description": "",
+  "descriptionNight": "",
+  "descriptionDay": "",
+  "category": "basics",
+  "width": 4,
+  "depth": 4,
+  "start": {
+    "x": 1,
+    "z": 3,
+    "dir": 0
+  },
+  "allowed": [
+    "forward",
+    "light"
+  ],
+  "limit": 5,
+  "cells": [
+    [
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false,
+        "house": false,
+        "lit": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false,
+        "house": false,
+        "lit": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false,
+        "house": false,
+        "lit": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false,
+        "house": false,
+        "lit": false,
+        "bulb": false,
+        "kit": false,
+        "spark": false
+      }
+    ],
+    [
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false,
+        "house": false,
+        "lit": false,
+        "bulb": false,
+        "kit": false,
+        "spark": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false,
+        "house": true,
+        "lit": false,
+        "bulb": false,
+        "kit": false,
+        "spark": false,
+        "dir": 2
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false,
+        "house": false,
+        "lit": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false,
+        "house": false,
+        "lit": false
+      }
+    ],
+    [
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false,
+        "house": false,
+        "lit": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false,
+        "house": false,
+        "lit": false,
+        "bulb": false,
+        "kit": false,
+        "spark": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false,
+        "house": false,
+        "lit": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false,
+        "house": false,
+        "lit": false
+      }
+    ],
+    [
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false,
+        "house": false,
+        "lit": false,
+        "bulb": false,
+        "kit": false,
+        "spark": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false,
+        "house": false,
+        "lit": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false,
+        "house": false,
+        "lit": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false,
+        "house": false,
+        "lit": false
+      }
+    ]
+  ],
+  "hints": [
+    {
+      "text": "Зайди в хатинку та засвіти світло",
+      "target": "scene"
+    }
+  ]
+}

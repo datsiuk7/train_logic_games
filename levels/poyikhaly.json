@@ -1,0 +1,123 @@
+{
+  "id": "poyikhaly",
+  "name": "Поїхали",
+  "description": "",
+  "category": "basics",
+  "width": 4,
+  "depth": 4,
+  "start": {
+    "x": 1,
+    "z": 2,
+    "dir": 0
+  },
+  "allowed": [
+    "light"
+  ],
+  "limit": 1,
+  "cells": [
+    [
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      }
+    ],
+    [
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      },
+      {
+        "height": 0,
+        "tree": true,
+        "lamp": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      }
+    ],
+    [
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": true
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      }
+    ],
+    [
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      }
+    ]
+  ],
+  "descriptionNight": "",
+  "descriptionDay": "",
+  "hints": [
+    {
+      "text": "Можна натиснути або перемістити",
+      "target": "command:light"
+    },
+    {
+      "text": "Сюди",
+      "target": "program"
+    },
+    {
+      "text": "Запусти",
+      "target": "run"
+    }
+  ]
+}

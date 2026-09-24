@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Налаштування — Ліхтарник</title>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="editor.css">
+  <link rel="stylesheet" href="categories.css">
+</head>
+<body>
+  <header>
+    <a class="brand" href="../"><span class="brand-icon">✧</span> ліхтарник</a>
+    <nav class="admin-nav" aria-label="Розділи адмінки">
+      <a href="index.html" class="admin-tab">Редактор карти</a>
+      <a href="categories.html" class="admin-tab">Категорії</a>
+      <a href="levels.html" class="admin-tab">Рівні за розділами</a>
+      <a href="settings.html" class="admin-tab active" aria-current="page">Налаштування</a>
+    </nav>
+    <span class="header-note">ЛОКАЛЬНИЙ РЕДАКТОР</span>
+    <a class="back" href="../">До гри ↗</a>
+  </header>
+
+  <main>
+    <div class="admin-title">
+      <span class="eyebrow">КОНФІГУРАЦІЯ САЙТУ</span>
+      <h1>Налаштування сайту та гри</h1>
+      <p>Редагуй написи у підвалі сайту та інформацію про розробника гри.</p>
+    </div>
+
+    <div id="connection" class="notice">Перевіряємо локальний сервер…</div>
+
+    <section class="manage-card" style="max-width:860px;margin:0 auto">
+      <div class="section-head">
+        <div>
+          <h2>Підвал сайту та авторство</h2>
+          <p>Зміни зберігаються у файл конфігурації levels/settings.json</p>
+        </div>
+        <button type="button" id="btn-save-settings" class="primary">Зберегти налаштування</button>
+      </div>
+
+      <div class="settings-form" style="display:flex;flex-direction:column;gap:20px">
+        <!-- Theme Footer Texts in 2 Columns (Left: Night, Right: Day) -->
+        <div class="theme-columns-grid">
+          <!-- Left Column: Night Theme (Dark) -->
+          <div class="theme-column-card night-card">
+            <div class="theme-column-header">
+              <label for="field-night-text" class="theme-column-title">
+                <span>🌙 Ніч (Темна тема)</span>
+              </label>
+              <span class="theme-badge night-badge">За замовчуванням</span>
+            </div>
+            <p class="theme-column-desc">
+              Показується у підвалі сайту у темній темі гри (стандартний вигляд).
+            </p>
+            <input type="text" id="field-night-text" maxlength="200" placeholder="Ніч чекає на твою програму.">
+          </div>
+
+          <!-- Right Column: Day Theme (Light) -->
+          <div class="theme-column-card day-card">
+            <div class="theme-column-header">
+              <label for="field-day-text" class="theme-column-title">
+                <span>☀️ День (Світла тема)</span>
+              </label>
+              <span class="theme-badge day-badge">Денне світло</span>
+            </div>
+            <p class="theme-column-desc">
+              Показується у підвалі сайту, коли гравець увімкнув денну тему гри.
+            </p>
+            <input type="text" id="field-day-text" maxlength="200" placeholder="Місто чекає на твою програму.">
+          </div>
+        </div>
+
+        <!-- Developer Credits Text -->
+        <div class="field" style="background:#111d27;border:1px solid #233746;border-radius:14px;padding:16px 18px">
+          <label for="field-dev-text" style="font-weight:650;font-size:13.5px;color:#f0f4f8;display:flex;align-items:center;gap:6px">
+            <span>✍️ Розробник / Автор гри</span>
+          </label>
+          <p style="margin:4px 0 10px;font-size:11.5px;color:#859dae">
+            Текст підпису автора внизу сторінки (наприклад: <em>Розробник: Тарас Шевченко</em> або <em>Створено: Команда 5 класу</em>).
+          </p>
+          <input type="text" id="field-dev-text" maxlength="200" placeholder="Розробник: Твоє ім'я або назва команди">
+        </div>
+
+        <!-- Live Preview Card -->
+        <div class="preview-box" style="margin-top:10px;padding:18px;background:#101c25;border:1px solid #233544;border-radius:12px">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:8px">
+            <span style="font-size:12px;font-weight:600;color:#9eb5c4">Інтерактивний передперегляд підвалу гри:</span>
+            <div class="theme-preview-toggles" style="display:flex;gap:6px">
+              <button type="button" id="preview-toggle-night" class="btn-preview-mode active">🌙 Ніч</button>
+              <button type="button" id="preview-toggle-day" class="btn-preview-mode">☀️ День</button>
+            </div>
+          </div>
+          <div id="footer-live-preview" class="footer-preview-surface night-mode">
+            <div id="preview-quote" class="preview-quote-line">Ніч чекає на твою програму.</div>
+            <div id="preview-dev" class="preview-dev-line" style="display:none"></div>
+          </div>
+        </div>
+
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px;padding-top:16px;border-top:1px solid #223340;flex-wrap:wrap;gap:10px">
+          <button type="button" id="btn-reset-defaults" class="quiet" style="font-size:12px">Скинути до стандартних</button>
+          <button type="button" id="btn-save-settings-bottom" class="primary" style="padding:11px 24px">Зберегти налаштування</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="toast" class="toast-msg" style="display:none" role="alert"></div>
+  <script type="module" src="settings.js"></script>
+</body>
+</html>

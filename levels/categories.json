@@ -1,0 +1,98 @@
+[
+  {
+    "id": "basics",
+    "title": "1. Основи руху",
+    "badge": "Базові команди",
+    "icon": "✦",
+    "description": "Кроки вперед, повороти стрілками, стрибки та запалювання ліхтаря.",
+    "allowedCommands": [
+      "forward",
+      "left",
+      "right",
+      "jump",
+      "light"
+    ]
+  },
+  {
+    "id": "loops",
+    "title": "2. Цикли",
+    "badge": "Повторення дій",
+    "icon": "⟳",
+    "description": "Скорочуй довгі програми та автоматизуй кроки за допомогою циклів.",
+    "allowedCommands": [
+      "forward",
+      "left",
+      "right",
+      "jump",
+      "light",
+      "loop"
+    ]
+  },
+  {
+    "id": "conditions",
+    "title": "3. Умови",
+    "badge": "Якщо / Інакше",
+    "icon": "?",
+    "description": "Перевіряй наявність ліхтарів і перешкод датчиками та обирай шлях.",
+    "allowedCommands": [
+      "forward",
+      "left",
+      "right",
+      "jump",
+      "light",
+      "loop",
+      "if"
+    ]
+  },
+  {
+    "id": "functions",
+    "title": "4. Складні умови",
+    "badge": "умови",
+    "icon": "ƒ",
+    "description": "Обʼєднуй повторювані дії у власні функції та викликай їх у будь-який момент.",
+    "allowedCommands": [
+      "forward",
+      "left",
+      "right",
+      "jump",
+      "light",
+      "loop",
+      "if"
+    ]
+  },
+  {
+    "id": "lists",
+    "title": "5. Цикл поки",
+    "badge": "Безкінечний цикл",
+    "icon": "☷",
+    "description": "Зберігай дані у списках та послідовно обходь їх за допомогою циклу для кожного.",
+    "allowedCommands": [
+      "forward",
+      "left",
+      "right",
+      "jump",
+      "light",
+      "loop",
+      "if",
+      "while"
+    ]
+  },
+  {
+    "id": "cat-mucmg9nd",
+    "title": "6. Функції",
+    "badge": "підпрограми",
+    "icon": "✦",
+    "description": "Опишіть цілі цієї теми.",
+    "allowedCommands": [
+      "forward",
+      "left",
+      "right",
+      "jump",
+      "light",
+      "loop",
+      "if",
+      "while",
+      "call"
+    ]
+  }
+]

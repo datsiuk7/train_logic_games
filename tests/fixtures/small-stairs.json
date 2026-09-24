@@ -1,0 +1,43 @@
+{
+  "id": "small-stairs",
+  "name": "Сходи до зірок",
+  "description": "Піднімися сходинками. Кожен стрибок — на одну висоту.",
+  "category": "basics",
+  "width": 3,
+  "depth": 4,
+  "start": {
+    "x": 1,
+    "z": 3,
+    "dir": 0
+  },
+  "allowed": [
+    "forward",
+    "left",
+    "right",
+    "jump",
+    "light"
+  ],
+  "limit": 10,
+  "cells": [
+    [
+      { "height": 0, "tree": false, "lamp": false },
+      { "height": 3, "tree": false, "lamp": true, "lit": false },
+      { "height": 0, "tree": false, "lamp": false }
+    ],
+    [
+      { "height": 0, "tree": false, "lamp": false },
+      { "height": 2, "tree": false, "lamp": false },
+      { "height": 0, "tree": false, "lamp": false }
+    ],
+    [
+      { "height": 0, "tree": false, "lamp": false },
+      { "height": 1, "tree": false, "lamp": false },
+      { "height": 0, "tree": false, "lamp": false }
+    ],
+    [
+      { "height": 0, "tree": false, "lamp": false },
+      { "height": 0, "tree": false, "lamp": false },
+      { "height": 0, "tree": false, "lamp": false }
+    ]
+  ]
+}

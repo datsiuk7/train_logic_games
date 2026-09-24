@@ -1,0 +1,38 @@
+{
+  "id": "twin-lights",
+  "name": "Два вогники",
+  "description": "Запали два ліхтарі на сусідніх підвищеннях, повертаючись та використовуючи стрибки.",
+  "width": 3,
+  "depth": 3,
+  "start": {
+    "x": 0,
+    "z": 2,
+    "dir": 0
+  },
+  "category": "basics",
+  "allowed": [
+    "forward",
+    "left",
+    "right",
+    "jump",
+    "light"
+  ],
+  "limit": 20,
+  "cells": [
+    [
+      { "height": 1, "tree": false, "lamp": true },
+      { "height": 0, "tree": true, "lamp": false },
+      { "height": 1, "tree": false, "lamp": true }
+    ],
+    [
+      { "height": 1, "tree": false, "lamp": false },
+      { "height": 0, "tree": true, "lamp": false },
+      { "height": 1, "tree": false, "lamp": false }
+    ],
+    [
+      { "height": 0, "tree": false, "lamp": false },
+      { "height": 0, "tree": false, "lamp": false },
+      { "height": 0, "tree": false, "lamp": false }
+    ]
+  ]
+}

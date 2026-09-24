@@ -1,0 +1,10 @@
+.hint-editor-list { display: grid; gap: 10px; }
+.hint-editor-row { display: grid; gap: 7px; padding: 12px; border: 1px solid var(--line); border-radius: 10px; background: #111d26; }
+.hint-editor-number { font-size: 12px; font-weight: 700; color: var(--gold); }
+.hint-editor-row textarea, .hint-editor-row select { width: 100%; box-sizing: border-box; }
+.hint-editor-actions { display: flex; gap: 6px; }
+.hint-editor-actions button { min-height: 32px; padding: 5px 10px; font-size: 12px; }
+.hint-editor-actions button:last-child { margin-left: auto; }
+.hint-add { width: 100%; border-style: dashed; }
+.level-hints-section { padding: 12px; border: 1px solid var(--line); border-radius: 12px; }
+.level-hints-source { margin: 0; font-size: 12px; line-height: 1.45; color: var(--muted); }

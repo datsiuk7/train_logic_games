@@ -1,0 +1,74 @@
+{
+  "id": "garden-turn",
+  "name": "За старим садом",
+  "description": "Обійди дерево та запали ліхтар на розі.",
+  "width": 3,
+  "depth": 3,
+  "start": {
+    "x": 1,
+    "z": 2,
+    "dir": 0
+  },
+  "category": "basics",
+  "allowed": [
+    "forward",
+    "left",
+    "right",
+    "jump",
+    "light"
+  ],
+  "limit": 12,
+  "cells": [
+    [
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      },
+      {
+        "height": 0,
+        "tree": true,
+        "lamp": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      }
+    ],
+    [
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      }
+    ],
+    [
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": true
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      }
+    ]
+  ]
+}

@@ -1,0 +1,93 @@
+{
+  "id": "high-watch",
+  "name": "Високий дозор",
+  "description": "П’ять сходинок угору. Запали світло над містом.",
+  "width": 2,
+  "depth": 6,
+  "start": {
+    "x": 0,
+    "z": 5,
+    "dir": 0
+  },
+  "category": "loops",
+  "allowed": [
+    "jump",
+    "loop",
+    "light"
+  ],
+  "limit": 4,
+  "cells": [
+    [
+      {
+        "height": 5,
+        "tree": false,
+        "lamp": true
+      },
+      {
+        "height": 5,
+        "tree": false,
+        "lamp": false
+      }
+    ],
+    [
+      {
+        "height": 4,
+        "tree": false,
+        "lamp": false
+      },
+      {
+        "height": 4,
+        "tree": true,
+        "lamp": false
+      }
+    ],
+    [
+      {
+        "height": 3,
+        "tree": false,
+        "lamp": false
+      },
+      {
+        "height": 3,
+        "tree": false,
+        "lamp": false
+      }
+    ],
+    [
+      {
+        "height": 2,
+        "tree": false,
+        "lamp": false
+      },
+      {
+        "height": 2,
+        "tree": true,
+        "lamp": false
+      }
+    ],
+    [
+      {
+        "height": 1,
+        "tree": false,
+        "lamp": false
+      },
+      {
+        "height": 1,
+        "tree": false,
+        "lamp": false
+      }
+    ],
+    [
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      }
+    ]
+  ]
+}

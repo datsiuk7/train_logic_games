@@ -1,0 +1,89 @@
+{
+  "id": "lantern-street",
+  "name": "Вулиця ліхтарів",
+  "description": "Повтори «вперед → запалити» тричі за допомогою циклу.",
+  "width": 3,
+  "depth": 4,
+  "start": {
+    "x": 1,
+    "z": 3,
+    "dir": 0
+  },
+  "category": "loops",
+  "allowed": [
+    "forward",
+    "loop",
+    "light"
+  ],
+  "limit": 3,
+  "cells": [
+    [
+      {
+        "height": 0,
+        "tree": true,
+        "lamp": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": true
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      }
+    ],
+    [
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": true
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      }
+    ],
+    [
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": true
+      },
+      {
+        "height": 0,
+        "tree": true,
+        "lamp": false
+      }
+    ],
+    [
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      }
+    ]
+  ]
+}

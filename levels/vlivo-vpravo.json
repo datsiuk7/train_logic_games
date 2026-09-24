@@ -1,0 +1,77 @@
+{
+  "id": "vlivo-vpravo",
+  "name": "Вліво вправо",
+  "description": "",
+  "category": "basics",
+  "width": 3,
+  "depth": 5,
+  "start": {
+    "x": 0,
+    "z": 4,
+    "dir": 0
+  },
+  "allowed": [
+    "forward",
+    "left",
+    "right",
+    "light"
+  ],
+  "limit": 10,
+  "cells": [
+    [
+      null,
+      null,
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": true
+      }
+    ],
+    [
+      null,
+      null,
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      }
+    ],
+    [
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      }
+    ],
+    [
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      },
+      null,
+      null
+    ],
+    [
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false
+      },
+      null,
+      null
+    ]
+  ],
+  "descriptionNight": "",
+  "descriptionDay": ""
+}

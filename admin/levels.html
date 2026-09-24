@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Рівні за розділами — Ліхтарник</title>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="editor.css">
+  <link rel="stylesheet" href="categories.css">
+</head>
+<body>
+  <header>
+    <a class="brand" href="../"><span class="brand-icon">✧</span> ліхтарник</a>
+    <nav class="admin-nav" aria-label="Розділи адмінки">
+      <a href="index.html" class="admin-tab">Редактор карти</a>
+      <a href="categories.html" class="admin-tab">Категорії</a>
+      <a href="levels.html" class="admin-tab active" aria-current="page">Рівні за розділами</a>
+      <a href="settings.html" class="admin-tab">Налаштування</a>
+    </nav>
+    <span class="header-note">ЛОКАЛЬНИЙ РЕДАКТОР</span>
+    <a class="back" href="../">До гри ↗</a>
+  </header>
+
+  <main>
+    <div class="admin-title">
+      <span class="eyebrow">РОЗПОДІЛ ТА НАВІГАЦІЯ</span>
+      <h1>Рівні за розділами</h1>
+      <p>Переміщуй рівні між темами, змінюй порядок проходження (1.1, 1.2...), приховуй чернетки або видаляй застарілі рівні.</p>
+    </div>
+
+    <div id="connection" class="notice">Перевіряємо локальний сервер…</div>
+
+    <section class="manage-card" style="max-width:1100px;margin:0 auto">
+      <div class="section-head">
+        <div>
+          <h2>Розподіл вулиць за темами</h2>
+          <p>Клік по назві відкриває рівень у редакторі. Рядки можна перетягувати мишкою ⠿ для зміни порядку або теми.</p>
+        </div>
+        <div style="font-size:13px;color:var(--muted)">
+          Всього рівнів у грі: <span id="total-levels-count" style="color:var(--gold);font-weight:700;font-size:15px">0</span>
+        </div>
+      </div>
+
+      <div id="levels-tree" class="cat-group-container">
+        <div style="padding:40px;text-align:center;color:#6b8292">Завантаження структури рівнів…</div>
+      </div>
+    </section>
+  </main>
+
+  <div id="toast" class="toast-msg" style="display:none" role="alert"></div>
+
+  <script type="module" src="levels.js"></script>
+</body>
+</html>
