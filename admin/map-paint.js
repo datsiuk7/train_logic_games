@@ -20,7 +20,13 @@ export function formatCellInfo(level, x, z) {
   } else if (cell.kit) {
     extra = ' · комплект ремонту 🔧';
   } else if (cell.tree) {
-    extra = ' · дерево';
+    extra = ' · дерево 🌲';
+  } else if (cell.bush) {
+    extra = ' · кущ 🌿';
+  } else if (cell.rock) {
+    extra = ' · камінь 🪨';
+  } else if (cell.box) {
+    extra = ' · коробка 📦 (можна штовхати або вистрибнути)';
   }
   return `· ${x + 1}, ${z + 1} · висота ${cell.height}${extra}`;
 }
@@ -61,6 +67,9 @@ export function paintCell({
     next = {
       height,
       tree: c?.tree || false,
+      bush: c?.bush || false,
+      rock: c?.rock || false,
+      box: c?.box || false,
       lamp: c?.lamp || false,
       house: c?.house || false,
       bulb: c?.bulb || false,
@@ -71,35 +80,53 @@ export function paintCell({
       lit: c?.lamp || c?.house ? Boolean(c?.lit) : false
     };
   } else if (tool === 'start') {
-    if (!c || c.tree) {
-      onStatus('Старт має бути на плитці без дерева.', true);
+    if (!c || c.tree || c.bush || c.rock || c.box) {
+      onStatus('Старт має бути на вільній плитці без перешкод.', true);
       return false;
     }
     if (start) return false;
   } else if (tool === 'erase') {
     if (!c) return false;
-    next = { ...c, tree: false, lamp: false, house: false, bulb: false, kit: false, spark: false, needsBulb: false, dir: undefined, lit: false };
+    next = { ...c, tree: false, bush: false, rock: false, box: false, lamp: false, house: false, bulb: false, kit: false, spark: false, needsBulb: false, dir: undefined, lit: false };
   } else if (tool === 'tree') {
     if (!c || start || c.lamp || c.house || c.bulb || c.kit) {
-      onStatus('Дерево потребує плитки без старту, ліхтаря, будинку та предметів.', true);
+      onStatus('Дерево потребує плитки без ліхтаря, будинку, старту чи предметів.', true);
       return false;
     }
-    next = { ...c, tree: true, lamp: false, house: false, bulb: false, kit: false, spark: false, needsBulb: false, dir: undefined, lit: false };
+    next = { ...c, tree: true, bush: false, rock: false, box: false, lamp: false, house: false, bulb: false, kit: false, spark: false, needsBulb: false, dir: undefined, lit: false };
+  } else if (tool === 'bush') {
+    if (!c || start || c.lamp || c.house || c.bulb || c.kit) {
+      onStatus('Кущ потребує плитки без ліхтаря, будинку, старту чи предметів.', true);
+      return false;
+    }
+    next = { ...c, bush: true, tree: false, rock: false, box: false, lamp: false, house: false, bulb: false, kit: false, spark: false, needsBulb: false, dir: undefined, lit: false };
+  } else if (tool === 'rock') {
+    if (!c || start || c.lamp || c.house || c.bulb || c.kit) {
+      onStatus('Камінь потребує плитки без ліхтаря, будинку, старту чи предметів.', true);
+      return false;
+    }
+    next = { ...c, rock: true, tree: false, bush: false, box: false, lamp: false, house: false, bulb: false, kit: false, spark: false, needsBulb: false, dir: undefined, lit: false };
+  } else if (tool === 'box') {
+    if (!c || start || c.lamp || c.house || c.bulb || c.kit) {
+      onStatus('Коробка потребує плитки без ліхтаря, будинку, старту чи предметів.', true);
+      return false;
+    }
+    next = { ...c, box: true, tree: false, bush: false, rock: false, lamp: false, house: false, bulb: false, kit: false, spark: false, needsBulb: false, dir: undefined, lit: false };
   } else if (tool === 'bulb') {
-    if (!c || start || c.tree || c.lamp || c.house) {
-      onStatus('Лампочка потребує плитки без старту, дерева, ліхтаря чи будинку.', true);
+    if (!c || start || c.tree || c.bush || c.rock || c.box || c.lamp || c.house) {
+      onStatus('Лампочка потребує плитки без старту, перешкод, ліхтаря чи будинку.', true);
       return false;
     }
-    next = { ...c, bulb: true, kit: false, tree: false, lamp: false, house: false, spark: false, needsBulb: false, dir: undefined, lit: false };
+    next = { ...c, bulb: true, kit: false, tree: false, bush: false, rock: false, box: false, lamp: false, house: false, spark: false, needsBulb: false, dir: undefined, lit: false };
   } else if (tool === 'kit') {
-    if (!c || start || c.tree || c.lamp || c.house) {
-      onStatus('Комплект ремонту потребує плитки без старту, дерева, ліхтаря чи будинку.', true);
+    if (!c || start || c.tree || c.bush || c.rock || c.box || c.lamp || c.house) {
+      onStatus('Комплект ремонту потребує плитки без старту, перешкод, ліхтаря чи будинку.', true);
       return false;
     }
-    next = { ...c, kit: true, bulb: false, tree: false, lamp: false, house: false, spark: false, needsBulb: false, dir: undefined, lit: false };
+    next = { ...c, kit: true, bulb: false, tree: false, bush: false, rock: false, box: false, lamp: false, house: false, spark: false, needsBulb: false, dir: undefined, lit: false };
   } else if (tool === 'lamp') {
-    if (!c || c.tree) {
-      onStatus('Ліхтар потребує плитки без дерева.', true);
+    if (!c || c.tree || c.bush || c.rock || c.box) {
+      onStatus('Ліхтар потребує плитки без перешкод.', true);
       return false;
     }
     if (c.lamp) {
@@ -133,8 +160,8 @@ export function paintCell({
       };
     }
   } else if (tool === 'house') {
-    if (!c || c.tree) {
-      onStatus('Будинок потребує плитки без дерева.', true);
+    if (!c || c.tree || c.bush || c.rock || c.box) {
+      onStatus('Будинок потребує плитки без перешкод.', true);
       return false;
     }
     const houseLit = targetLampState === 'on';

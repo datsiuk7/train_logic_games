@@ -1,6 +1,9 @@
 export const art = {
   terrain: '<path d="M4 20 24 10 44 20 24 30Z" fill="#86a2ab"/><path d="M4 20v8l20 10v-8Zm20 10v8l20-10v-8" fill="#456978"/>',
   tree: '<rect x="21" y="28" width="6" height="14" rx="2" fill="#b99265"/><path d="m24 6 17 27H7Z" fill="#4c9a78"/><path d="m24 1 13 23H11Z" fill="#74b98a"/>',
+  bush: '<rect x="22" y="36" width="4" height="6" rx="2" fill="#543825"/><ellipse cx="24" cy="36" rx="17" ry="6" fill="#173e22"/><path d="M12 34 C8 34 6 28 9 23 C6 18 11 12 17 14 C20 9 28 9 31 14 C37 12 42 18 39 23 C42 28 40 34 36 34 Z" fill="#245a33"/><path d="M13 32 C9.5 32 8 26.5 10.5 22 C8 17.5 12.5 12 18 14 C20.5 9.5 27.5 9.5 30 14 C35.5 12 40 17.5 37.5 22 C40 26.5 38.5 32 35 32 Z" fill="#35834a"/><ellipse cx="24" cy="18" rx="9" ry="8" fill="#4caf50"/><ellipse cx="16" cy="24" rx="7" ry="6" fill="#449e59"/><ellipse cx="32" cy="24" rx="7" ry="6" fill="#449e59"/><circle cx="16.5" cy="20" r="2" fill="#fff5f5"/><circle cx="19.5" cy="20" r="2" fill="#fff5f5"/><circle cx="18" cy="18.5" r="2" fill="#fff5f5"/><circle cx="18" cy="21.5" r="2" fill="#fff5f5"/><circle cx="18" cy="20" r="1.5" fill="#ffb300"/><circle cx="28.5" cy="24" r="1.8" fill="#fff5f5"/><circle cx="31.5" cy="24" r="1.8" fill="#fff5f5"/><circle cx="30" cy="22.5" r="1.8" fill="#fff5f5"/><circle cx="30" cy="25.5" r="1.8" fill="#fff5f5"/><circle cx="30" cy="24" r="1.4" fill="#ffb300"/><circle cx="22.5" cy="27" r="1.7" fill="#fff5f5"/><circle cx="25.5" cy="27" r="1.7" fill="#fff5f5"/><circle cx="24" cy="25.5" r="1.7" fill="#fff5f5"/><circle cx="24" cy="28.5" r="1.7" fill="#fff5f5"/><circle cx="24" cy="27" r="1.3" fill="#ffb300"/>',
+  rock: '<ellipse cx="24" cy="37" rx="18" ry="6" fill="#1e262c" opacity=".4"/><path d="M10 37 6 24 16 11 31 8 41 18 39 37Z" fill="#37474f"/><path d="M16 11 31 8 41 18 29 23 18 20Z" fill="#78909c"/><path d="M6 24 16 11 18 20 14 37 10 37Z" fill="#546e7a"/><path d="M18 20 29 23 27 37 14 37Z" fill="#455a64"/><path d="M29 23 41 18 39 37 27 37Z" fill="#263238"/><path d="M18 11c2-3 8-4 12-2 3 2 4 5 1 7-4 2-10 1-13-2Z" fill="#43a047"/><path d="M22 10c1-2 5-2 7-1 2 1 2 3 0 4-2 1-5 1-7-1Z" fill="#66bb6a"/><path d="M38 34 35 29 41 27 44 32 42 36Z" fill="#546e7a"/><path d="M35 29 41 27 44 32 40 31Z" fill="#78909c"/><circle cx="8" cy="36" r="2.2" fill="#455a64"/>',
+  box: '<path d="M7 16 24 7 41 16 24 25Z" fill="#c48e56"/><path d="M24 7 24 25" stroke="#936235" stroke-width="1.2"/><path d="M15 11.5 32 20.5" stroke="#936235" stroke-width="1"/><path d="M7 16v20l17 9V25Z" fill="#a47140"/><path d="M24 25v20l17-9V16Z" fill="#7d4e25"/><path d="M7 16 24 25 41 16" fill="none" stroke="#5a3517" stroke-width="1.5"/><path d="M24 25v20" stroke="#482910" stroke-width="1.5"/><path d="M8 19.5 23 38.5M8 34.5l15-15" stroke="#5a3517" stroke-width="2.2" stroke-linecap="round"/><path d="M25 38.5 40 19.5M25 21.5l15 15" stroke="#482910" stroke-width="2.2" stroke-linecap="round"/><rect x="6.5" y="15" width="2.5" height="21" fill="#482910"/><rect x="22.8" y="24" width="2.4" height="21" fill="#3a1f0a"/><rect x="39" y="15" width="2.5" height="21" fill="#3a1f0a"/><polygon points="7,16 11,14 11,18 7,20" fill="#2c3a42"/><polygon points="41,16 37,14 37,18 41,20" fill="#1b252b"/><polygon points="24,25 21.5,23.5 21.5,27 24,28.5 26.5,27 26.5,23.5" fill="#243038"/><circle cx="8" cy="18" r=".7" fill="#d9a74a"/><circle cx="40" cy="18" r=".7" fill="#d9a74a"/><circle cx="24" cy="27" r=".7" fill="#d9a74a"/>',
   lamp: '<ellipse cx="24" cy="19" rx="16" ry="17" fill="#f2c575" opacity=".12"/><path d="M24 23v18m-7 1h14" stroke="#b5c5cc" stroke-width="3"/><path d="M17 12h14l-2 13H19Z" fill="#f8cd79"/><path d="m15 12 9-7 9 7Z" fill="#9aacb4"/>',
   lampOff: '<path d="M24 23v18m-7 1h14" stroke="#7e919c" stroke-width="3"/><path d="M17 12h14l-2 13H19Z" fill="#4d5f69"/><path d="m15 12 9-7 9 7Z" fill="#677c88"/><circle cx="24" cy="18" r="3" fill="#2d3b43"/>',
   lampOn: '<ellipse cx="24" cy="18" rx="18" ry="19" fill="#ffca36" opacity=".25"/><ellipse cx="24" cy="18" rx="11" ry="12" fill="#ffeaa7" opacity=".4"/><path d="M24 23v18m-7 1h14" stroke="#cfdde3" stroke-width="3"/><path d="M17 12h14l-2 13H19Z" fill="#ffcc33"/><path d="m15 12 9-7 9 7Z" fill="#9aacb4"/><circle cx="24" cy="18" r="3.5" fill="#fff5d0"/><path d="M24 6v-3M33 9l2-2M15 9l-2-2" stroke="#ffe57f" stroke-width="2" stroke-linecap="round"/>',
@@ -21,12 +24,15 @@ export const icon = (name) => `<svg viewBox="0 0 48 48" aria-hidden="true">${art
 export const tools = {
   terrain: ['Плитка', 'Малюй плитки обраної висоти. Об’єкти на них залишаться.'],
   tree: ['Дерево', 'Проведи по плитках, щоб посадити дерева.'],
+  bush: ['Кущ', 'Посади кущ як рослинність-перешкоду.'],
+  rock: ['Камінь', 'Постав валун або камінь як перешкоду.'],
+  box: ['Коробка', 'Постав деревʼяний ящик: його можна штовхати вперед або вистрибувати на нього.'],
   lamp: ['Ліхтар', 'Обирай стан для ночі (вимкнений/ввімкнений/іскрить/без лампочки).'],
   house: ['Будинок', 'Став будиночки, обирай напрямок дверей та світло для ночі.'],
   bulb: ['Лампочка', 'Поклади запасну лампочку на плитку, щоб гравець міг її підібрати.'],
   kit: ['Ремкомплект', 'Поклади набір інструментів, щоб гравець міг полагодити ліхтар.'],
   start: ['Старт', 'Натисни на плитку, щоб поставити ліхтарника.'],
-  erase: ['Гумка', 'Прибирає дерева, ліхтарі, будинки, лампочки та ремкомплекти, зберігаючи плитки.'],
+  erase: ['Гумка', 'Прибирає дерева, кущі, камені, коробки, ліхтарі, будинки, лампочки та ремкомплекти.'],
   empty: ['Порожньо', 'Прибирає плитки. Старт спершу перенеси в інше місце.']
 };
 
@@ -34,6 +40,10 @@ export function refreshCell(level, b, x, z) {
   if (!b) return;
   const c = level.cells[z]?.[x];
   const start = level.start.x === x && level.start.z === z;
+  const hasTree = Boolean(c?.tree);
+  const hasBush = Boolean(c?.bush);
+  const hasRock = Boolean(c?.rock);
+  const hasBox = Boolean(c?.box);
   const hasLamp = Boolean(c?.lamp);
   const isNoBulb = hasLamp && Boolean(c?.needsBulb);
   const isSpark = hasLamp && Boolean(c?.spark) && !isNoBulb;
@@ -46,7 +56,10 @@ export function refreshCell(level, b, x, z) {
   b.className =
     'edit-cell' +
     (!c ? ' hole' : '') +
-    (c?.tree ? ' has-tree' : '') +
+    (hasTree ? ' has-tree' : '') +
+    (hasBush ? ' has-bush' : '') +
+    (hasRock ? ' has-rock' : '') +
+    (hasBox ? ' has-box' : '') +
     (hasLamp ? ' has-lamp ' + (isNoBulb ? 'lamp-no-bulb' : isSpark ? 'lamp-spark' : isLit ? 'lamp-lit' : 'lamp-unlit') : '') +
     (hasHouse ? ' has-house ' + (isLit ? 'house-lit' : 'house-unlit') : '') +
     (hasBulb ? ' has-bulb' : '') +
@@ -56,8 +69,14 @@ export function refreshCell(level, b, x, z) {
   b.style.setProperty('--tile-color', c ? `hsl(${205 - c.height * 5} 25% ${30 + c.height * 6}%)` : '#16232d');
   b.style.setProperty('--lift', c ? c.height + 'px' : '0px');
 
-  const objIcon = c?.tree
+  const objIcon = hasTree
     ? icon('tree')
+    : hasBush
+    ? icon('bush')
+    : hasRock
+    ? icon('rock')
+    : hasBox
+    ? icon('box')
     : hasLamp
     ? icon(isNoBulb ? 'lampNoBulb' : isSpark ? 'lampSpark' : isLit ? 'lampOn' : 'lampOff')
     : hasHouse
@@ -75,6 +94,16 @@ export function refreshCell(level, b, x, z) {
   b.innerHTML = c
     ? `<span class="tile-surface"></span><span class="tile-object">${objIcon}${start ? icon('start') : ''}</span><span class="tile-height">${c.height}</span>${start ? `<span class="tile-direction">${['↑', '→', '↓', '←'][level.start.dir]}</span>` : ''}${houseDoorBadge}`
     : '<span class="hole-mark">＋</span>';
+
+  const obstacleStatus = hasTree
+    ? ', дерево'
+    : hasBush
+    ? ', кущ'
+    : hasRock
+    ? ', камінь'
+    : hasBox
+    ? ', коробка'
+    : '';
 
   const lampStatus = hasLamp
     ? isNoBulb
@@ -94,7 +123,7 @@ export function refreshCell(level, b, x, z) {
     ? ', комплект ремонту'
     : '';
 
-  b.ariaLabel = `Клітинка ${x + 1}, ${z + 1}: ${!c ? 'порожньо' : `висота ${c.height}${c.tree ? ', дерево' : ''}${lampStatus}${start ? ', старт' : ''}`}`;
+  b.ariaLabel = `Клітинка ${x + 1}, ${z + 1}: ${!c ? 'порожньо' : `висота ${c.height}${obstacleStatus}${lampStatus}${start ? ', старт' : ''}`}`;
   b.title = b.ariaLabel;
 }
 

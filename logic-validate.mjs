@@ -57,10 +57,11 @@ export function validateLevel(l) {
               c.height > 5 ||
               typeof c.tree !== 'boolean' ||
               typeof c.lamp !== 'boolean' ||
-              (c.tree && c.lamp) ||
+              (c.bush !== undefined && typeof c.bush !== 'boolean') ||
+              (c.rock !== undefined && typeof c.rock !== 'boolean') ||
+              (c.box !== undefined && typeof c.box !== 'boolean') ||
               (c.house !== undefined && typeof c.house !== 'boolean') ||
-              (c.tree && c.house) ||
-              (c.lamp && c.house) ||
+              (Number(Boolean(c.tree)) + Number(Boolean(c.bush)) + Number(Boolean(c.rock)) + Number(Boolean(c.box)) + Number(Boolean(c.lamp)) + Number(Boolean(c.house)) > 1) ||
               (c.lit !== undefined && typeof c.lit !== 'boolean') ||
               (c.spark !== undefined && typeof c.spark !== 'boolean') ||
               (c.spark && !c.lamp) ||
@@ -68,9 +69,9 @@ export function validateLevel(l) {
               (c.needsBulb && !c.lamp) ||
               (c.needsBulb && (c.spark || c.lit)) ||
               (c.bulb !== undefined && typeof c.bulb !== 'boolean') ||
-              (c.bulb && (c.tree || c.lamp || c.house)) ||
+              (c.bulb && (c.tree || c.bush || c.rock || c.box || c.lamp || c.house)) ||
               (c.kit !== undefined && typeof c.kit !== 'boolean') ||
-              (c.kit && (c.tree || c.lamp || c.house)) ||
+              (c.kit && (c.tree || c.bush || c.rock || c.box || c.lamp || c.house)) ||
               (c.dir !== undefined && (!Number.isInteger(c.dir) || c.dir < 0 || c.dir > 3)))
         )
     )
@@ -91,7 +92,10 @@ export function validateLevel(l) {
     s.z < 0 ||
     s.z >= l.depth ||
     !l.cells?.[s.z]?.[s.x] ||
-    l.cells[s.z][s.x].tree
+    l.cells[s.z][s.x].tree ||
+    l.cells[s.z][s.x].bush ||
+    l.cells[s.z][s.x].rock ||
+    l.cells[s.z][s.x].box
   ) {
     errors.push('Постав старт на плитці без дерева.');
   }

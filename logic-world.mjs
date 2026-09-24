@@ -68,6 +68,9 @@ export const collectBulbs = (l) =>
 export const collectKits = (l) =>
   l.cells.flatMap((row, z) => row.map((c, x) => (c?.kit ? key(x, z) : null)).filter(Boolean));
 
+export const collectBoxes = (l) =>
+  l.cells.flatMap((row, z) => row.map((c, x) => (c?.box ? key(x, z) : null)).filter(Boolean));
+
 export const sparkLamps = (l) =>
   l.cells.flatMap((row, z) => row.map((c, x) => (c?.lamp && c?.spark ? key(x, z) : null)).filter(Boolean));
 
@@ -88,6 +91,8 @@ export const initialState = (l, theme = 'dark') => ({
   bulbs: collectBulbs(l),
   kits: collectKits(l),
   sparks: sparkLamps(l),
+  boxes: collectBoxes(l),
+  onBox: false,
   carriedBulbs: 0,
   repairKits: Number.isInteger(l.repairKits) ? l.repairKits : 0,
   fittedLamps: []
@@ -226,12 +231,63 @@ export function step(l, s, cmd) {
   }
 
   if (cell.tree) throw new Error('Дерево перекриває шлях. Обійди його.');
+  if (cell.bush) throw new Error('Кущ перекриває шлях. Обійди його.');
+  if (cell.rock) throw new Error('Камінь перекриває шлях. Обійди його.');
 
-  const diff = Math.abs(cell.height - here.height);
-  if (cmd === 'forward' && diff) throw new Error('Інша висота. Використай стрибок.');
-  if (cmd === 'jump' && diff > 1) throw new Error('Зависокий перепад: стрибок долає лише один рівень висоти.');
+  const curHeight = here.height + (s.onBox ? 1 : 0);
+  const targetHasBox = Boolean(s.boxes?.includes(key(x, z)));
 
-  return { ...s, x, z };
+  if (cmd === 'forward') {
+    if (s.onBox) {
+      const targetHeight = cell.height + (targetHasBox ? 1 : 0);
+      if (targetHeight !== curHeight) throw new Error('Інша висота. Використай стрибок.');
+      return { ...s, x, z, onBox: targetHasBox };
+    }
+
+    if (targetHasBox) {
+      const bx = x + dx;
+      const bz = z + dz;
+      const cellBeyond = l.cells[bz]?.[bx];
+      if (!cellBeyond) throw new Error('Попереду немає плитки, щоб посунути коробку.');
+      if (
+        cellBeyond.tree ||
+        cellBeyond.bush ||
+        cellBeyond.rock ||
+        cellBeyond.box ||
+        cellBeyond.house ||
+        cellBeyond.lamp ||
+        cellBeyond.bulb ||
+        cellBeyond.kit ||
+        s.boxes?.includes(key(bx, bz))
+      ) {
+        throw new Error('Шлях для коробки заблоковано.');
+      }
+      if (cellBeyond.height !== cell.height) {
+        throw new Error('Коробку можна посунути лише на плитку такої ж висоти.');
+      }
+
+      const newBoxes = (s.boxes || []).map((k) => (k === key(x, z) ? key(bx, bz) : k));
+      return {
+        ...s,
+        x,
+        z,
+        onBox: false,
+        boxes: newBoxes,
+        pushedBox: { from: { x, z }, to: { x: bx, z: bz } }
+      };
+    }
+
+    const diff = Math.abs(cell.height - curHeight);
+    if (diff) throw new Error('Інша висота. Використай стрибок.');
+    return { ...s, x, z, onBox: false };
+  }
+
+  if (cmd === 'jump') {
+    const targetHeight = cell.height + (targetHasBox ? 1 : 0);
+    const diff = Math.abs(targetHeight - curHeight);
+    if (diff > 1) throw new Error('Зависокий перепад: стрибок долає лише один рівень висоти.');
+    return { ...s, x, z, onBox: targetHasBox };
+  }
 }
 
 export const sensors = {
@@ -262,10 +318,45 @@ export function conditionValue(condition, l, s, memory, valueOfFn) {
   const isLightPoint = Boolean(here?.lamp || here?.house);
   const houseExitBlocked = Boolean(here?.house && s.dir !== (Number.isInteger(here.dir) ? here.dir : 2));
   const houseEnterBlocked = Boolean(ahead?.house && s.dir !== ((Number.isInteger(ahead.dir) ? ahead.dir : 2) + 2) % 4);
-  const blocked = houseExitBlocked || houseEnterBlocked || !ahead || !!ahead.tree;
 
-  const isObstacleAhead = blocked || (ahead && Math.abs(ahead.height - here.height) > 0 && ahead.height > here.height);
-  const canJumpAhead = !blocked && Math.abs(ahead.height - here.height) <= 1;
+  const curH = here.height + (s.onBox ? 1 : 0);
+  const aheadHasBox = Boolean(ahead && s.boxes?.includes(key(s.x + dx, s.z + dz)));
+  const aheadH = ahead ? ahead.height + (aheadHasBox ? 1 : 0) : 0;
+
+  const isStaticObstacle = Boolean(ahead?.tree || ahead?.bush || ahead?.rock);
+  const boxCanBePushed = Boolean(
+    aheadHasBox &&
+      !s.onBox &&
+      (() => {
+        const bx = s.x + dx * 2;
+        const bz = s.z + dz * 2;
+        const beyond = l.cells[bz]?.[bx];
+        if (!beyond) return false;
+        if (
+          beyond.tree ||
+          beyond.bush ||
+          beyond.rock ||
+          beyond.box ||
+          beyond.house ||
+          beyond.lamp ||
+          beyond.bulb ||
+          beyond.kit ||
+          s.boxes?.includes(key(bx, bz))
+        ) {
+          return false;
+        }
+        return beyond.height === ahead.height;
+      })()
+  );
+
+  const blocked =
+    houseExitBlocked ||
+    houseEnterBlocked ||
+    !ahead ||
+    isStaticObstacle ||
+    (aheadHasBox && !boxCanBePushed && !s.onBox);
+  const isObstacleAhead = blocked || (ahead && aheadH > curH);
+  const canJumpAhead = !houseExitBlocked && !houseEnterBlocked && ahead && !isStaticObstacle && Math.abs(aheadH - curH) <= 1;
 
   const tests = {
     lampShorts: Boolean(isLightPoint && s.sparks?.includes(key(s.x, s.z))),
@@ -275,8 +366,8 @@ export function conditionValue(condition, l, s, memory, valueOfFn) {
     canJump: canJumpAhead,
 
     // Fallbacks for compatibility with any older tests/references
-    canForward: !blocked && ahead.height === here.height,
-    treeAhead: !!ahead?.tree,
+    canForward: !blocked && aheadH === curH,
+    treeAhead: Boolean(ahead?.tree || ahead?.bush || ahead?.rock),
     allLit: won(l, s)
   };
 

@@ -45,6 +45,8 @@ export class World {
     this.lamps = new Map();
     this.bulbs = new Map();
     this.kits = new Map();
+    this.boxes = new Map();
+    this.boxList = [];
     this.currentSparks = new Set();
     this.tiles = [];
 
@@ -64,6 +66,158 @@ export class World {
       const tile=box(.94,y+.22,.94,isTarget?'#52605a':c.height%2?'#405361':'#384d5b',px,(y-.22)/2,pz);tile.userData={x,z};this.tiles.push(tile);
       box(.88,.035,.88,isTarget?'#777051':'#536977',px,y+.012,pz);
       if(c.tree){box(.13,.55,.13,'#685549',px,y+.28,pz);mesh(new THREE.ConeGeometry(.42,.85,6),'#31574f',px,y+.8,pz);mesh(new THREE.ConeGeometry(.32,.65,6),'#3e6a5c',px,y+1.2,pz)}
+      if(c.bush){
+        const bg=new THREE.Group();bg.position.set(px,y,pz);
+        // Woody base stem
+        box(.07,.18,.07,'#4e3524',0,.09,0,bg);
+
+        // Lush rounded foliage cloud tiers
+        mesh(new THREE.SphereGeometry(.26,7,5),'#1d522f',0,.16,0,bg);
+        mesh(new THREE.SphereGeometry(.28,8,6),'#2f7e44',0,.26,0,bg);
+        mesh(new THREE.SphereGeometry(.22,7,6),'#388e4f',-.14,.23,.06,bg);
+        mesh(new THREE.SphereGeometry(.21,7,6),'#388e4f',.14,.22,-.04,bg);
+        mesh(new THREE.SphereGeometry(.19,7,6),'#44a05d',.02,.20,.14,bg);
+        mesh(new THREE.SphereGeometry(.21,7,6),'#53b86e',-.02,.38,-.02,bg);
+
+        // Cute stylized blooming flowers with golden centers
+        const flowerMat=new THREE.MeshStandardMaterial({color:'#fff5f7',roughness:.5});
+        const coreMat=new THREE.MeshStandardMaterial({color:'#ffb300',emissive:'#ff8f00',emissiveIntensity:.4});
+        const petalGeo=new THREE.SphereGeometry(.026,5,4);
+        const coreGeo=new THREE.SphereGeometry(.024,5,4);
+
+        const addFlower=(fx,fy,fz,rx,ry,rz)=>{
+          const fl=new THREE.Group();
+          fl.position.set(fx,fy,fz);
+          fl.rotation.set(rx,ry,rz);
+          for(let i=0;i<4;i++){
+            const p=new THREE.Mesh(petalGeo,flowerMat);
+            const ang=i*Math.PI/2;
+            p.position.set(Math.cos(ang)*.032,Math.sin(ang)*.032,0);
+            fl.add(p);
+          }
+          const core=new THREE.Mesh(coreGeo,coreMat);
+          core.position.set(0,0,.012);
+          fl.add(core);
+          bg.add(fl);
+        };
+
+        addFlower(-.12,.38,.16,.3,-.4,.1);
+        addFlower(.14,.35,.12,.4,.5,-.2);
+        addFlower(-.02,.48,.05,.8,0,.3);
+        addFlower(.18,.28,-.10,-.3,.8,-.2);
+
+        this.scene.add(bg);
+      }
+      if(c.rock){
+        const rg=new THREE.Group();rg.position.set(px,y,pz);
+
+        // Ground contact shadow & bed stone
+        const bed=mesh(new THREE.DodecahedronGeometry(.36,0),'#2c3940',0,.1,0,rg);
+        bed.scale.set(1.2,.35,1.25);
+
+        // Main primary boulder: chiseled facets, majestic form
+        const rockMain=mesh(new THREE.DodecahedronGeometry(.35,0),'#5d727e',-.02,.27,.02,rg);
+        rockMain.scale.set(1.15,.95,1.1);
+        rockMain.rotation.set(.25,.4,.15);
+
+        // Side companion rock
+        const rockSide=mesh(new THREE.DodecahedronGeometry(.24,0),'#4a5b65',.22,.18,.13,rg);
+        rockSide.scale.set(.9,.8,1.05);
+        rockSide.rotation.set(.4,-.3,.2);
+
+        // Back crag facet
+        const rockBack=mesh(new THREE.DodecahedronGeometry(.22,0),'#3d4c54',-.18,.17,-.15,rg);
+        rockBack.scale.set(1,.75,.9);
+        rockBack.rotation.set(-.3,.5,-.2);
+
+        // Two small accent pebbles at the base
+        const p1=mesh(new THREE.DodecahedronGeometry(.1,0),'#6f8390',.28,.06,-.18,rg);
+        p1.scale.set(1.1,.6,.9);
+        p1.rotation.set(.2,.8,0);
+        const p2=mesh(new THREE.DodecahedronGeometry(.08,0),'#546570',-.24,.05,.22,rg);
+        p2.scale.set(.9,.5,1.2);
+
+        // Lush green velvet moss on top of the boulder!
+        const moss1=mesh(new THREE.DodecahedronGeometry(.22,0),'#438b4d',-.04,.45,.04,rg);
+        moss1.scale.set(1.1,.25,1.05);
+        moss1.rotation.set(.2,.4,.15);
+
+        const moss2=mesh(new THREE.DodecahedronGeometry(.14,0),'#5ca366',.06,.47,-.02,rg);
+        moss2.scale.set(1,.22,.9);
+        moss2.rotation.set(.1,.6,-.1);
+
+        const mossTuft=mesh(new THREE.DodecahedronGeometry(.08,1),'#6dbb77',-.12,.44,.12,rg);
+        mossTuft.scale.set(1.2,.4,1.1);
+
+        this.scene.add(rg);
+      }
+      if(c.box){
+        const boxGroup=new THREE.Group();boxGroup.position.set(px,y,pz);
+        // Main wooden body
+        box(.68,.46,.68,'#a57444',0,.24,0,boxGroup);
+
+        // 4 Vertical corner posts (darker wood)
+        const cpCol='#684221';
+        box(.08,.48,.08,cpCol,-.31,.24,-.31,boxGroup);
+        box(.08,.48,.08,cpCol,.31,.24,-.31,boxGroup);
+        box(.08,.48,.08,cpCol,-.31,.24,.31,boxGroup);
+        box(.08,.48,.08,cpCol,.31,.24,.31,boxGroup);
+
+        // Top rim frame & Bottom rim frame
+        box(.72,.05,.08,cpCol,0,.455,.31,boxGroup);
+        box(.72,.05,.08,cpCol,0,.455,-.31,boxGroup);
+        box(.08,.05,.56,cpCol,.31,.455,0,boxGroup);
+        box(.08,.05,.56,cpCol,-.31,.455,0,boxGroup);
+
+        box(.72,.05,.08,cpCol,0,.025,.31,boxGroup);
+        box(.72,.05,.08,cpCol,0,.025,-.31,boxGroup);
+        box(.08,.05,.56,cpCol,.31,.025,0,boxGroup);
+        box(.08,.05,.56,cpCol,-.31,.025,0,boxGroup);
+
+        // Top lid wooden planks
+        box(.54,.02,.14,'#b68350',0,.47,-.18,boxGroup);
+        box(.54,.02,.14,'#aa7746',0,.47,0,boxGroup);
+        box(.54,.02,.14,'#b68350',0,.47,.18,boxGroup);
+        box(.54,.015,.02,'#593516',0,.475,-.09,boxGroup);
+        box(.54,.015,.02,'#593516',0,.475,.09,boxGroup);
+
+        // Diagonal "X" cross-slats on the 4 sides!
+        const strutCol='#7d4f26';
+        // Front face (Z = +0.342)
+        const xF1=box(.48,.045,.02,strutCol,0,.24,.342,boxGroup);xF1.rotation.z=Math.PI/4;
+        const xF2=box(.48,.045,.02,strutCol,0,.24,.342,boxGroup);xF2.rotation.z=-Math.PI/4;
+        // Back face (Z = -0.342)
+        const xB1=box(.48,.045,.02,strutCol,0,.24,-.342,boxGroup);xB1.rotation.z=Math.PI/4;
+        const xB2=box(.48,.045,.02,strutCol,0,.24,-.342,boxGroup);xB2.rotation.z=-Math.PI/4;
+        // Right face (X = +0.342)
+        const xR1=box(.02,.045,.48,strutCol,.342,.24,0,boxGroup);xR1.rotation.x=Math.PI/4;
+        const xR2=box(.02,.045,.48,strutCol,.342,.24,0,boxGroup);xR2.rotation.x=-Math.PI/4;
+        // Left face (X = -0.342)
+        const xL1=box(.02,.045,.48,strutCol,-.342,.24,0,boxGroup);xL1.rotation.x=Math.PI/4;
+        const xL2=box(.02,.045,.48,strutCol,-.342,.24,0,boxGroup);xL2.rotation.x=-Math.PI/4;
+
+        // Metal corner reinforcements & rivet bolts at the 8 vertices!
+        const ironCol='#2d3840';
+        box(.09,.05,.09,ironCol,-.315,.46,-.315,boxGroup);
+        box(.09,.05,.09,ironCol,.315,.46,-.315,boxGroup);
+        box(.09,.05,.09,ironCol,-.315,.46,.315,boxGroup);
+        box(.09,.05,.09,ironCol,.315,.46,.315,boxGroup);
+        box(.09,.05,.09,ironCol,-.315,.025,-.315,boxGroup);
+        box(.09,.05,.09,ironCol,.315,.025,-.315,boxGroup);
+        box(.09,.05,.09,ironCol,-.315,.025,.315,boxGroup);
+        box(.09,.05,.09,ironCol,.315,.025,.315,boxGroup);
+
+        // Center bronze rivets / studs on corners
+        const studCol='#cfa258';
+        box(.025,.025,.025,studCol,-.33,.46,.33,boxGroup);
+        box(.025,.025,.025,studCol,.33,.46,.33,boxGroup);
+        box(.025,.025,.025,studCol,-.33,.46,-.33,boxGroup);
+        box(.025,.025,.025,studCol,.33,.46,-.33,boxGroup);
+
+        this.scene.add(boxGroup);
+        this.boxes.set(key(x,z),boxGroup);
+        this.boxList.push(boxGroup);
+      }
       if(c.bulb){
         const bg=new THREE.Group();bg.position.set(px,y+.28,pz);bg.userData={baseY:y+.28};
         box(.09,.08,.09,'#90a4ae',0,-.06,0,bg);
@@ -249,7 +403,10 @@ export class World {
       this.renderer.render(this.scene,this.camera);
     });
   }
-  position(s){return new THREE.Vector3(s.x-(this.level.width-1)/2,this.level.cells[s.z][s.x].height*.5+.03,s.z-(this.level.depth-1)/2)}
+  position(s){
+    const h = ((this.level.cells[s.z]?.[s.x]?.height ?? 0) * 0.5) + (s.onBox ? 0.5 : 0) + 0.03;
+    return new THREE.Vector3(s.x-(this.level.width-1)/2, h, s.z-(this.level.depth-1)/2);
+  }
   lights(s){
     const isLight=s.theme==='light'||this.theme==='light';
     this.currentSparks=new Set(s.sparks||[]);
@@ -320,7 +477,27 @@ export class World {
     if(this.hat){this.hat.position.set(0,.77,0);this.hat.rotation.set(0,0,0)}
     if(this.alertSign){this.alertSign.visible=false;this.alertSign.scale.set(0,0,1);this.alertSign.position.set(0,1.42,0)}
   }
-  setState(s){this.resetFrustratedState();this.angle=-s.dir*Math.PI/2;this.robot.position.copy(this.position(s));this.robot.rotation.set(0,this.angle,0);this.lights(s)}
+  setState(s){
+    this.resetFrustratedState();
+    this.angle=-s.dir*Math.PI/2;
+    this.robot.position.copy(this.position(s));
+    this.robot.rotation.set(0,this.angle,0);
+    this.lights(s);
+    if(this.boxList?.length && s.boxes){
+      this.boxes.clear();
+      for(let i=0; i<this.boxList.length; i++){
+        const bg = this.boxList[i];
+        const k = s.boxes[i];
+        if(!k) continue;
+        const [bx, bz] = k.split(',').map(Number);
+        const bpx = bx - (this.level.width - 1) / 2;
+        const bpz = bz - (this.level.depth - 1) / 2;
+        const by = (this.level.cells[bz]?.[bx]?.height ?? 0) * 0.5;
+        bg.position.set(bpx, by, bpz);
+        this.boxes.set(k, bg);
+      }
+    }
+  }
   createPickupEffect(next){
     const id=key(next.x,next.z);
     const bulb=this.bulbs.get(id);
@@ -379,6 +556,27 @@ export class World {
     this.angle+=command==='left'?Math.PI/2:command==='right'?-Math.PI/2:0;
     const end=this.angle,duration=(matchMedia('(prefers-reduced-motion: reduce)').matches?100:command==='light'?550:command==='fix'?600:command==='take'?850:460)/this.speed;
     const pickup=command==='take'?this.createPickupEffect(next):null;
+
+    const pushed = next.pushedBox;
+    let boxMesh = null;
+    let fromBoxPos = null;
+    let toBoxPos = null;
+    if (pushed) {
+      boxMesh = this.boxes.get(key(pushed.from.x, pushed.from.z));
+      const fromY = (this.level.cells[pushed.from.z]?.[pushed.from.x]?.height ?? 0) * 0.5;
+      const toY = (this.level.cells[pushed.to.z]?.[pushed.to.x]?.height ?? 0) * 0.5;
+      fromBoxPos = new THREE.Vector3(
+        pushed.from.x - (this.level.width - 1) / 2,
+        fromY,
+        pushed.from.z - (this.level.depth - 1) / 2
+      );
+      toBoxPos = new THREE.Vector3(
+        pushed.to.x - (this.level.width - 1) / 2,
+        toY,
+        pushed.to.z - (this.level.depth - 1) / 2
+      );
+    }
+
     return new Promise(resolve=>{
       const start=performance.now();
       const tick=now=>{
@@ -386,14 +584,22 @@ export class World {
         const t=Math.min((now-start)/duration,1),ease=t*t*(3-2*t),moving=command==='forward'||command==='jump';
         this.robot.position.lerpVectors(from,to,ease);
         if(command==='jump')this.robot.position.y+=Math.sin(Math.PI*t)*.55;
+        if(boxMesh && fromBoxPos && toBoxPos){
+          boxMesh.position.lerpVectors(fromBoxPos, toBoxPos, ease);
+        }
         if(moving){
           const walk=Math.sin(Math.PI*t);
           this.robot.position.y+=walk*(command==='jump'?.02:.055);
           this.robot.rotation.z=walk*.045;
+          if(command==='forward' && pushed){
+            this.leftArm.rotation.x=-0.85+walk*.12;
+            this.arm.rotation.x=-0.85-walk*.12;
+          }else{
+            this.leftArm.rotation.x=-walk*.42;
+            this.arm.rotation.x=walk*.42;
+          }
           this.leftLeg.rotation.x=walk*.65;
           this.rightLeg.rotation.x=-walk*.65;
-          this.leftArm.rotation.x=-walk*.42;
-          this.arm.rotation.x=walk*.42;
         }
         this.robot.rotation.y=old+(end-old)*ease;
         if(command==='light')this.arm.rotation.x=-Math.sin(Math.PI*t)*2;
@@ -420,6 +626,11 @@ export class World {
         }
         if(t<1)requestAnimationFrame(tick);
         else{
+          if(boxMesh && toBoxPos && pushed){
+            boxMesh.position.copy(toBoxPos);
+            this.boxes.delete(key(pushed.from.x, pushed.from.z));
+            this.boxes.set(key(pushed.to.x, pushed.to.z), boxMesh);
+          }
           this.robot.rotation.z=0;
           this.robot.rotation.x=0;
           this.leftLeg.rotation.x=0;

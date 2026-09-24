@@ -366,3 +366,142 @@ test('electric shock plays a distinct sequence of sound pulses', () => {
     else globalThis.AudioContext = previousAudioContext;
   }
 });
+
+test('bush and rock act as obstacles and block forward and jump', () => {
+  const level = {
+    id: 'nature-obstacles',
+    name: 'Тест природи',
+    description: 'Перешкоди кущ і камінь',
+    width: 3,
+    depth: 3,
+    start: { x: 0, z: 0, dir: 1 },
+    allowed: ['forward', 'jump', 'right', 'left'],
+    limit: 0,
+    cells: [
+      [{ height: 0, tree: false, lamp: false }, { height: 0, tree: false, lamp: false, bush: true }, { height: 0, tree: false, lamp: false }],
+      [{ height: 0, tree: false, lamp: false, rock: true }, { height: 0, tree: false, lamp: false }, { height: 0, tree: false, lamp: false }],
+      [{ height: 0, tree: false, lamp: false }, { height: 0, tree: false, lamp: false }, { height: 0, tree: false, lamp: false }]
+    ]
+  };
+
+  const s = initialState(level);
+  // Facing east towards (1, 0) which is a bush
+  assert.throws(() => step(level, s, 'forward'), /Кущ перекриває шлях/);
+  assert.throws(() => step(level, s, 'jump'), /Кущ перекриває шлях/);
+
+  // Turn south towards (0, 1) which is a rock
+  const sSouth = step(level, s, 'right');
+  assert.throws(() => step(level, sSouth, 'forward'), /Камінь перекриває шлях/);
+  assert.throws(() => step(level, sSouth, 'jump'), /Камінь перекриває шлях/);
+
+  // obstacleAhead sensor detects both bush and rock
+  assert.equal(conditionValue({ kind: 'sensor', sensor: 'obstacleAhead' }, level, s), true);
+  assert.equal(conditionValue({ kind: 'sensor', sensor: 'obstacleAhead' }, level, sSouth), true);
+});
+
+test('box mechanics: pushing forward and jumping on/off box', () => {
+  const level = {
+    id: 'box-test',
+    name: 'Тест ящика',
+    description: 'Штовхання та стрибки на ящик',
+    width: 4,
+    depth: 3,
+    start: { x: 0, z: 0, dir: 1 },
+    allowed: ['forward', 'jump', 'right', 'left'],
+    limit: 0,
+    cells: [
+      [
+        { height: 0, tree: false, lamp: false },
+        { height: 0, tree: false, lamp: false, box: true },
+        { height: 0, tree: false, lamp: false },
+        { height: 1, tree: false, lamp: false }
+      ],
+      [
+        { height: 0, tree: false, lamp: false },
+        { height: 0, tree: false, lamp: false },
+        { height: 0, tree: false, lamp: false },
+        { height: 0, tree: false, lamp: false }
+      ],
+      [
+        { height: 0, tree: false, lamp: false },
+        { height: 0, tree: false, lamp: false },
+        { height: 0, tree: false, lamp: false },
+        { height: 0, tree: false, lamp: false }
+      ]
+    ]
+  };
+
+  const s0 = initialState(level);
+  assert.deepEqual(s0.boxes, ['1,0']);
+  assert.equal(s0.onBox, false);
+
+  // 1. Pushing box forward from (1,0) to (2,0)
+  // Character steps into (1,0), box moves to (2,0)
+  const sPushed = step(level, s0, 'forward');
+  assert.equal(sPushed.x, 1);
+  assert.equal(sPushed.z, 0);
+  assert.equal(sPushed.onBox, false);
+  assert.deepEqual(sPushed.boxes, ['2,0']);
+  assert.deepEqual(sPushed.pushedBox, { from: { x: 1, z: 0 }, to: { x: 2, z: 0 } });
+
+  // 2. Cannot push box to tile of different height (height 1 at (3,0) vs height 0 at (2,0))
+  assert.throws(() => step(level, sPushed, 'forward'), /Коробку можна посунути лише на плитку такої ж висоти/);
+
+  // 3. Jump ONTO box at (2, 0)
+  // Character is at height 0, box is at height 0 (top of box is height 1). Diff is 1. Jump succeeds!
+  const sOnBox = step(level, sPushed, 'jump');
+  assert.equal(sOnBox.x, 2);
+  assert.equal(sOnBox.z, 0);
+  assert.equal(sOnBox.onBox, true);
+
+  // 4. Character on box walks forward to (3,0) of height 1
+  // Effective character height is 0 + 1 = 1. Target (3,0) height is 1. Same height -> forward succeeds!
+  const sWalkOff = step(level, sOnBox, 'forward');
+  assert.equal(sWalkOff.x, 3);
+  assert.equal(sWalkOff.z, 0);
+  assert.equal(sWalkOff.onBox, false);
+
+  // 5. Jump back onto box from height 1 to box top (height 1)
+  const sFacingWest = step(level, step(level, sWalkOff, 'left'), 'left');
+  // At height 1 facing west towards box at (2,0). Box height is 0, top is 1. Diff is 0 <= 1 -> jump lands on box!
+  const sBackOnBox = step(level, sFacingWest, 'jump');
+  assert.equal(sBackOnBox.x, 2);
+  assert.equal(sBackOnBox.z, 0);
+  assert.equal(sBackOnBox.onBox, true);
+
+  // 6. Jump off box to height 0 at (1,0)
+  const sJumpOff = step(level, sBackOnBox, 'jump');
+  assert.equal(sJumpOff.x, 1);
+  assert.equal(sJumpOff.z, 0);
+  assert.equal(sJumpOff.onBox, false);
+});
+
+test('validation supports bush, rock, box and enforces mutual exclusivity', () => {
+  const validLevel = {
+    id: 'valid-objects',
+    name: 'Обʼєкти',
+    description: 'Валідні обʼєкти',
+    width: 3,
+    depth: 3,
+    start: { x: 0, z: 0, dir: 0 },
+    allowed: ['forward', 'jump', 'light'],
+    limit: 0,
+    cells: [
+      [{ height: 0, tree: false, lamp: false }, { height: 0, tree: false, lamp: false, bush: true }, { height: 0, tree: false, lamp: false, rock: true }],
+      [{ height: 0, tree: false, lamp: false, box: true }, { height: 0, tree: false, lamp: true }, { height: 0, tree: false, lamp: false }],
+      [{ height: 0, tree: false, lamp: false }, { height: 0, tree: false, lamp: false }, { height: 0, tree: false, lamp: false }]
+    ]
+  };
+  assert.deepEqual(validateLevel(validLevel), []);
+
+  // Reject conflict: box and bush on same cell
+  const conflict = {
+    ...validLevel,
+    cells: [
+      [{ height: 0, tree: false, lamp: false, box: true, bush: true }, { height: 0, tree: false, lamp: false }, { height: 0, tree: false, lamp: false }],
+      [{ height: 0, tree: false, lamp: false }, { height: 0, tree: false, lamp: true }, { height: 0, tree: false, lamp: false }],
+      [{ height: 0, tree: false, lamp: false }, { height: 0, tree: false, lamp: false }, { height: 0, tree: false, lamp: false }]
+    ]
+  };
+  assert.ok(validateLevel(conflict).length > 0);
+});

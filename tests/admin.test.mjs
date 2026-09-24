@@ -374,3 +374,46 @@ test('reorderLevelsOnServer sends reordered ids payload with X-Local-Editor head
   }
 });
 
+test('paintCell handles bush, rock, box placement and erase tool', () => {
+  const level = createFreshLevel();
+  let checkpoints = 0;
+  let dirties = 0;
+
+  const ctx = {
+    level,
+    height: 1,
+    lampLitState: false,
+    houseDir: 2,
+    onStatus: () => {},
+    onCheckpoint: () => { checkpoints++; },
+    onDirty: () => { dirties++; },
+    onRefreshCell: () => {},
+    isStrokeActive: () => false,
+    markStrokeActive: () => {}
+  };
+
+  // 1. Paint bush at (1, 1)
+  paintCell({ ...ctx, x: 1, z: 1, tool: 'bush' });
+  assert.equal(level.cells[1][1].bush, true);
+  assert.equal(level.cells[1][1].tree, false);
+  assert.match(formatCellInfo(level, 1, 1), /кущ/);
+
+  // 2. Paint rock at (1, 1) (replaces bush)
+  paintCell({ ...ctx, x: 1, z: 1, tool: 'rock' });
+  assert.equal(level.cells[1][1].rock, true);
+  assert.equal(level.cells[1][1].bush, false);
+  assert.match(formatCellInfo(level, 1, 1), /камінь/);
+
+  // 3. Paint box at (1, 1) (replaces rock)
+  paintCell({ ...ctx, x: 1, z: 1, tool: 'box' });
+  assert.equal(level.cells[1][1].box, true);
+  assert.equal(level.cells[1][1].rock, false);
+  assert.match(formatCellInfo(level, 1, 1), /коробка/);
+
+  // 4. Erase at (1, 1) clears box
+  paintCell({ ...ctx, x: 1, z: 1, tool: 'erase' });
+  assert.equal(level.cells[1][1].box, false);
+  assert.equal(level.cells[1][1].bush, false);
+  assert.equal(level.cells[1][1].rock, false);
+});
+
