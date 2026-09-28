@@ -1237,20 +1237,32 @@ body.in-game textarea::selection,
   position: sticky;
   top: 8px;
   z-index: 8;
-  max-width: 600px;
+  max-width: 640px;
+  width: min(640px, calc(100% - 24px));
   margin: 0 auto 14px;
-  padding: 14px 16px;
+  padding: 16px 18px;
   border: 1px solid #49d985;
-  border-radius: 12px;
-  background: #1b2b35;
-  box-shadow: 0 12px 30px #0008;
+  border-radius: 14px;
+  background: #17242e;
+  box-shadow: 0 14px 34px #00000080;
+  box-sizing: border-box;
+  max-height: min(520px, calc(100vh - 100px));
+  overflow-y: auto;
 }
 .game-help-heading, .game-help-actions { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
-.game-help-heading { font-size: 14px; color: var(--gold); }
+.game-help-heading { font-size: 14.5px; font-weight: 700; color: var(--gold); }
 .game-help-heading span { font-size: 12px; color: var(--muted); }
-.game-help-card p { margin: 8px 0 12px; color: #e5edf0; font-size: 14px; line-height: 1.45; }
+.game-help-card p {
+  margin: 10px 0 14px;
+  color: #e5edf0;
+  font-size: 14px;
+  line-height: 1.55;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
 .game-help-actions { justify-content: flex-end; }
-.game-help-actions button { min-height: 40px; }
+.game-help-actions button { min-height: 38px; }
 .help-focus {
   position: relative;
   z-index: 6;
@@ -1266,12 +1278,12 @@ body.in-game textarea::selection,
 @media (prefers-reduced-motion: reduce) {
   .help-focus { animation: none; box-shadow: 0 0 0 4px #31e47b77; }
 }
-[data-theme="light"] .game-help-card { background: #fff8e9; box-shadow: 0 10px 25px #24354133; }
-[data-theme="light"] .game-help-card p { color: #263846; }
+[data-theme="light"] .game-help-card { background: #fffdf7; border-color: #dca34d; box-shadow: 0 10px 25px #24354124; }
+[data-theme="light"] .game-help-card p { color: #223440; }
 [data-theme="light"] .game-help-heading { color: #985a08; }
 
 @media (max-width: 740px) {
-  .game-help-card { top: 4px; margin: 0 0 10px; padding: 12px; }
-  .game-help-card p { font-size: 13px; }
+  .game-help-card { top: 4px; margin: 0 0 10px; padding: 12px 14px; max-height: calc(100vh - 70px); }
+  .game-help-card p { font-size: 13px; line-height: 1.5; }
   .game-help-open { min-height: 44px; }
 }

@@ -5,11 +5,11 @@
   "descriptionNight": "",
   "descriptionDay": "",
   "category": "conditions",
-  "width": 5,
-  "depth": 5,
+  "width": 3,
+  "depth": 8,
   "start": {
-    "x": 2,
-    "z": 4,
+    "x": 1,
+    "z": 7,
     "dir": 0
   },
   "allowed": [
@@ -25,6 +25,10 @@
     {
       "text": "Нова команда: якщо(if)",
       "target": "command:if"
+    },
+    {
+      "text": "🧭 Як працює вибір дій: Якщо / elif / else\nУяви, що підходиш до дверей:\n• Якщо (if) — «Чи є ключ?» ➔ відчиняю і заходжу.\n• elif (інакше якщо) — «Ключа немає, але чи відчинене вікно?» ➔ залізу у вікно.\n• else (інакше) — «Жоден варіант не спрацював?» ➔ дзвоню в двері.\n💡 Пам'ятай: комп'ютер вибере тільки ОДИН варіант — перший, який підійде!",
+      "target": "palette"
     }
   ],
   "limit": 0,
@@ -39,37 +43,22 @@
         "bulb": false,
         "kit": false,
         "spark": false,
-        "lit": false
+        "lit": false,
+        "needsBulb": false,
+        "bush": false,
+        "rock": false,
+        "box": false
       },
       {
         "height": 0,
         "tree": false,
-        "lamp": false,
+        "lamp": true,
         "house": false,
         "bulb": false,
         "kit": false,
         "spark": false,
-        "lit": false
-      },
-      {
-        "height": 0,
-        "tree": false,
-        "lamp": false,
-        "house": false,
-        "bulb": false,
-        "kit": false,
-        "spark": false,
-        "lit": false
-      },
-      {
-        "height": 0,
-        "tree": false,
-        "lamp": false,
-        "house": false,
-        "bulb": false,
-        "kit": false,
-        "spark": false,
-        "lit": false
+        "lit": false,
+        "needsBulb": false
       },
       {
         "height": 0,
@@ -80,65 +69,6 @@
       }
     ],
     [
-      {
-        "height": 0,
-        "tree": false,
-        "lamp": false,
-        "house": false,
-        "bulb": false,
-        "kit": false,
-        "spark": false,
-        "lit": false
-      },
-      {
-        "height": 0,
-        "tree": false,
-        "lamp": false,
-        "house": false,
-        "bulb": false,
-        "kit": false,
-        "spark": false,
-        "lit": false
-      },
-      {
-        "height": 0,
-        "tree": false,
-        "lamp": false,
-        "house": false,
-        "bulb": false,
-        "kit": false,
-        "spark": false,
-        "lit": false
-      },
-      {
-        "height": 0,
-        "tree": false,
-        "lamp": false,
-        "house": false,
-        "bulb": false,
-        "kit": false,
-        "spark": false,
-        "lit": false
-      },
-      {
-        "height": 0,
-        "tree": false,
-        "lamp": false,
-        "house": false,
-        "lit": false
-      }
-    ],
-    [
-      {
-        "height": 0,
-        "tree": false,
-        "lamp": false,
-        "house": false,
-        "bulb": false,
-        "kit": false,
-        "spark": false,
-        "lit": false
-      },
       {
         "height": 0,
         "tree": false,
@@ -157,7 +87,7 @@
         "bulb": false,
         "kit": false,
         "spark": false,
-        "lit": false,
+        "lit": true,
         "needsBulb": false
       },
       {
@@ -165,16 +95,6 @@
         "tree": false,
         "lamp": false,
         "house": false,
-        "bulb": false,
-        "kit": false,
-        "spark": false,
-        "lit": false
-      },
-      {
-        "height": 0,
-        "tree": false,
-        "lamp": false,
-        "house": false,
         "lit": false
       }
     ],
@@ -184,40 +104,18 @@
         "tree": false,
         "lamp": false,
         "house": false,
-        "bulb": false,
-        "kit": false,
-        "spark": false,
         "lit": false
       },
       {
         "height": 0,
         "tree": false,
-        "lamp": false,
+        "lamp": true,
         "house": false,
+        "lit": false,
         "bulb": false,
         "kit": false,
         "spark": false,
-        "lit": false
-      },
-      {
-        "height": 0,
-        "tree": false,
-        "lamp": false,
-        "house": false,
-        "bulb": false,
-        "kit": false,
-        "spark": false,
-        "lit": false
-      },
-      {
-        "height": 0,
-        "tree": false,
-        "lamp": false,
-        "house": false,
-        "bulb": false,
-        "kit": false,
-        "spark": false,
-        "lit": false
+        "needsBulb": false
       },
       {
         "height": 0,
@@ -238,10 +136,104 @@
       {
         "height": 0,
         "tree": false,
+        "lamp": true,
+        "house": false,
+        "lit": false,
+        "bulb": false,
+        "kit": false,
+        "spark": false,
+        "needsBulb": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false,
+        "house": false,
+        "lit": false
+      }
+    ],
+    [
+      {
+        "height": 0,
+        "tree": false,
         "lamp": false,
         "house": false,
         "lit": false
       },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": true,
+        "house": false,
+        "lit": false,
+        "bulb": false,
+        "kit": false,
+        "spark": false,
+        "needsBulb": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false,
+        "house": false,
+        "lit": false
+      }
+    ],
+    [
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false,
+        "house": false,
+        "lit": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": true,
+        "house": false,
+        "lit": true,
+        "bulb": false,
+        "kit": false,
+        "spark": false,
+        "needsBulb": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false,
+        "house": false,
+        "lit": false
+      }
+    ],
+    [
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false,
+        "house": false,
+        "lit": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": true,
+        "house": false,
+        "lit": false,
+        "bulb": false,
+        "kit": false,
+        "spark": false,
+        "needsBulb": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false,
+        "house": false,
+        "lit": false
+      }
+    ],
+    [
       {
         "height": 0,
         "tree": false,

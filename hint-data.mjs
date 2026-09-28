@@ -10,8 +10,8 @@ export function validateHints(hints, allowedCommands = null) {
     return 'Підказок може бути від 0 до 5.';
   }
   for (const hint of hints) {
-    if (!hint || typeof hint.text !== 'string' || !hint.text.trim() || hint.text.length > 180) {
-      return 'Текст кожної підказки має містити від 1 до 180 символів.';
+    if (!hint || typeof hint.text !== 'string' || !hint.text.trim() || hint.text.length > 1000) {
+      return 'Текст кожної підказки має містити від 1 до 1000 символів.';
     }
     if (Object.hasOwn(hintTargets, hint.target)) continue;
     if (allowedCommands && typeof hint.target === 'string' && hint.target.startsWith('command:') &&

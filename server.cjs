@@ -84,7 +84,7 @@ http.createServer(async(req,res)=>{
       if(category!==undefined)lvl.category=category;
       if(hidden!==undefined){if(hidden)lvl.hidden=true;else delete lvl.hidden;}
       if(typeof name==='string'&&name.trim())lvl.name=name.trim();
-      const {validateLevel}=await import('./logic.mjs');
+      const {validateLevel}=await import('./logic.mjs?update='+Date.now());
       const errors=validateLevel(lvl);
       if(errors.length){json(res,400,{error:errors.join(' ')});return}
       await atomic(file,JSON.stringify(lvl,null,2)+'\n');
@@ -108,7 +108,7 @@ http.createServer(async(req,res)=>{
    }
    if(pathname==='/api/levels'&&req.method==='POST'){
     if(req.headers['x-local-editor']!=='1'||req.headers['content-type']!=='application/json'||(req.headers.origin&&req.headers.origin!=='http://'+req.headers.host)){json(res,403,{error:'Збереження дозволене тільки з локального редактора.'});return}
-    const body=await readBody(req);const {validateLevel}=await import('./logic.mjs');const errors=validateLevel(body.level);if(errors.length){json(res,400,{error:errors.join(' ')});return}
+    const body=await readBody(req);const {validateLevel}=await import('./logic.mjs?update='+Date.now());const errors=validateLevel(body.level);if(errors.length){json(res,400,{error:errors.join(' ')});return}
     const l=body.level;if(l.id==='index'||l.id==='categories'){json(res,400,{error:'Ім’я '+l.id+' зарезервоване.'});return}
      const operation=async()=>{
        let file=path.join(levelDir,l.id+'.json');

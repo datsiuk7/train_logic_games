@@ -21,9 +21,9 @@ export function renderHintEditor(container, hints, { allowedCommands = [], onCha
     label.textContent = `Крок ${index + 1}`;
 
     const text = document.createElement('textarea');
-    text.rows = 2;
-    text.maxLength = 180;
-    text.placeholder = 'Що зробити учню?';
+    text.rows = 4;
+    text.maxLength = 1000;
+    text.placeholder = 'Що зробити учню? (до 1000 символів, підтримуються переноси рядків)';
     text.ariaLabel = `Текст підказки ${index + 1}`;
     text.value = hint.text || '';
     text.onchange = () => commit(steps.map((step, i) => i === index ? { ...step, text: text.value.trim() } : step), false);
@@ -43,6 +43,15 @@ export function renderHintEditor(container, hints, { allowedCommands = [], onCha
 
     const actions = document.createElement('div');
     actions.className = 'hint-editor-actions';
+
+    const count = document.createElement('span');
+    count.className = 'hint-editor-count';
+    count.textContent = `${(hint.text || '').length} / 1000`;
+    text.oninput = () => {
+      count.textContent = `${text.value.length} / 1000`;
+    };
+    actions.append(count);
+
     for (const [symbol, title, delta] of [['↑', 'Перемістити вище', -1], ['↓', 'Перемістити нижче', 1]]) {
       const button = document.createElement('button');
       button.type = 'button';
