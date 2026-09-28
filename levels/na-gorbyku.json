@@ -156,5 +156,11 @@
     ]
   ],
   "descriptionNight": "",
-  "descriptionDay": ""
+  "descriptionDay": "",
+  "hints": [
+    {
+      "text": "Можеш стрибати",
+      "target": "command:jump"
+    }
+  ]
 }
