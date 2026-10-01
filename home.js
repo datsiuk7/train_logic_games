@@ -99,6 +99,9 @@ export function renderHome(container, { levels, categories, done, currentTheme }
         .join('');
 
       return `<section class="category-section" data-cat="${cat.id}">
+      <div class="category-header">
+        <h2 class="category-title">${esc(cat.title || 'Розділ')}</h2>
+      </div>
       <div class="level-grid home-level-grid">${cardsHtml}</div>
     </section>`;
     })
