@@ -166,4 +166,37 @@ footer {
   padding: 0;
 }
 
+/* Difficulty stars */
+.difficulty-stars {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.5px;
+  font-size: 13px;
+  line-height: 1;
+  user-select: none;
+  cursor: help;
+  vertical-align: middle;
+  transition: transform 0.15s ease;
+}
+.difficulty-stars:hover {
+  transform: scale(1.08);
+}
+.diff-star {
+  display: inline-block;
+  font-style: normal;
+  line-height: 1;
+}
+.diff-star.filled {
+  text-shadow: 0 0 5px currentColor;
+}
+.diff-star.empty {
+  color: #405260;
+  opacity: 0.45;
+}
+[data-theme="light"] .diff-star.empty {
+  color: #abbac7;
+  opacity: 0.6;
+}
+
+
 

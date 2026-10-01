@@ -123,6 +123,9 @@ export function validateLevel(l) {
   if (l.category !== undefined && (typeof l.category !== 'string' || !/^[a-z0-9-]+$/.test(l.category))) {
     errors.push('Категорія: малі латинські літери та дефіс.');
   }
+  if (l.difficulty !== undefined && (!Number.isInteger(l.difficulty) || l.difficulty < 1 || l.difficulty > 5)) {
+    errors.push('Складність: число від 1 до 5.');
+  }
   return errors;
 }
 

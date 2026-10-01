@@ -9,6 +9,7 @@ export function createFreshLevel(defaultAllowed = null) {
     descriptionNight: '',
     descriptionDay: '',
     category: '',
+    difficulty: 1,
     width: 4,
     depth: 4,
     start: { x: 0, z: 3, dir: 0 },

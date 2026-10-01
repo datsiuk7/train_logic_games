@@ -24,7 +24,7 @@
       "target": "command:forward"
     }
   ],
-  "limit": 0,
+  "limit": 8,
   "repairKits": 0,
   "cells": [
     [
@@ -301,7 +301,14 @@
         "tree": false,
         "lamp": false,
         "house": false,
-        "lit": false
+        "lit": false,
+        "rock": true,
+        "bush": false,
+        "box": false,
+        "bulb": false,
+        "kit": false,
+        "spark": false,
+        "needsBulb": false
       }
     ]
   ]

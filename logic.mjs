@@ -27,7 +27,10 @@ import {
   sensors,
   comparisons,
   defaultCondition,
-  conditionValue as rawConditionValue
+  conditionValue as rawConditionValue,
+  DIFFICULTY_LEVELS,
+  getDifficultyInfo,
+  renderDifficultyStars
 } from './logic-world.mjs';
 
 import {
@@ -84,5 +87,8 @@ export {
   validateLevel,
   compile,
   createMemory,
-  valueOf
+  valueOf,
+  DIFFICULTY_LEVELS,
+  getDifficultyInfo,
+  renderDifficultyStars
 };

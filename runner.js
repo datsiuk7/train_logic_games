@@ -8,7 +8,8 @@ import {
   executeProgram,
   getCommandInfo,
   getLevelDescription,
-  ElectricShockError
+  ElectricShockError,
+  renderDifficultyStars
 } from './logic.mjs';
 import { World } from './scene.js';
 import { ProgramEditor } from './program.js';
@@ -72,7 +73,10 @@ export function startGame(container, l, preview, options) {
         </svg>
         <span>${preview ? 'До редактора' : 'Всі теми'}</span>
       </a>
-      <div class="game-level-name">${esc(l.name)}</div>
+      <div class="game-level-name">
+        <span class="level-title-text">${esc(l.name)}</span>
+        ${renderDifficultyStars(l.difficulty)}
+      </div>
       <button id="help-open" class="game-help-open" type="button" aria-label="Відкрити підказки">? Підказка</button>
     </div>
     <div id="help-card" class="game-help-card" hidden>

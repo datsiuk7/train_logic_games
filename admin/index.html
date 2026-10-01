@@ -196,6 +196,20 @@
               <button type="button" class="dir-btn" data-dir="3" title="Захід (вліво)"><span class="dir-arrow">←</span><span>Захід</span></button>
             </div>
           </div>
+          <div class="field">
+            <div class="diff-picker-header">
+              <span>Складність рівня</span>
+              <span id="diff-picker-label" class="diff-picker-label">1/5 — Дуже легко</span>
+            </div>
+            <div id="difficulty-picker" class="difficulty-picker" role="radiogroup" aria-label="Складність рівня">
+              <button type="button" class="diff-star-btn" data-value="1" title="1/5 — Дуже легко" aria-label="1 зірка — Дуже легко">★</button>
+              <button type="button" class="diff-star-btn" data-value="2" title="2/5 — Легко" aria-label="2 зірки — Легко">★</button>
+              <button type="button" class="diff-star-btn" data-value="3" title="3/5 — Середня" aria-label="3 зірки — Середня">★</button>
+              <button type="button" class="diff-star-btn" data-value="4" title="4/5 — Складно" aria-label="4 зірки — Складно">★</button>
+              <button type="button" class="diff-star-btn" data-value="5" title="5/5 — Дуже складно" aria-label="5 зірок — Дуже складно">★</button>
+            </div>
+            <input type="hidden" id="difficulty" value="1">
+          </div>
           <label class="field">Ліміт блоків (0 — без ліміту)
             <input id="limit" type="number" min="0" max="100">
           </label>

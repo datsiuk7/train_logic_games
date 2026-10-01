@@ -57,6 +57,31 @@ export function getCategory(l) {
   return 'basics';
 }
 
+export const DIFFICULTY_LEVELS = [
+  { level: 1, label: 'Дуже легко', color: '#22c55e' },
+  { level: 2, label: 'Легко', color: '#84cc16' },
+  { level: 3, label: 'Середня', color: '#eab308' },
+  { level: 4, label: 'Складно', color: '#f97316' },
+  { level: 5, label: 'Дуже складно', color: '#ef4444' }
+];
+
+export function getDifficultyInfo(diff) {
+  const d = Math.max(1, Math.min(5, parseInt(diff, 10) || 1));
+  return DIFFICULTY_LEVELS[d - 1];
+}
+
+export function renderDifficultyStars(diff) {
+  const info = getDifficultyInfo(diff);
+  const stars = [];
+  for (let i = 1; i <= 5; i++) {
+    const isFilled = i <= info.level;
+    stars.push(
+      `<span class="diff-star ${isFilled ? 'filled' : 'empty'}" ${isFilled ? `style="color:${info.color}"` : ''}>★</span>`
+    );
+  }
+  return `<span class="difficulty-stars diff-tier-${info.level}" title="Складність: ${info.label} (${info.level}/5)" aria-label="Складність: ${info.label} (${info.level}/5)">${stars.join('')}</span>`;
+}
+
 export const isLightTarget = (c) => Boolean(c && (c.lamp || c.house));
 
 export const allLamps = (l) =>

@@ -884,11 +884,19 @@ body.in-game textarea::selection,
 }
 
 .game-level-name {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   font-size: 15px;
   font-weight: 650;
   color: #f0f4f8;
   letter-spacing: -0.2px;
   padding-right: 4px;
+}
+
+.game-level-name .difficulty-stars {
+  font-size: 13px;
+  gap: 2px;
 }
 
 @media (max-width: 740px) {

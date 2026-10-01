@@ -181,6 +181,12 @@
   border-radius: 5px;
 }
 
+.card-body .difficulty-stars {
+  font-size: 11px;
+  gap: 1.5px;
+  flex-shrink: 0;
+}
+
 .header-audio {
   display: flex;
   align-items: center;

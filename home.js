@@ -1,4 +1,4 @@
-import { getCategory, getLevelDescription } from './logic.mjs';
+import { getCategory, getLevelDescription, renderDifficultyStars } from './logic.mjs';
 
 const esc = (s) =>
   String(s).replace(/[&<>"']/g, (c) => ({
@@ -90,8 +90,11 @@ export function renderHome(container, { levels, categories, done, currentTheme }
         <div class="card-body">
           <p>${esc(getLevelDescription(l, currentTheme))}</p>
           <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px;gap:6px">
-            <span style="font-size:11px;color:#8da4b3">${l.allowed.length} ком.</span>
-            ${l.limit ? `<span class="card-limit" style="margin-top:0">Ліміт: ${l.limit}</span>` : ''}
+            <div style="display:flex;align-items:center;gap:6px">
+              <span style="font-size:11px;color:#8da4b3">${l.allowed.length} ком.</span>
+              ${l.limit ? `<span class="card-limit" style="margin-top:0">Ліміт: ${l.limit}</span>` : ''}
+            </div>
+            ${renderDifficultyStars(l.difficulty)}
           </div>
         </div>
       </a>`;

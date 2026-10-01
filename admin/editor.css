@@ -257,6 +257,13 @@
   overflow: hidden;
   text-overflow: ellipsis;
   flex: 1;
+  min-width: 0;
+}
+.btn-level .difficulty-stars {
+  margin-left: auto;
+  font-size: 10px;
+  gap: 1px;
+  flex-shrink: 0;
 }
 .level-badge-hidden {
   font-size: 9px;
@@ -355,6 +362,53 @@
   font-size: 10px;
   letter-spacing: 0.2px;
 }
+
+/* 5-Star Difficulty Picker */
+.diff-picker-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+}
+.diff-picker-label {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 5px;
+  background: #111e27;
+  border: 1px solid #233745;
+  transition: color 0.15s ease, border-color 0.15s ease, background-color 0.15s ease;
+}
+.difficulty-picker {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 6px;
+  user-select: none;
+}
+.diff-star-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 0;
+  height: 36px;
+  font-size: 20px;
+  line-height: 1;
+  border-radius: 8px;
+  background: #14222c;
+  border: 1px solid #283c4b;
+  color: #405566;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.diff-star-btn:hover {
+  background: #1b2f3d;
+  border-color: #456276;
+  transform: translateY(-1px);
+}
+.diff-star-btn:active {
+  transform: translateY(1px);
+}
+
 
 /* Interactive Size Matrix Grid Picker */
 .size-picker-container {

@@ -20,12 +20,7 @@
     "light",
     "loop"
   ],
-  "hints": [
-    {
-      "text": "Рівень може бути складним",
-      "target": "palette"
-    }
-  ],
+  "hints": [],
   "limit": 30,
   "repairKits": 0,
   "cells": [
@@ -555,5 +550,6 @@
         "lit": false
       }
     ]
-  ]
+  ],
+  "difficulty": 4
 }

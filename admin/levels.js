@@ -1,3 +1,5 @@
+import { renderDifficultyStars } from '../logic.mjs';
+
 const $ = s => document.querySelector(s);
 let categories = [];
 let levels = [];
@@ -157,6 +159,7 @@ function renderLevelRow(lvl, cat, listInCat, lvlIdx, catIdx) {
         <div class="level-title-line">
           <a href="index.html?open=${encodeURIComponent(lvl.id)}" class="level-name-link" title="Відкрити у редакторі карти">${esc(lvl.name || lvl.id)}</a>
           <span class="level-id-tag">(${esc(lvl.id)})</span>
+          ${renderDifficultyStars(lvl.difficulty)}
           <span class="vis-badge ${isHidden ? 'hidden' : 'visible'}">${isHidden ? '👁 Приховано' : '✓ Видимий'}</span>
         </div>
         <div class="level-meta-line">

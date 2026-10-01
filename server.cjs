@@ -7,7 +7,7 @@ const types={'.html':'text/html; charset=utf-8','.css':'text/css; charset=utf-8'
 let writes=Promise.resolve();
 const json=(res,status,data)=>{res.writeHead(status,{'Content-Type':types['.json'],'Cache-Control':'no-store'});res.end(JSON.stringify(data))};
 async function atomic(file,data){const temp=file+'.tmp';await fs.writeFile(temp,data,'utf8');await fs.rename(temp,file)}
-async function readBody(req){let body='';for await(const chunk of req){body+=chunk;if(Buffer.byteLength(body)>100000)throw new Error('Файл надто великий.')}return JSON.parse(body)}
+async function readBody(req){let body='';for await(const chunk of req){body+=chunk;if(Buffer.byteLength(body)>100000)throw new Error('Файл надто великий.')}try{return JSON.parse(body)}catch{throw new Error('Некоректний JSON.')}}
 http.createServer(async(req,res)=>{
  try{
   if(!['localhost:'+port,'127.0.0.1:'+port].includes(req.headers.host)){json(res,403,{error:'Лише локальні запити.'});return}
@@ -143,5 +143,5 @@ http.createServer(async(req,res)=>{
   if(!file.startsWith(root+path.sep)||!allowed||!types[path.extname(file)]){res.writeHead(404).end('Not found');return}
   let data;try{data=await fs.readFile(file)}catch{res.writeHead(404).end('Not found');return}
   res.writeHead(200,{'Content-Type':types[path.extname(file)],'Cache-Control':'no-cache','X-Content-Type-Options':'nosniff'});res.end(req.method==='HEAD'?undefined:data);
- }catch(e){json(res,400,{error:e instanceof SyntaxError?'Некоректний JSON.':e.message})}
+ }catch(e){console.error('Request error:',e);json(res,400,{error:e.message||'Некоректний запит.'})}
 }).listen(port,'127.0.0.1',()=>console.log(`Game: http://localhost:${port}\nEditor: http://localhost:${port}/admin/`));

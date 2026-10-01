@@ -1,4 +1,4 @@
-import { commands, validateLevel, initialState, categories, getCategory } from '../logic.mjs';
+import { commands, validateLevel, initialState, categories, getCategory, renderDifficultyStars, getDifficultyInfo } from '../logic.mjs';
 import { World } from '../scene.js';
 import { icon, tools, refreshCell } from './map-editor.js';
 import { createFreshLevel, loadDraft, saveDraft, LevelHistory } from './level-state.js';
@@ -255,6 +255,78 @@ for (const id of ['name', 'limit', 'repairKits']) {
       change();
     };
   }
+}
+
+function renderDifficultyPicker(val, isPreview = false) {
+  const current = Math.max(1, Math.min(5, parseInt(val, 10) || 1));
+  const info = getDifficultyInfo(current);
+  const picker = $('#difficulty-picker');
+  if (!picker) return;
+
+  const hiddenInput = $('#difficulty');
+  if (hiddenInput && !isPreview) {
+    hiddenInput.value = String(current);
+  }
+
+  const label = $('#diff-picker-label');
+  if (label) {
+    label.textContent = `${info.level}/5 — ${info.label}`;
+    label.style.color = info.color;
+    label.style.borderColor = info.color + '55';
+    label.style.backgroundColor = info.color + '18';
+  }
+
+  const buttons = picker.querySelectorAll('.diff-star-btn');
+  buttons.forEach((btn) => {
+    const starVal = parseInt(btn.dataset.value, 10);
+    const isFilled = starVal <= current;
+    btn.classList.toggle('filled', isFilled);
+    btn.classList.toggle('empty', !isFilled);
+    btn.setAttribute('aria-checked', String(starVal === current));
+    if (isFilled) {
+      btn.style.color = info.color;
+      btn.style.borderColor = info.color + '77';
+      btn.style.backgroundColor = info.color + '1e';
+      btn.style.textShadow = `0 0 8px ${info.color}88`;
+      btn.style.boxShadow = `0 0 8px ${info.color}26`;
+    } else {
+      btn.style.color = '';
+      btn.style.borderColor = '';
+      btn.style.backgroundColor = '';
+      btn.style.textShadow = '';
+      btn.style.boxShadow = '';
+    }
+  });
+}
+
+const diffPicker = $('#difficulty-picker');
+if (diffPicker) {
+  diffPicker.querySelectorAll('.diff-star-btn').forEach((btn) => {
+    const starVal = parseInt(btn.dataset.value, 10);
+    btn.onclick = () => {
+      checkpoint();
+      level.difficulty = starVal;
+      renderDifficultyPicker(level.difficulty);
+      change();
+      renderLevelTree();
+    };
+    btn.onmouseenter = () => {
+      renderDifficultyPicker(starVal, true);
+    };
+  });
+  diffPicker.onmouseleave = () => {
+    renderDifficultyPicker(level?.difficulty || 1);
+  };
+}
+
+if ($('#difficulty')) {
+  $('#difficulty').onchange = () => {
+    checkpoint();
+    level.difficulty = Math.max(1, Math.min(5, parseInt($('#difficulty').value, 10) || 1));
+    renderDifficultyPicker(level.difficulty);
+    change();
+    renderLevelTree();
+  };
 }
 
 const handleDescInput = () => {
@@ -592,9 +664,11 @@ async function list() {
         btn.className = 'btn-level';
         btn.draggable = false;
         btn.title = `${l.name} (${l.id})`;
+        const diff = (l.id === savedId && level) ? (level.difficulty || l.difficulty) : l.difficulty;
         btn.innerHTML = `
           <span class="level-bullet">●</span>
           <span class="level-name">${l.name || l.id}</span>
+          ${renderDifficultyStars(diff)}
           ${l.hidden ? '<span class="level-badge-hidden">прихов.</span>' : ''}
         `;
         btn.onclick = () => {
@@ -675,9 +749,11 @@ async function list() {
       btn.className = 'btn-level';
       btn.draggable = false;
       btn.title = `${l.name} (${l.id})`;
+      const diff = (l.id === savedId && level) ? (level.difficulty || l.difficulty) : l.difficulty;
       btn.innerHTML = `
         <span class="level-bullet">●</span>
-        <span class="level-name">${l.name || l.id}</span>
+        <span class="level-name">${esc(l.name || l.id)}</span>
+        ${renderDifficultyStars(diff)}
         ${l.hidden ? '<span class="level-badge-hidden">прихов.</span>' : ''}
       `;
       btn.onclick = () => {
@@ -706,6 +782,7 @@ function fill() {
   for (const id of ['id', 'name', 'description', 'width', 'depth', 'limit', 'repairKits']) {
     if ($('#' + id)) $('#' + id).value = level[id] ?? (id === 'limit' || id === 'repairKits' ? 0 : '');
   }
+  renderDifficultyPicker(level.difficulty || 1);
   if ($('#descriptionNight')) $('#descriptionNight').value = nightDesc;
   if ($('#descriptionDay')) $('#descriptionDay').value = dayDesc;
   $('#category').replaceChildren();
