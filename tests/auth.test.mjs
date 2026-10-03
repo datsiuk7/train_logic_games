@@ -29,3 +29,22 @@ test('all admin pages include auth.css and auth.js in head', async () => {
     assert.equal(html.includes('auth.js'), true, `${page} must include auth.js`);
   }
 });
+
+test('all admin pages have fullscreen button at the top right in header and auth.js/auth.css support it', async () => {
+  const pages = ['index.html', 'categories.html', 'levels.html', 'settings.html'];
+  for (const page of pages) {
+    const html = await readFile(new URL(`../admin/${page}`, import.meta.url), 'utf8');
+    assert.ok(html.includes('id="admin-fullscreen"'), `${page} must contain #admin-fullscreen button in header`);
+    assert.ok(html.includes('btn-admin-fullscreen'), `${page} must use btn-admin-fullscreen class`);
+    assert.ok(html.includes('Повний екран'), `${page} must have Повний екран label`);
+  }
+
+  const authCode = await readFile(new URL('../admin/auth.js', import.meta.url), 'utf8');
+  assert.ok(authCode.includes('setupFullscreenButton'), 'auth.js must include setupFullscreenButton');
+  assert.ok(authCode.includes('requestFullscreen'), 'auth.js must call requestFullscreen');
+  assert.ok(authCode.includes('exitFullscreen'), 'auth.js must call exitFullscreen');
+
+  const authCss = await readFile(new URL('../admin/auth.css', import.meta.url), 'utf8');
+  assert.ok(authCss.includes('.btn-admin-fullscreen'), 'auth.css must style .btn-admin-fullscreen');
+});
+

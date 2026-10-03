@@ -417,3 +417,51 @@ test('paintCell handles bush, rock, box placement and erase tool', () => {
   assert.equal(level.cells[1][1].rock, false);
 });
 
+test('admin editor index.html and level-state support IF settings (elif, else, allowedSensors)', async () => {
+  const fs = await import('node:fs');
+  const path = await import('node:path');
+  const html = fs.readFileSync(path.resolve('admin/index.html'), 'utf8');
+
+  assert.ok(html.includes('id="field-if-settings"'), 'Field for IF settings must exist');
+  assert.ok(html.includes('id="if-allow-elif"'), 'Checkbox for elif must exist');
+  assert.ok(html.includes('id="if-allow-else"'), 'Checkbox for else must exist');
+  assert.ok(html.includes('id="allowed-sensors"'), 'Container for sensors must exist');
+  assert.ok(html.includes('id="btn-all-sensors"'), 'Button all sensors must exist');
+  assert.ok(html.includes('id="btn-clear-sensors"'), 'Button clear sensors must exist');
+
+  const fresh = createFreshLevel();
+  assert.equal(fresh.allowElif, true);
+  assert.equal(fresh.allowElse, true);
+  assert.ok(Array.isArray(fresh.allowedSensors));
+  assert.ok(fresh.allowedSensors.includes('lampLit'));
+  assert.ok(fresh.allowedSensors.includes('obstacleAhead'));
+});
+
+test('admin editor index.html has level-enabled checkbox and admin.js/state manages level visibility', async () => {
+  const fs = await import('node:fs');
+  const path = await import('node:path');
+  const html = fs.readFileSync(path.resolve('admin/index.html'), 'utf8');
+  const adminCode = fs.readFileSync(path.resolve('admin/admin.js'), 'utf8');
+
+  // 1. Checkbox exists next to name field
+  assert.ok(html.includes('id="level-enabled"'), 'Checkbox id="level-enabled" must exist in admin/index.html');
+  assert.ok(html.includes('id="level-enabled-label"'), 'Status label for level-enabled must exist');
+  assert.ok(html.includes('class="level-enabled-toggle'), 'level-enabled toggle wrapper must exist');
+
+  const nameIdx = html.indexOf('id="name"');
+  const enabledIdx = html.indexOf('id="level-enabled"');
+  assert.ok(nameIdx > 0 && enabledIdx > 0);
+  assert.ok(Math.abs(nameIdx - enabledIdx) < 400, 'level-enabled checkbox must be positioned near the name input');
+
+  // 2. Default fresh level is enabled (hidden is falsy)
+  const fresh = createFreshLevel();
+  assert.equal(Boolean(fresh.hidden), false, 'Fresh level must be enabled by default');
+
+  // 3. Admin.js contains logic to bind level-enabled and handle candidate.hidden
+  assert.match(adminCode, /#level-enabled/);
+  assert.match(adminCode, /updateLevelEnabledUi/);
+  assert.match(adminCode, /updateTreeItemVisibility/);
+  assert.match(adminCode, /candidate\.hidden\s*=\s*true/);
+  assert.match(adminCode, /delete\s+candidate\.hidden/);
+});
+

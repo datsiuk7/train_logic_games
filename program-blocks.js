@@ -67,12 +67,12 @@ export function createValueEditor({ expr, onChange, allowed = [], onRedraw, lock
   return box;
 }
 
-export function createConditionEditor({ condition, allowCompare = false, allowed = [], onRedraw, locked = false }) {
+export function createConditionEditor({ condition, allowed = [], allowedSensors = null, onRedraw, locked = false }) {
   const wrap = document.createElement('div');
   wrap.className = 'condition-editor';
 
   const term = condition.terms?.[0] || condition;
-  if (!allowCompare || !term.kind) term.kind = 'sensor';
+  term.kind = 'sensor';
 
   const notBtn = createButton('НЕ', () => {
     term.not = !term.not;
@@ -82,33 +82,21 @@ export function createConditionEditor({ condition, allowCompare = false, allowed
   notBtn.setAttribute('aria-pressed', String(!!term.not));
   wrap.append(notBtn);
 
-  if (allowCompare) {
-    wrap.append(
-      createSelect({ sensor: 'Датчик', compare: 'Порівняння' }, term.kind, (kind) => {
-        Object.assign(term, {
-          kind,
-          sensor: 'obstacleAhead',
-          left: { kind: 'height' },
-          op: '==',
-          right: { kind: 'number', value: 0 }
-        });
-        onRedraw();
-      }, 'Тип умови', locked)
-    );
+  const availableSensors = Array.isArray(allowedSensors) && allowedSensors.length
+    ? Object.fromEntries(Object.entries(sensors).filter(([k]) => allowedSensors.includes(k)))
+    : sensors;
+
+  const validKeys = Object.keys(availableSensors);
+  if (!validKeys.includes(term.sensor) && validKeys.length) {
+    term.sensor = validKeys[0];
   }
 
-  if (term.kind === 'sensor') {
-    wrap.append(
-      createSelect(sensors, term.sensor || 'obstacleAhead', (v) => {
-        term.sensor = v;
-        onRedraw();
-      }, 'Датчик', locked)
-    );
-  } else {
-    wrap.append(createValueEditor({ expr: term.left, onChange: (v) => { term.left = v; }, allowed, onRedraw, locked }));
-    wrap.append(createSelect(comparisons, term.op, (v) => { term.op = v; }, 'Порівняння', locked));
-    wrap.append(createValueEditor({ expr: term.right, onChange: (v) => { term.right = v; }, allowed, onRedraw, locked }));
-  }
+  wrap.append(
+    createSelect(availableSensors, term.sensor || validKeys[0] || 'obstacleAhead', (v) => {
+      term.sensor = v;
+      onRedraw();
+    }, 'Датчик', locked)
+  );
 
   return wrap;
 }

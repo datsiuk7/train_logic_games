@@ -505,3 +505,38 @@ test('validation supports bush, rock, box and enforces mutual exclusivity', () =
   };
   assert.ok(validateLevel(conflict).length > 0);
 });
+
+test('validation and level configuration for allowedSensors, allowElif, allowElse', () => {
+  const baseLevel = {
+    id: 'test-sensors',
+    name: 'Тест умов',
+    description: '',
+    width: 3,
+    depth: 3,
+    start: { x: 0, z: 0, dir: 0 },
+    allowed: ['forward', 'light', 'if'],
+    limit: 0,
+    cells: [
+      [{ height: 0, tree: false, lamp: false }, { height: 0, tree: false, lamp: true }, { height: 0, tree: false, lamp: false }],
+      [{ height: 0, tree: false, lamp: false }, { height: 0, tree: false, lamp: false }, { height: 0, tree: false, lamp: false }],
+      [{ height: 0, tree: false, lamp: false }, { height: 0, tree: false, lamp: false }, { height: 0, tree: false, lamp: false }]
+    ]
+  };
+
+  // Valid configurations
+  assert.deepEqual(validateLevel({ ...baseLevel, allowedSensors: ['lampLit'], allowElif: false, allowElse: false }), []);
+  assert.deepEqual(validateLevel({ ...baseLevel, allowedSensors: ['lampLit', 'obstacleAhead'], allowElif: true, allowElse: true }), []);
+
+  // Reject invalid sensor key
+  assert.ok(validateLevel({ ...baseLevel, allowedSensors: ['invalidSensor'] }).length > 0);
+
+  // Reject duplicates
+  assert.ok(validateLevel({ ...baseLevel, allowedSensors: ['lampLit', 'lampLit'] }).length > 0);
+
+  // Reject empty sensors when if is allowed
+  assert.ok(validateLevel({ ...baseLevel, allowedSensors: [] }).length > 0);
+
+  // Reject non-boolean allowElif/allowElse
+  assert.ok(validateLevel({ ...baseLevel, allowElif: 'no' }).length > 0);
+  assert.ok(validateLevel({ ...baseLevel, allowElse: 123 }).length > 0);
+});

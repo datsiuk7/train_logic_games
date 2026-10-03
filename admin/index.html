@@ -20,6 +20,7 @@
       <a href="settings.html" class="admin-tab">Налаштування</a>
     </nav>
     <span class="header-note">ЛОКАЛЬНИЙ РЕДАКТОР</span>
+    <button id="admin-fullscreen" class="quiet btn-admin-fullscreen" aria-label="Повний екран" title="Увімкнути повний екран">⛶ Повний екран</button>
     <a class="back" href="../">До гри ↗</a>
   </header>
 
@@ -43,9 +44,16 @@
 
           <hr class="nav-divider">
 
-          <label class="field">Назва
-            <input id="name" maxlength="80">
-          </label>
+          <div class="field field-level-title-group">
+            <div class="field-title-header">
+              <label for="name" class="field-label-text">Назва</label>
+              <label class="level-enabled-toggle is-enabled" title="Якщо галочку знято — рівень вимкнений та прихований від гравців у грі">
+                <input type="checkbox" id="level-enabled" checked>
+                <span id="level-enabled-label" class="level-enabled-status">✓ Увімкнено</span>
+              </label>
+            </div>
+            <input id="name" maxlength="80" placeholder="Назва рівня">
+          </div>
           <input type="hidden" id="id">
           <div class="task-fields-container">
             <div class="field task-field task-night">
@@ -226,6 +234,24 @@
               </div>
             </div>
             <div id="allowed" class="check-list"></div>
+          </div>
+          <div class="field" id="field-if-settings" style="display:none;background:rgba(255,255,255,0.03);padding:10px;border-radius:6px;border:1px solid rgba(255,255,255,0.08);margin-top:8px">
+            <div style="font-weight:600;font-size:12px;margin-bottom:8px;display:flex;align-items:center;gap:6px">
+              <span>❓ Налаштування «Якщо» (if)</span>
+            </div>
+            <div style="font-size:11px;opacity:0.8;margin-bottom:4px">Гілки розгалуження:</div>
+            <div class="check-list" style="margin-bottom:8px">
+              <label><input type="checkbox" id="if-allow-elif"> ＋ elif (інакше якщо)</label>
+              <label><input type="checkbox" id="if-allow-else"> ＋ else (інакше)</label>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+              <span style="font-size:11px;opacity:0.8">Доступні датчики (умови):</span>
+              <div style="display:flex;gap:4px">
+                <button type="button" id="btn-all-sensors" style="padding:2px 7px;font-size:10px">Всі</button>
+                <button type="button" id="btn-clear-sensors" style="padding:2px 7px;font-size:10px">Очистити</button>
+              </div>
+            </div>
+            <div id="allowed-sensors" class="check-list"></div>
           </div>
         </div>
       </section>

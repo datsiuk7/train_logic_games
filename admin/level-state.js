@@ -1,4 +1,4 @@
-import { categories } from '../logic.mjs';
+import { categories, sensors } from '../logic.mjs';
 
 export function createFreshLevel(defaultAllowed = null) {
   const allowed = defaultAllowed || [...categories[0].allowedCommands];
@@ -14,6 +14,9 @@ export function createFreshLevel(defaultAllowed = null) {
     depth: 4,
     start: { x: 0, z: 3, dir: 0 },
     allowed,
+    allowElif: true,
+    allowElse: true,
+    allowedSensors: Object.keys(sensors),
     hints: [],
     limit: 0,
     repairKits: 0,

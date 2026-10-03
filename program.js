@@ -124,8 +124,8 @@ export class ProgramEditor {
   make(type) {
     const b = { id: `b${++serial}`, type };
     if (type === 'loop') Object.assign(b, { times: 2, body: [] });
-    if (type === 'while') Object.assign(b, { condition: defaultCondition(), body: [] });
-    if (type === 'if') Object.assign(b, { condition: defaultCondition(), body: [] });
+    if (type === 'while') Object.assign(b, { condition: defaultCondition(this.level?.allowedSensors), body: [] });
+    if (type === 'if') Object.assign(b, { condition: defaultCondition(this.level?.allowedSensors), body: [] });
     if (type === 'call') {
       if (!this.functions.length) this.addFunction();
       b.functionId = this.functions[0].id;
@@ -241,11 +241,20 @@ export class ProgramEditor {
       iconSpan.className = `icon${b.type === 'loop' ? ' loop-icon' : ''}`;
       iconSpan.innerHTML = iconMarkup(b.type, this.theme);
 
-      const label = document.createElement('span');
-      label.className = 'command-label';
-      label.textContent = name;
+      if (b.type === 'if') {
+        const branches = b.branches || [{ condition: b.condition, body: b.body || [] }];
+        b.branches = branches;
+        delete b.condition;
+        delete b.body;
 
-      head.append(iconSpan, label);
+        head.append(iconSpan);
+        head.append(this.conditionEditor(branches[0].condition));
+      } else {
+        const label = document.createElement('span');
+        label.className = 'command-label';
+        label.textContent = name;
+        head.append(iconSpan, label);
+      }
 
       if (b.type === 'loop') {
         const times = document.createElement('span');
@@ -363,11 +372,11 @@ export class ProgramEditor {
     });
   }
 
-  conditionEditor(condition, allowCompare = false) {
+  conditionEditor(condition) {
     return createConditionEditor({
       condition,
-      allowCompare,
       allowed: this.level.allowed,
+      allowedSensors: this.level.allowedSensors,
       onRedraw: () => this.draw(),
       locked: this.locked
     });
@@ -388,50 +397,58 @@ export class ProgramEditor {
     }
 
     if (b.type === 'while') {
-      row.append(this.conditionEditor(b.condition, true));
+      row.append(this.conditionEditor(b.condition));
       this.bodyZone(row, b.body, 'code-body');
     }
 
     if (b.type === 'if') {
-      const branches = b.branches || [{ condition: b.condition, body: b.body }];
+      const branches = b.branches || [{ condition: b.condition, body: b.body || [] }];
       b.branches = branches;
       delete b.condition;
       delete b.body;
 
-      branches.forEach((branch, branchIndex) => {
+      this.bodyZone(row, branches[0].body, 'code-body');
+
+      for (let i = 1; i < branches.length; i++) {
+        const branch = branches[i];
         const branchBox = document.createElement('div');
-        branchBox.className = 'if-branch';
+        branchBox.className = 'if-branch elif-branch';
 
-        const head = document.createElement('div');
-        head.className = 'branch-head';
-        head.append(document.createTextNode(branchIndex === 0 ? 'Якщо' : 'Інакше якщо'));
-        head.append(this.conditionEditor(branch.condition, true));
-
-        if (branchIndex > 0) {
-          head.append(this.button('Видалити', () => {
-            branches.splice(branchIndex, 1);
-            this.draw();
-          }));
-        }
-        branchBox.append(head);
-        this.bodyZone(branchBox, branch.body);
+        const bHead = document.createElement('div');
+        bHead.className = 'branch-head';
+        bHead.append(document.createTextNode('Інакше якщо'));
+        bHead.append(this.conditionEditor(branch.condition));
+        bHead.append(this.button('Видалити', () => {
+          branches.splice(i, 1);
+          this.draw();
+        }));
+        branchBox.append(bHead);
+        this.bodyZone(branchBox, branch.body, 'code-body');
         row.append(branchBox);
-      });
+      }
+
+      const canElif = this.level.allowElif !== false;
+      const canElse = this.level.allowElse !== false;
 
       const actions = document.createElement('div');
       actions.className = 'branch-actions';
-      actions.append(this.button('＋ elif', () => {
-        branches.push({ condition: defaultCondition(), body: [] });
-        this.draw();
-      }));
 
-      if (!b.elseBody) {
+      if (canElif) {
+        actions.append(this.button('＋ elif', () => {
+          branches.push({ condition: defaultCondition(this.level.allowedSensors), body: [] });
+          this.draw();
+        }));
+      }
+
+      if (canElse && !b.elseBody) {
         actions.append(this.button('＋ else', () => {
           b.elseBody = [];
           this.draw();
         }));
       }
-      row.append(actions);
+      if (actions.children.length > 0) {
+        row.append(actions);
+      }
 
       if (b.elseBody) {
         const elseBox = document.createElement('div');

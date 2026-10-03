@@ -69,12 +69,82 @@
     btn.addEventListener('click', logout);
   }
 
-  // If already logged in, mount logout button when ready and exit
+  function setupFullscreenButton() {
+    const header = document.querySelector('header');
+    if (!header) return;
+
+    let btn = header.querySelector('#admin-fullscreen, #fullscreen, .btn-admin-fullscreen');
+    if (!btn) {
+      btn = document.createElement('button');
+      btn.id = 'admin-fullscreen';
+      btn.type = 'button';
+      btn.className = 'quiet btn-admin-fullscreen';
+      btn.setAttribute('aria-label', 'Повний екран');
+      btn.title = 'Увімкнути повний екран';
+      btn.textContent = '⛶ Повний екран';
+      const backLink = header.querySelector('.back');
+      if (backLink) {
+        header.insertBefore(btn, backLink);
+      } else {
+        header.appendChild(btn);
+      }
+    }
+
+    function isFullscreen() {
+      return Boolean(
+        document.fullscreenElement ||
+        document.webkitFullscreenElement ||
+        document.mozFullScreenElement ||
+        document.msFullscreenElement
+      );
+    }
+
+    function update() {
+      const fs = isFullscreen();
+      btn.setAttribute('aria-pressed', fs ? 'true' : 'false');
+      btn.textContent = fs ? '🗗 Згорнути' : '⛶ Повний екран';
+      btn.title = fs ? 'Вийти з повного екрана' : 'Увімкнути повний екран';
+    }
+
+    btn.onclick = async () => {
+      try {
+        if (!isFullscreen()) {
+          const root = document.documentElement || document.body;
+          if (root?.requestFullscreen) await root.requestFullscreen();
+          else if (root?.webkitRequestFullscreen) await root.webkitRequestFullscreen();
+          else if (root?.msRequestFullscreen) await root.msRequestFullscreen();
+        } else {
+          if (document.exitFullscreen) await document.exitFullscreen();
+          else if (document.webkitExitFullscreen) await document.webkitExitFullscreen();
+          else if (document.msExitFullscreen) await document.msExitFullscreen();
+        }
+      } catch {}
+      update();
+    };
+
+    const addDocListener = (event, fn) => {
+      document.addEventListener?.(event, fn);
+    };
+
+    addDocListener('fullscreenchange', update);
+    addDocListener('webkitfullscreenchange', update);
+    addDocListener('mozfullscreenchange', update);
+    addDocListener('MSFullscreenChange', update);
+
+    update();
+  }
+
+  function attachHeaderButtons() {
+    setupFullscreenButton();
+    attachLogoutButton();
+  }
+
+  // If already logged in, mount header buttons when ready and exit
   if (isAuthorized()) {
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', attachLogoutButton);
+      document.addEventListener('DOMContentLoaded', attachHeaderButtons);
     } else {
-      attachLogoutButton();
+      attachHeaderButtons();
     }
     return;
   }
@@ -133,7 +203,7 @@
         setTimeout(() => {
           overlay.remove();
           if (guard.parentNode) guard.parentNode.removeChild(guard);
-          attachLogoutButton();
+          attachHeaderButtons();
         }, 180);
       } else {
         msg.textContent = 'Невірний пароль';

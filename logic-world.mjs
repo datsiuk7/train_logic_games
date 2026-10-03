@@ -332,7 +332,11 @@ export const comparisons = {
   '>=': '≥ більше або дорівнює'
 };
 
-export const defaultCondition = () => ({ kind: 'sensor', sensor: 'obstacleAhead', not: false });
+export const defaultCondition = (allowedSensors) => ({
+  kind: 'sensor',
+  sensor: (Array.isArray(allowedSensors) && allowedSensors[0]) || 'obstacleAhead',
+  not: false
+});
 
 export function conditionValue(condition, l, s, memory, valueOfFn) {
   if (!condition) throw new Error('Додай умову.');

@@ -1,4 +1,4 @@
-import { commands } from './logic-world.mjs';
+import { commands, sensors } from './logic-world.mjs';
 import { validateHints } from './hint-data.mjs';
 
 export function childLists(b) {
@@ -125,6 +125,23 @@ export function validateLevel(l) {
   }
   if (l.difficulty !== undefined && (!Number.isInteger(l.difficulty) || l.difficulty < 1 || l.difficulty > 5)) {
     errors.push('Складність: число від 1 до 5.');
+  }
+  if (l.allowedSensors !== undefined) {
+    if (
+      !Array.isArray(l.allowedSensors) ||
+      l.allowedSensors.some((s) => !Object.hasOwn(sensors, s)) ||
+      new Set(l.allowedSensors).size !== l.allowedSensors.length
+    ) {
+      errors.push('Вибери коректні датчики для умов.');
+    } else if (l.allowedSensors.length === 0 && (l.allowed?.includes('if') || l.allowed?.includes('while'))) {
+      errors.push('Для умов «Якщо» або «Поки» потрібен хоча б один датчик.');
+    }
+  }
+  if (l.allowElif !== undefined && typeof l.allowElif !== 'boolean') {
+    errors.push('allowElif має бути true або false.');
+  }
+  if (l.allowElse !== undefined && typeof l.allowElse !== 'boolean') {
+    errors.push('allowElse має бути true або false.');
   }
   return errors;
 }

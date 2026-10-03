@@ -1,4 +1,4 @@
-import { commands, validateLevel, initialState, categories, getCategory, renderDifficultyStars, getDifficultyInfo } from '../logic.mjs';
+import { commands, sensors, validateLevel, initialState, categories, getCategory, renderDifficultyStars, getDifficultyInfo } from '../logic.mjs';
 import { World } from '../scene.js';
 import { icon, tools, refreshCell } from './map-editor.js';
 import { createFreshLevel, loadDraft, saveDraft, LevelHistory } from './level-state.js';
@@ -255,6 +255,54 @@ for (const id of ['name', 'limit', 'repairKits']) {
       change();
     };
   }
+}
+
+function updateLevelEnabledUi(isEnabled) {
+  const label = $('#level-enabled-label');
+  const toggle = $('#level-enabled')?.closest('.level-enabled-toggle');
+  if (label) {
+    label.textContent = isEnabled ? '✓ Увімкнено' : '✕ Вимкнено';
+  }
+  if (toggle) {
+    toggle.classList.toggle('is-enabled', isEnabled);
+    toggle.classList.toggle('is-disabled', !isEnabled);
+    toggle.title = isEnabled
+      ? 'Рівень увімкнено (видимий гравцям). Зніми галочку, щоб приховати рівень.'
+      : 'Рівень вимкнено (прихований від гравців). Постав галочку, щоб увімкнути рівень.';
+  }
+}
+
+function updateTreeItemVisibility(id, isHidden) {
+  if (!id) return;
+  const item = document.querySelector(`.cat-level-item[data-id="${id}"]`);
+  if (!item) return;
+  let badge = item.querySelector('.level-badge-hidden');
+  if (isHidden) {
+    if (!badge) {
+      badge = document.createElement('span');
+      badge.className = 'level-badge-hidden';
+      badge.textContent = 'прихов.';
+      const btn = item.querySelector('.btn-level');
+      if (btn) btn.append(badge);
+    }
+  } else {
+    if (badge) badge.remove();
+  }
+}
+
+if ($('#level-enabled')) {
+  $('#level-enabled').onchange = () => {
+    checkpoint();
+    const isEnabled = $('#level-enabled').checked;
+    if (isEnabled) {
+      delete level.hidden;
+    } else {
+      level.hidden = true;
+    }
+    updateLevelEnabledUi(isEnabled);
+    updateTreeItemVisibility(savedId, !!level.hidden);
+    change();
+  };
 }
 
 function renderDifficultyPicker(val, isPreview = false) {
@@ -782,6 +830,12 @@ function fill() {
   for (const id of ['id', 'name', 'description', 'width', 'depth', 'limit', 'repairKits']) {
     if ($('#' + id)) $('#' + id).value = level[id] ?? (id === 'limit' || id === 'repairKits' ? 0 : '');
   }
+  const enabledCb = $('#level-enabled');
+  if (enabledCb) {
+    const isEnabled = !level.hidden;
+    enabledCb.checked = isEnabled;
+    updateLevelEnabledUi(isEnabled);
+  }
   renderDifficultyPicker(level.difficulty || 1);
   if ($('#descriptionNight')) $('#descriptionNight').value = nightDesc;
   if ($('#descriptionDay')) $('#descriptionDay').value = dayDesc;
@@ -827,6 +881,14 @@ function fill() {
     b.setAttribute('aria-pressed', String(isSel));
   });
 
+  const ifSettingsField = $('#field-if-settings');
+  const updateIfSettingsVisibility = () => {
+    if (ifSettingsField) {
+      const hasIfOrWhile = level.allowed.includes('if') || level.allowed.includes('while');
+      ifSettingsField.style.display = hasIfOrWhile ? 'block' : 'none';
+    }
+  };
+
   $('#allowed').replaceChildren();
   for (const [id, [cmdIcon, name]] of Object.entries(commands)) {
     const label = document.createElement('label');
@@ -838,11 +900,86 @@ function fill() {
       level.allowed = Object.keys(commands).filter((k) =>
         k === id ? box.checked : level.allowed.includes(k)
       );
+      updateIfSettingsVisibility();
       drawLevelHints();
       change();
     };
     label.append(box, document.createTextNode(cmdIcon + ' ' + name));
     $('#allowed').append(label);
+  }
+
+  updateIfSettingsVisibility();
+
+  if (ifSettingsField) {
+    const elifBox = $('#if-allow-elif');
+    if (elifBox) {
+      elifBox.checked = level.allowElif !== false;
+      elifBox.onchange = () => {
+        checkpoint();
+        level.allowElif = elifBox.checked;
+        change();
+      };
+    }
+
+    const elseBox = $('#if-allow-else');
+    if (elseBox) {
+      elseBox.checked = level.allowElse !== false;
+      elseBox.onchange = () => {
+        checkpoint();
+        level.allowElse = elseBox.checked;
+        change();
+      };
+    }
+
+    const renderSensors = () => {
+      const list = $('#allowed-sensors');
+      if (!list) return;
+      list.replaceChildren();
+      const activeSensors = Array.isArray(level.allowedSensors)
+        ? level.allowedSensors
+        : Object.keys(sensors);
+
+      for (const [sId, sName] of Object.entries(sensors)) {
+        const sLabel = document.createElement('label');
+        const sBox = document.createElement('input');
+        sBox.type = 'checkbox';
+        sBox.checked = activeSensors.includes(sId);
+        sBox.onchange = () => {
+          checkpoint();
+          const active = Array.isArray(level.allowedSensors)
+            ? level.allowedSensors
+            : Object.keys(sensors);
+          level.allowedSensors = Object.keys(sensors).filter((k) =>
+            k === sId ? sBox.checked : active.includes(k)
+          );
+          change();
+        };
+        sLabel.append(sBox, document.createTextNode(' ' + sName));
+        list.append(sLabel);
+      }
+    };
+
+    renderSensors();
+
+    const btnAll = $('#btn-all-sensors');
+    if (btnAll) {
+      btnAll.onclick = () => {
+        checkpoint();
+        level.allowedSensors = Object.keys(sensors);
+        renderSensors();
+        change();
+      };
+    }
+
+    const btnClear = $('#btn-clear-sensors');
+    if (btnClear) {
+      btnClear.onclick = () => {
+        checkpoint();
+        level.allowedSensors = [];
+        renderSensors();
+        change();
+      };
+    }
   }
 
   drawLevelHints();
@@ -885,7 +1022,14 @@ async function save(copy = false) {
     candidate.descriptionNight = $('#descriptionNight')?.value ?? level.descriptionNight ?? '';
     candidate.descriptionDay = $('#descriptionDay')?.value ?? level.descriptionDay ?? '';
     candidate.description = candidate.descriptionNight || candidate.descriptionDay || level.description || '';
-    if (level.hidden) candidate.hidden = true;
+    const isEnabled = $('#level-enabled') ? $('#level-enabled').checked : !level.hidden;
+    if (!isEnabled) {
+      candidate.hidden = true;
+      level.hidden = true;
+    } else {
+      delete candidate.hidden;
+      delete level.hidden;
+    }
     if (copy) {
       candidate.name = (level.name + ' — копія').slice(0, 80);
     }

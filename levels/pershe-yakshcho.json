@@ -6,10 +6,10 @@
   "descriptionDay": "",
   "category": "conditions",
   "width": 3,
-  "depth": 8,
+  "depth": 10,
   "start": {
     "x": 1,
-    "z": 7,
+    "z": 9,
     "dir": 0
   },
   "allowed": [
@@ -25,7 +25,7 @@
     },
     {
       "text": "🧭 Як працює вибір дій: Якщо / elif / else\nУяви, що підходиш до дверей:\n• Якщо (if) — «Чи є ключ?» ➔ відчиняю і заходжу.\n• elif (інакше якщо) — «Ключа немає, але чи відчинене вікно?» ➔ залізу у вікно.\n• else (інакше) — «Жоден варіант не спрацював?» ➔ дзвоню в двері.\n💡 Пам'ятай: комп'ютер вибере тільки ОДИН варіант — перший, який підійде!",
-      "target": "palette"
+      "target": "command:if"
     }
   ],
   "limit": 4,
@@ -241,6 +241,60 @@
       {
         "height": 0,
         "tree": false,
+        "lamp": true,
+        "house": false,
+        "lit": false,
+        "bulb": false,
+        "kit": false,
+        "spark": false,
+        "needsBulb": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false,
+        "house": false,
+        "lit": false
+      }
+    ],
+    [
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false,
+        "house": false,
+        "lit": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": true,
+        "house": false,
+        "lit": true,
+        "bulb": false,
+        "kit": false,
+        "spark": false,
+        "needsBulb": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false,
+        "house": false,
+        "lit": false
+      }
+    ],
+    [
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false,
+        "house": false,
+        "lit": false
+      },
+      {
+        "height": 0,
+        "tree": false,
         "lamp": false,
         "house": false,
         "lit": false
@@ -254,5 +308,11 @@
       }
     ]
   ],
-  "difficulty": 4
+  "difficulty": 3,
+  "allowedSensors": [
+    "lampLit"
+  ],
+  "allowElse": false,
+  "allowElif": false,
+  "hidden": true
 }

@@ -49,3 +49,53 @@ test('block count format displays Залишилося X/Y for levels with limit
   editor2.insert('forward');
   assert.equal(count.textContent, 'Блоків: 1');
 });
+test('if block header contains condition editor and icon without text label', () => {
+  globalThis.Option = class Option {
+    constructor(text, value) {
+      this.text = text;
+      this.value = value;
+    }
+  };
+
+  const elements = [];
+  const mkEl = () => {
+    const children = [];
+    const el = {
+      children,
+      dataset: {},
+      append: (...items) => children.push(...items),
+      add: (item) => children.push(item),
+      after: () => {},
+      replaceChildren: () => { children.length = 0; },
+      setAttribute: () => {},
+      addEventListener: () => {},
+      querySelectorAll: () => [],
+      querySelector: () => null,
+      classList: { toggle: () => {}, add: () => {}, remove: () => {} },
+      parentElement: null
+    };
+    el.parentElement = {
+      classList: { toggle: () => {} },
+      querySelectorAll: () => []
+    };
+    elements.push(el);
+    return el;
+  };
+
+  globalThis.document = { createElement: mkEl, createTextNode: (t) => t };
+
+  const host = mkEl();
+  const palette = mkEl();
+  const count = mkEl();
+  const trash = mkEl();
+
+  const level = { limit: 0, allowed: ['if'], allowedSensors: ['lampLit'] };
+  const editor = new ProgramEditor(palette, host, count, level, trash);
+  editor.insert('if');
+
+  const labelFound = elements.some((e) => e.className === 'command-label' && e.textContent?.includes('Якщо'));
+  assert.equal(labelFound, false, 'No command-label for if block');
+
+  const condEditor = elements.some((e) => e.className === 'condition-editor');
+  assert.equal(condEditor, true, 'Condition editor is created');
+});
