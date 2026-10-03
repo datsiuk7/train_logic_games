@@ -613,5 +613,35 @@ test('palette command buttons have centered icons without rightward offset', asy
   assert.match(gameCss, /\.program-panel\s+\.command\s+\.icon\s*\{[^}]*justify-content:\s*center/);
 });
 
+test('scripts and stylesheets in index.html and admin pages have version query parameter (?v0.1)', async () => {
+  const fs = await import('node:fs');
+  const path = await import('node:path');
+
+  const files = [
+    'index.html',
+    'admin/index.html',
+    'admin/categories.html',
+    'admin/levels.html',
+    'admin/settings.html'
+  ];
+
+  for (const rel of files) {
+    const html = fs.readFileSync(path.resolve(rel), 'utf8');
+
+    // Extract all href and src from stylesheet link tags and script tags
+    const linkMatches = [...html.matchAll(/<link\s+[^>]*rel=["']stylesheet["'][^>]*href=["']([^"']+)["']/gi)];
+    for (const match of linkMatches) {
+      const href = match[1];
+      assert.ok(href.includes('?v0.1'), `${rel} stylesheet "${href}" must include version query ?v0.1`);
+    }
+
+    const scriptMatches = [...html.matchAll(/<script\s+[^>]*src=["']([^"']+)["']/gi)];
+    for (const match of scriptMatches) {
+      const src = match[1];
+      assert.ok(src.includes('?v0.1'), `${rel} script "${src}" must include version query ?v0.1`);
+    }
+  }
+});
+
 
 

@@ -82,7 +82,7 @@ export function startGame(container, l, preview, options) {
       </div>
     </div>
     <div id="help-card" class="game-help-card" hidden>
-      <div class="game-help-heading"><strong>Як грати</strong><span id="help-count"></span></div>
+      <div class="game-help-heading"><strong>Підказка</strong><span id="help-count"></span></div>
       <p id="help-text" aria-live="polite"></p>
       <div class="game-help-actions">
         <button id="help-close" type="button">Закрити</button>

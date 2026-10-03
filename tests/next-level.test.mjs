@@ -18,6 +18,8 @@ test('renderHome displays minimalist section header for unlocked categories', as
 
   // Section 2 is initially locked
   assert.ok(!container.innerHTML.includes('<h2 class="category-title">2. Цикли</h2>'));
+  assert.ok(container.innerHTML.includes('Розділ під замком'));
+  assert.ok(container.innerHTML.includes('Щоб розблокувати, пройдіть всі попередні рівні'));
 
   // When Section 1 is finished, Section 2 displays its minimalist header
   const sections = getLevelSections(levels, categories);

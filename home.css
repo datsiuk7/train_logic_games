@@ -119,17 +119,28 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 8px;
   color: #6d8091;
   font-size: 13px;
   font-weight: 500;
   letter-spacing: 0.2px;
   user-select: none;
+  text-align: center;
+  flex-wrap: wrap;
 }
 
 .category-locked-simple .locked-icon {
   font-size: 14px;
   filter: grayscale(1) opacity(0.55);
+}
+
+.category-locked-simple .locked-divider {
+  opacity: 0.45;
+}
+
+.category-locked-simple .locked-hint {
+  color: #5d7080;
+  font-size: 12.5px;
 }
 
 /* Category module section */
@@ -393,6 +404,10 @@
 
 [data-theme="light"] .category-locked-simple {
   color: #7b8e9d;
+}
+
+[data-theme="light"] .category-locked-simple .locked-hint {
+  color: #6a7c8c;
 }
 
 [data-theme="light"] .category-locked-simple .locked-icon {

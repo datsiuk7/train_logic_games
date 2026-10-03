@@ -72,7 +72,9 @@ export function renderHome(container, { levels, categories, done, currentTheme }
         return `<section class="category-section locked" data-cat="${cat.id}">
         <div class="category-locked-simple">
           <span class="locked-icon" aria-hidden="true">🔒</span>
-          <span>Розділ під замком</span>
+          <span class="locked-text">Розділ під замком</span>
+          <span class="locked-divider" aria-hidden="true">·</span>
+          <span class="locked-hint">Щоб розблокувати, пройдіть всі попередні рівні</span>
         </div>
       </section>`;
       }
