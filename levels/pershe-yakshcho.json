@@ -14,9 +14,6 @@
   },
   "allowed": [
     "forward",
-    "left",
-    "right",
-    "jump",
     "light",
     "loop",
     "if"
@@ -31,7 +28,7 @@
       "target": "palette"
     }
   ],
-  "limit": 0,
+  "limit": 4,
   "repairKits": 0,
   "cells": [
     [
@@ -257,5 +254,5 @@
       }
     ]
   ],
-  "difficulty": 2
+  "difficulty": 4
 }
