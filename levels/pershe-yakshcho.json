@@ -313,6 +313,5 @@
     "lampLit"
   ],
   "allowElse": false,
-  "allowElif": false,
-  "hidden": true
+  "allowElif": false
 }

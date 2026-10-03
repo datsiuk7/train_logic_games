@@ -58,7 +58,11 @@
         "bulb": false,
         "kit": false,
         "spark": false,
-        "lit": false
+        "lit": false,
+        "bush": true,
+        "rock": false,
+        "box": false,
+        "needsBulb": false
       }
     ]
   ],

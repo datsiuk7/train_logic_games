@@ -212,5 +212,6 @@
         "lamp": false
       }
     ]
-  ]
+  ],
+  "hidden": true
 }

@@ -1,27 +1,36 @@
 {
-  "id": "ogo-yashchykiv-chy-tse-labirynt",
-  "name": "Ого ящиків, чи це лабіринт?",
+  "id": "dachnyy-masyv",
+  "name": "Дачний масив",
   "description": "",
   "descriptionNight": "",
   "descriptionDay": "",
   "category": "loops",
-  "width": 6,
-  "depth": 7,
+  "difficulty": 3,
+  "width": 10,
+  "depth": 6,
   "start": {
-    "x": 1,
-    "z": 6,
+    "x": 0,
+    "z": 3,
     "dir": 0
   },
   "allowed": [
     "forward",
     "left",
     "right",
-    "jump",
     "light",
     "loop"
   ],
+  "allowElif": true,
+  "allowElse": true,
+  "allowedSensors": [
+    "lampShorts",
+    "onLamp",
+    "obstacleAhead",
+    "lampLit",
+    "canJump"
+  ],
   "hints": [],
-  "limit": 20,
+  "limit": 30,
   "repairKits": 0,
   "cells": [
     [
@@ -29,15 +38,37 @@
         "height": 0,
         "tree": false,
         "lamp": false,
+        "house": true,
+        "bulb": false,
+        "kit": false,
+        "spark": false,
+        "lit": false,
+        "dir": 2
+      },
+      {
+        "height": 0,
+        "tree": true,
+        "lamp": false,
         "house": false,
         "bulb": false,
         "kit": false,
         "spark": false,
         "lit": false,
-        "needsBulb": false,
         "bush": false,
         "rock": false,
-        "box": false
+        "box": false,
+        "needsBulb": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false,
+        "house": true,
+        "bulb": false,
+        "kit": false,
+        "spark": false,
+        "lit": false,
+        "dir": 2
       },
       {
         "height": 0,
@@ -48,20 +79,31 @@
         "kit": false,
         "spark": false,
         "lit": false,
-        "box": false,
-        "bush": false,
+        "bush": true,
         "rock": false,
+        "box": false,
         "needsBulb": false
       },
       {
         "height": 0,
         "tree": false,
         "lamp": false,
+        "house": true,
+        "lit": false,
+        "bulb": false,
+        "kit": false,
+        "spark": false,
+        "dir": 2
+      },
+      {
+        "height": 0,
+        "tree": true,
+        "lamp": false,
         "house": false,
         "lit": false,
-        "box": false,
         "bush": false,
         "rock": false,
+        "box": false,
         "bulb": false,
         "kit": false,
         "spark": false,
@@ -71,25 +113,22 @@
         "height": 0,
         "tree": false,
         "lamp": false,
-        "house": false,
+        "house": true,
         "lit": false,
-        "box": false,
-        "bush": false,
-        "rock": false,
         "bulb": false,
         "kit": false,
         "spark": false,
-        "needsBulb": false
+        "dir": 2
       },
       {
         "height": 0,
         "tree": false,
-        "lamp": true,
+        "lamp": false,
         "house": false,
         "lit": false,
-        "box": false,
-        "bush": false,
+        "bush": true,
         "rock": false,
+        "box": false,
         "bulb": false,
         "kit": false,
         "spark": false,
@@ -99,11 +138,22 @@
         "height": 0,
         "tree": false,
         "lamp": false,
+        "house": true,
+        "lit": false,
+        "bulb": false,
+        "kit": false,
+        "spark": false,
+        "dir": 2
+      },
+      {
+        "height": 0,
+        "tree": true,
+        "lamp": false,
         "house": false,
         "lit": false,
-        "box": false,
         "bush": false,
         "rock": false,
+        "box": false,
         "bulb": false,
         "kit": false,
         "spark": false,
@@ -119,11 +169,18 @@
         "bulb": false,
         "kit": false,
         "spark": false,
+        "lit": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false,
+        "house": true,
+        "bulb": false,
+        "kit": false,
+        "spark": false,
         "lit": false,
-        "box": true,
-        "bush": false,
-        "rock": false,
-        "needsBulb": false
+        "dir": 2
       },
       {
         "height": 0,
@@ -133,67 +190,72 @@
         "bulb": false,
         "kit": false,
         "spark": false,
+        "lit": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false,
+        "house": true,
+        "bulb": false,
+        "kit": false,
+        "spark": false,
         "lit": false,
-        "box": false,
-        "bush": false,
-        "rock": false,
-        "needsBulb": false
+        "dir": 2
       },
       {
         "height": 0,
         "tree": false,
         "lamp": false,
         "house": false,
+        "lit": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false,
+        "house": true,
         "lit": false,
-        "box": true,
-        "bush": false,
-        "rock": false,
         "bulb": false,
         "kit": false,
         "spark": false,
-        "needsBulb": false
+        "dir": 2
       },
       {
         "height": 0,
         "tree": false,
         "lamp": false,
         "house": false,
+        "lit": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false,
+        "house": true,
         "lit": false,
-        "box": true,
-        "bush": false,
-        "rock": false,
         "bulb": false,
         "kit": false,
         "spark": false,
-        "needsBulb": false
+        "dir": 2
       },
       {
         "height": 0,
         "tree": false,
         "lamp": false,
         "house": false,
-        "lit": false,
-        "box": true,
-        "bush": false,
-        "rock": false,
-        "bulb": false,
-        "kit": false,
-        "spark": false,
-        "needsBulb": false
+        "lit": false
       },
       {
         "height": 0,
         "tree": false,
         "lamp": false,
-        "house": false,
+        "house": true,
         "lit": false,
-        "box": true,
-        "bush": false,
-        "rock": false,
         "bulb": false,
         "kit": false,
         "spark": false,
-        "needsBulb": false
+        "dir": 2
       }
     ],
     [
@@ -205,11 +267,7 @@
         "bulb": false,
         "kit": false,
         "spark": false,
-        "lit": false,
-        "rock": false,
-        "bush": false,
-        "box": false,
-        "needsBulb": false
+        "lit": false
       },
       {
         "height": 0,
@@ -219,67 +277,69 @@
         "bulb": false,
         "kit": false,
         "spark": false,
-        "lit": false,
-        "box": false,
-        "bush": false,
-        "rock": false,
-        "needsBulb": false
+        "lit": false
       },
       {
         "height": 0,
         "tree": false,
         "lamp": false,
         "house": false,
-        "lit": false,
-        "box": true,
-        "bush": false,
-        "rock": false,
         "bulb": false,
         "kit": false,
         "spark": false,
-        "needsBulb": false
+        "lit": false
       },
       {
         "height": 0,
         "tree": false,
         "lamp": false,
         "house": false,
-        "lit": false,
-        "box": false,
-        "bush": false,
-        "rock": false,
         "bulb": false,
         "kit": false,
         "spark": false,
-        "needsBulb": false
+        "lit": false
       },
       {
         "height": 0,
         "tree": false,
         "lamp": false,
         "house": false,
-        "lit": false,
-        "box": false,
-        "bush": false,
-        "rock": false,
-        "bulb": false,
-        "kit": false,
-        "spark": false,
-        "needsBulb": false
+        "lit": false
       },
       {
         "height": 0,
         "tree": false,
         "lamp": false,
         "house": false,
-        "lit": false,
-        "box": false,
-        "bush": false,
-        "rock": false,
-        "bulb": false,
-        "kit": false,
-        "spark": false,
-        "needsBulb": false
+        "lit": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false,
+        "house": false,
+        "lit": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false,
+        "house": false,
+        "lit": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false,
+        "house": false,
+        "lit": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false,
+        "house": false,
+        "lit": false
       }
     ],
     [
@@ -291,11 +351,7 @@
         "bulb": false,
         "kit": false,
         "spark": false,
-        "lit": false,
-        "box": false,
-        "bush": false,
-        "rock": false,
-        "needsBulb": false
+        "lit": false
       },
       {
         "height": 0,
@@ -305,67 +361,141 @@
         "bulb": false,
         "kit": false,
         "spark": false,
-        "lit": false,
-        "box": false,
-        "bush": false,
-        "rock": false,
-        "needsBulb": false
+        "lit": false
       },
       {
         "height": 0,
         "tree": false,
         "lamp": false,
         "house": false,
-        "lit": false,
-        "box": false,
-        "bush": false,
-        "rock": false,
         "bulb": false,
         "kit": false,
         "spark": false,
-        "needsBulb": false
+        "lit": false
       },
       {
         "height": 0,
         "tree": false,
         "lamp": false,
         "house": false,
-        "lit": false,
-        "box": false,
-        "bush": false,
-        "rock": false,
         "bulb": false,
         "kit": false,
         "spark": false,
-        "needsBulb": false
+        "lit": false
       },
       {
         "height": 0,
         "tree": false,
         "lamp": false,
         "house": false,
-        "lit": false,
-        "box": false,
-        "bush": false,
-        "rock": false,
-        "bulb": false,
-        "kit": false,
-        "spark": false,
-        "needsBulb": false
+        "lit": false
       },
       {
         "height": 0,
         "tree": false,
         "lamp": false,
         "house": false,
-        "lit": false,
-        "box": false,
-        "bush": false,
-        "rock": false,
-        "bulb": false,
-        "kit": false,
-        "spark": false,
-        "needsBulb": false
+        "lit": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false,
+        "house": false,
+        "lit": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false,
+        "house": false,
+        "lit": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false,
+        "house": false,
+        "lit": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false,
+        "house": false,
+        "lit": false
+      }
+    ],
+    [
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false,
+        "house": false,
+        "lit": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false,
+        "house": false,
+        "lit": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false,
+        "house": false,
+        "lit": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false,
+        "house": false,
+        "lit": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false,
+        "house": false,
+        "lit": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false,
+        "house": false,
+        "lit": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false,
+        "house": false,
+        "lit": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false,
+        "house": false,
+        "lit": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false,
+        "house": false,
+        "lit": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false,
+        "house": false,
+        "lit": false
       }
     ],
     [
@@ -375,63 +505,7 @@
         "lamp": false,
         "house": false,
         "lit": false,
-        "box": true,
-        "bush": false,
-        "rock": false,
-        "bulb": false,
-        "kit": false,
-        "spark": false,
-        "needsBulb": false
-      },
-      {
-        "height": 0,
-        "tree": false,
-        "lamp": false,
-        "house": false,
-        "lit": false,
-        "box": false,
-        "bush": false,
-        "rock": false,
-        "bulb": false,
-        "kit": false,
-        "spark": false,
-        "needsBulb": false
-      },
-      {
-        "height": 0,
-        "tree": false,
-        "lamp": false,
-        "house": false,
-        "lit": false,
-        "box": false,
-        "bush": false,
-        "rock": false,
-        "bulb": false,
-        "kit": false,
-        "spark": false,
-        "needsBulb": false
-      },
-      {
-        "height": 0,
-        "tree": false,
-        "lamp": false,
-        "house": false,
-        "lit": false,
-        "bush": false,
-        "rock": false,
-        "box": true,
-        "bulb": false,
-        "kit": false,
-        "spark": false,
-        "needsBulb": false
-      },
-      {
-        "height": 0,
-        "tree": false,
-        "lamp": false,
-        "house": false,
-        "lit": false,
-        "bush": false,
+        "bush": true,
         "rock": false,
         "box": false,
         "bulb": false,
@@ -445,79 +519,7 @@
         "lamp": false,
         "house": false,
         "lit": false,
-        "box": false,
-        "bush": false,
-        "rock": false,
-        "bulb": false,
-        "kit": false,
-        "spark": false,
-        "needsBulb": false
-      }
-    ],
-    [
-      {
-        "height": 0,
-        "tree": false,
-        "lamp": false,
-        "house": false,
-        "lit": false,
-        "bush": false,
-        "rock": false,
-        "box": true,
-        "bulb": false,
-        "kit": false,
-        "spark": false,
-        "needsBulb": false
-      },
-      {
-        "height": 0,
-        "tree": false,
-        "lamp": false,
-        "house": false,
-        "lit": false,
-        "box": true,
-        "bush": false,
-        "rock": false,
-        "bulb": false,
-        "kit": false,
-        "spark": false,
-        "needsBulb": false
-      },
-      {
-        "height": 0,
-        "tree": false,
-        "lamp": false,
-        "house": false,
-        "lit": false,
-        "box": true,
-        "bush": false,
-        "rock": false,
-        "bulb": false,
-        "kit": false,
-        "spark": false,
-        "needsBulb": false
-      },
-      {
-        "height": 0,
-        "tree": false,
-        "lamp": false,
-        "house": false,
-        "lit": false,
-        "box": true,
-        "bush": false,
-        "rock": false,
-        "bulb": false,
-        "kit": false,
-        "spark": false,
-        "needsBulb": false
-      },
-      {
-        "height": 0,
-        "tree": false,
-        "lamp": false,
-        "house": false,
-        "lit": false,
-        "bush": false,
+        "bush": true,
         "rock": false,
         "box": false,
         "bulb": false,
@@ -531,24 +533,8 @@
         "lamp": false,
         "house": false,
         "lit": false,
-        "box": true,
-        "bush": false,
+        "bush": true,
         "rock": false,
-        "bulb": false,
-        "kit": false,
-        "spark": false,
-        "needsBulb": false
-      }
-    ],
-    [
-      {
-        "height": 0,
-        "tree": false,
-        "lamp": false,
-        "house": false,
-        "lit": false,
-        "rock": false,
-        "bush": false,
         "box": false,
         "bulb": false,
         "kit": false,
@@ -561,9 +547,9 @@
         "lamp": false,
         "house": false,
         "lit": false,
-        "box": false,
-        "bush": false,
+        "bush": true,
         "rock": false,
+        "box": false,
         "bulb": false,
         "kit": false,
         "spark": false,
@@ -575,9 +561,9 @@
         "lamp": false,
         "house": false,
         "lit": false,
-        "box": false,
-        "bush": false,
+        "bush": true,
         "rock": false,
+        "box": false,
         "bulb": false,
         "kit": false,
         "spark": false,
@@ -589,9 +575,9 @@
         "lamp": false,
         "house": false,
         "lit": false,
-        "box": false,
-        "bush": false,
+        "bush": true,
         "rock": false,
+        "box": false,
         "bulb": false,
         "kit": false,
         "spark": false,
@@ -603,9 +589,9 @@
         "lamp": false,
         "house": false,
         "lit": false,
-        "box": false,
-        "bush": false,
+        "bush": true,
         "rock": false,
+        "box": false,
         "bulb": false,
         "kit": false,
         "spark": false,
@@ -617,15 +603,42 @@
         "lamp": false,
         "house": false,
         "lit": false,
-        "box": false,
-        "bush": false,
+        "bush": true,
         "rock": false,
+        "box": false,
+        "bulb": false,
+        "kit": false,
+        "spark": false,
+        "needsBulb": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false,
+        "house": false,
+        "lit": false,
+        "bush": true,
+        "rock": false,
+        "box": false,
+        "bulb": false,
+        "kit": false,
+        "spark": false,
+        "needsBulb": false
+      },
+      {
+        "height": 0,
+        "tree": false,
+        "lamp": false,
+        "house": false,
+        "lit": false,
+        "bush": true,
+        "rock": false,
+        "box": false,
         "bulb": false,
         "kit": false,
         "spark": false,
         "needsBulb": false
       }
     ]
-  ],
-  "difficulty": 2
+  ]
 }

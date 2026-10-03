@@ -21,34 +21,59 @@
     [
       {
         "height": 0,
-        "tree": false,
+        "tree": true,
         "lamp": false,
         "house": false,
-        "lit": false
+        "lit": false,
+        "bush": false,
+        "rock": false,
+        "box": false,
+        "bulb": false,
+        "kit": false,
+        "spark": false,
+        "needsBulb": false
       },
       {
         "height": 0,
-        "tree": false,
+        "tree": true,
         "lamp": false,
         "house": false,
-        "lit": false
+        "lit": false,
+        "bush": false,
+        "rock": false,
+        "box": false,
+        "bulb": false,
+        "kit": false,
+        "spark": false,
+        "needsBulb": false
       },
       {
         "height": 0,
-        "tree": false,
+        "tree": true,
         "lamp": false,
         "house": false,
-        "lit": false
+        "lit": false,
+        "bush": false,
+        "rock": false,
+        "box": false,
+        "bulb": false,
+        "kit": false,
+        "spark": false,
+        "needsBulb": false
       },
       {
         "height": 0,
-        "tree": false,
+        "tree": true,
         "lamp": false,
         "house": false,
         "lit": false,
         "bulb": false,
         "kit": false,
-        "spark": false
+        "spark": false,
+        "bush": false,
+        "rock": false,
+        "box": false,
+        "needsBulb": false
       }
     ],
     [

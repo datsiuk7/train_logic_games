@@ -36,13 +36,17 @@
   "cells": [
     [
       {
-        "height": 0,
-        "tree": false,
+        "height": 2,
+        "tree": true,
+        "bush": false,
+        "rock": false,
+        "box": false,
         "lamp": false,
         "house": false,
         "bulb": false,
         "kit": false,
         "spark": false,
+        "needsBulb": false,
         "lit": false
       },
       {

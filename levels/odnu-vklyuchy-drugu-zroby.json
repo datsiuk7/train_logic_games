@@ -32,7 +32,7 @@
     "canJump"
   ],
   "hints": [],
-  "limit": 0,
+  "limit": 20,
   "repairKits": 0,
   "cells": [
     [

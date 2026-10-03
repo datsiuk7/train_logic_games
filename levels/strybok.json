@@ -22,7 +22,7 @@
       "target": "command:jump"
     }
   ],
-  "limit": 0,
+  "limit": 5,
   "repairKits": 0,
   "cells": [
     [
@@ -34,7 +34,25 @@
         "bulb": false,
         "kit": false,
         "spark": false,
-        "lit": false
+        "lit": false,
+        "bush": true,
+        "rock": false,
+        "box": false,
+        "needsBulb": false
+      },
+      {
+        "height": 0,
+        "tree": true,
+        "lamp": false,
+        "house": false,
+        "bulb": false,
+        "kit": false,
+        "spark": false,
+        "lit": false,
+        "bush": false,
+        "rock": false,
+        "box": false,
+        "needsBulb": false
       },
       {
         "height": 0,
@@ -44,34 +62,39 @@
         "bulb": false,
         "kit": false,
         "spark": false,
-        "lit": false
+        "lit": false,
+        "bush": true,
+        "rock": false,
+        "box": false,
+        "needsBulb": false
       },
       {
         "height": 0,
-        "tree": false,
+        "tree": true,
         "lamp": false,
         "house": false,
         "bulb": false,
         "kit": false,
         "spark": false,
-        "lit": false
+        "lit": false,
+        "bush": false,
+        "rock": false,
+        "box": false,
+        "needsBulb": false
       },
       {
         "height": 0,
         "tree": false,
         "lamp": false,
         "house": false,
+        "lit": false,
+        "bush": true,
+        "rock": false,
+        "box": false,
         "bulb": false,
         "kit": false,
         "spark": false,
-        "lit": false
-      },
-      {
-        "height": 0,
-        "tree": false,
-        "lamp": false,
-        "house": false,
-        "lit": false
+        "needsBulb": false
       }
     ],
     [

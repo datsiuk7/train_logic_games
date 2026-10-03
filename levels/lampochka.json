@@ -167,7 +167,7 @@
         "kit": false,
         "spark": false,
         "lit": false,
-        "rock": true,
+        "rock": false,
         "bush": false,
         "box": false,
         "needsBulb": false

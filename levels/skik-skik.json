@@ -36,7 +36,16 @@
       {
         "height": 0,
         "tree": false,
-        "lamp": false
+        "lamp": false,
+        "rock": true,
+        "bush": false,
+        "box": false,
+        "house": false,
+        "bulb": false,
+        "kit": false,
+        "spark": false,
+        "needsBulb": false,
+        "lit": false
       }
     ],
     [
@@ -102,7 +111,16 @@
       {
         "height": 0,
         "tree": false,
-        "lamp": false
+        "lamp": false,
+        "rock": false,
+        "bush": false,
+        "box": false,
+        "house": false,
+        "bulb": false,
+        "kit": false,
+        "spark": false,
+        "needsBulb": false,
+        "lit": false
       }
     ]
   ],
