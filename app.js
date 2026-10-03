@@ -10,6 +10,7 @@ const app = document.querySelector('#app');
 setupMusic(document.querySelector('#music'));
 const effects = setupEffects(document.querySelector('#sound'));
 setupFullscreen(document.querySelector('#fullscreen'));
+setupSiteZoom(document.querySelector('#site-zoom-control'));
 
 function setupFullscreen(button) {
   if (!button) return;
@@ -56,6 +57,60 @@ function setupFullscreen(button) {
   addDocListener('MSFullscreenChange', update);
 
   update();
+}
+
+export function setupSiteZoom(container) {
+  if (!container) return;
+
+  const siteZoomIn = container.querySelector?.('#site-zoom-in');
+  const siteZoomOut = container.querySelector?.('#site-zoom-out');
+  const siteZoomReset = container.querySelector?.('#site-zoom-reset');
+  const siteZoomVal = container.querySelector?.('#site-zoom-val');
+
+  let currentSiteZoom = 1.0;
+  try {
+    const saved = sessionStorage.getItem('lamplighter-site-zoom');
+    if (saved) currentSiteZoom = Math.max(0.6, Math.min(1.5, parseFloat(saved) || 1.0));
+  } catch {}
+
+  function applySiteZoom(val) {
+    currentSiteZoom = Math.max(0.6, Math.min(1.5, Math.round(val * 10) / 10));
+    const pct = Math.round(currentSiteZoom * 100);
+    if (siteZoomVal) {
+      siteZoomVal.textContent = `${pct}%`;
+      siteZoomVal.classList?.toggle('is-custom', pct !== 100);
+    }
+    if (siteZoomReset) {
+      siteZoomReset.style.display = pct === 100 ? 'none' : 'inline-flex';
+    }
+
+    if (typeof document !== 'undefined' && document.body?.style) {
+      document.body.style.zoom = currentSiteZoom === 1.0 ? '' : String(currentSiteZoom);
+    }
+    if (typeof document !== 'undefined' && document.documentElement?.style) {
+      document.documentElement.style.setProperty?.('--site-zoom', String(currentSiteZoom));
+    }
+    try {
+      if (currentSiteZoom === 1.0) {
+        sessionStorage.removeItem('lamplighter-site-zoom');
+      } else {
+        sessionStorage.setItem('lamplighter-site-zoom', String(currentSiteZoom));
+      }
+    } catch {}
+
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent?.(new Event('resize'));
+    }
+  }
+
+  if (currentSiteZoom !== 1.0) {
+    applySiteZoom(currentSiteZoom);
+  }
+
+  if (siteZoomIn) siteZoomIn.onclick = () => applySiteZoom(currentSiteZoom + 0.1);
+  if (siteZoomOut) siteZoomOut.onclick = () => applySiteZoom(currentSiteZoom - 0.1);
+  if (siteZoomReset) siteZoomReset.onclick = () => applySiteZoom(1.0);
+  if (siteZoomVal) siteZoomVal.onclick = () => applySiteZoom(1.0);
 }
 
 const esc = (s) =>

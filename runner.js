@@ -77,7 +77,9 @@ export function startGame(container, l, preview, options) {
         <span class="level-title-text">${esc(l.name)}</span>
         ${renderDifficultyStars(l.difficulty)}
       </div>
-      <button id="help-open" class="game-help-open" type="button" aria-label="Відкрити підказки">? Підказка</button>
+      <div class="game-top-actions">
+        <button id="help-open" class="game-help-open" type="button" aria-label="Відкрити підказки">? Підказка</button>
+      </div>
     </div>
     <div id="help-card" class="game-help-card" hidden>
       <div class="game-help-heading"><strong>Як грати</strong><span id="help-count"></span></div>
@@ -123,7 +125,14 @@ export function startGame(container, l, preview, options) {
         <div class="section-label"><span id="count" class="count"></span></div>
         <div id="program" class="program" aria-label="Програма"></div>
         <div class="program-actions">
-          <button id="trash" class="trash-zone" aria-label="Перемістіть сюди команду для видалення" title="Видалити команду">🗑</button>
+          <button id="trash" class="trash-zone" aria-label="Перемістіть сюди команду для видалення або натисніть для очищення" title="Очистити всі команди або перетягніть сюди блок">🗑</button>
+        </div>
+        <div id="trash-confirm" class="trash-confirm" hidden>
+          <span class="trash-confirm-text">Очистити всі команди?</span>
+          <div class="trash-confirm-btns">
+            <button type="button" id="trash-confirm-yes" class="btn-trash-yes">Так, очистити</button>
+            <button type="button" id="trash-confirm-no" class="btn-trash-no">Скасувати</button>
+          </div>
         </div>
         <div class="section-label available-commands">Доступні команди <span class="count">${l.allowed.length}</span></div>
         <div id="palette" class="palette"></div>
@@ -161,6 +170,9 @@ export function startGame(container, l, preview, options) {
   editor.onChange = (data) => {
     saveProgram(l.id, preview, data);
     help.refresh();
+    if (!editor.blocks.length) {
+      hideTrashConfirm();
+    }
   };
 
   const compactBtn = $('#compact-btn');
@@ -182,12 +194,78 @@ export function startGame(container, l, preview, options) {
     compactBtn.onclick = () => setCompact(!isCompact);
   }
 
-  $('#trash').onclick = () => {
-    if (editor.blocks.length && confirm('Очистити всі складені блоки програми?')) {
+  const trashBtn = $('#trash');
+  const trashConfirm = $('#trash-confirm');
+  const trashConfirmYes = $('#trash-confirm-yes');
+  const trashConfirmNo = $('#trash-confirm-no');
+
+  function isTrashConfirmOpen() {
+    if (!trashConfirm) return false;
+    return !trashConfirm.hidden && !trashConfirm.hasAttribute?.('hidden');
+  }
+
+  function showTrashConfirm() {
+    if (!editor.blocks.length) return;
+    if (trashConfirm) {
+      trashConfirm.hidden = false;
+      trashConfirm.removeAttribute?.('hidden');
+      trashBtn?.classList?.add('confirm-active');
+      trashConfirmNo?.focus?.();
+    }
+  }
+
+  function hideTrashConfirm() {
+    if (trashConfirm) {
+      trashConfirm.hidden = true;
+      trashConfirm.setAttribute?.('hidden', '');
+      trashBtn?.classList?.remove('confirm-active');
+    }
+  }
+
+  if (trashBtn) {
+    trashBtn.onclick = () => {
+      if (!editor.blocks.length) return;
+      if (isTrashConfirmOpen()) {
+        hideTrashConfirm();
+      } else {
+        showTrashConfirm();
+      }
+    };
+  }
+
+  if (trashConfirmYes) {
+    trashConfirmYes.onclick = () => {
       editor.clear();
       saveProgram(l.id, preview, null);
+      help.refresh?.();
+      hideTrashConfirm();
+    };
+  }
+
+  if (trashConfirmNo) {
+    trashConfirmNo.onclick = () => {
+      hideTrashConfirm();
+    };
+  }
+
+  const handleGlobalClick = (e) => {
+    if (isTrashConfirmOpen() && e?.target) {
+      if (!trashConfirm?.contains?.(e.target) && !trashBtn?.contains?.(e.target)) {
+        hideTrashConfirm();
+      }
     }
   };
+
+  const handleGlobalKeydown = (e) => {
+    if (e?.key === 'Escape' && isTrashConfirmOpen()) {
+      hideTrashConfirm();
+    }
+  };
+
+  if (typeof document !== 'undefined') {
+    document.addEventListener?.('click', handleGlobalClick);
+    document.addEventListener?.('keydown', handleGlobalKeydown);
+  }
 
   const status = (text, kind = '') => {
     $('#status').textContent = text;
@@ -225,6 +303,7 @@ export function startGame(container, l, preview, options) {
   };
   world.onZoom = updateZoom;
 
+
   const speedSteps = [0.5, 1, 2, 3];
   const speedLabels = ['0.5×', '1×', '2×', '3×'];
   const savedSpeed = Number(localStorage.getItem('lamplighter-speed'));
@@ -246,6 +325,7 @@ export function startGame(container, l, preview, options) {
   };
 
   function reset() {
+    hideTrashConfirm();
     token++;
     running = false;
     state = initialState(l, currentTheme);
@@ -260,6 +340,7 @@ export function startGame(container, l, preview, options) {
   $('#reset').onclick = reset;
 
   $('#run').onclick = async () => {
+    hideTrashConfirm();
     help.close();
     if (running) return;
     let memory;
@@ -423,6 +504,10 @@ export function startGame(container, l, preview, options) {
   };
 
   return () => {
+    if (typeof document !== 'undefined') {
+      document.removeEventListener?.('click', handleGlobalClick);
+      document.removeEventListener?.('keydown', handleGlobalKeydown);
+    }
     help.close();
     document.body.classList.remove('in-game');
     token++;

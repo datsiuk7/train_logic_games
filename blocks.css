@@ -15,6 +15,7 @@
   align-items: center;
   justify-content: center;
   padding: 0;
+  gap: 0;
   border-radius: 9px;
   box-sizing: border-box;
 }
@@ -156,6 +157,15 @@
 .program-panel .command .icon {
   color: var(--gold);
   font-size: 19px;
+  width: 26px;
+  height: 26px;
+  min-width: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin: 0;
+  padding: 0;
 }
 
 .program-panel .icon svg,

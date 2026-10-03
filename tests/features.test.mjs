@@ -540,3 +540,78 @@ test('validation and level configuration for allowedSensors, allowElif, allowEls
   assert.ok(validateLevel({ ...baseLevel, allowElif: 'no' }).length > 0);
   assert.ok(validateLevel({ ...baseLevel, allowElse: 123 }).length > 0);
 });
+
+test('site zoom control is located in header next to theme in index.html, handled in app.js and home.css', async () => {
+  const fs = await import('node:fs');
+  const path = await import('node:path');
+  const indexHtml = fs.readFileSync(path.resolve('index.html'), 'utf8');
+  const appJs = fs.readFileSync(path.resolve('app.js'), 'utf8');
+  const homeCss = fs.readFileSync(path.resolve('home.css'), 'utf8');
+  const runnerJs = fs.readFileSync(path.resolve('runner.js'), 'utf8');
+
+  // Verify site-zoom-control in index.html header next to #theme
+  assert.ok(indexHtml.includes('id="site-zoom-control"'), 'index.html must contain #site-zoom-control');
+  const themePos = indexHtml.indexOf('id="theme"');
+  const zoomPos = indexHtml.indexOf('id="site-zoom-control"');
+  assert.ok(themePos !== -1 && zoomPos !== -1 && zoomPos > themePos, '#site-zoom-control must be placed right after #theme in header');
+
+  // Verify buttons and elements inside header zoom
+  assert.ok(indexHtml.includes('id="site-zoom-out"'), 'index.html must contain #site-zoom-out');
+  assert.ok(indexHtml.includes('id="site-zoom-in"'), 'index.html must contain #site-zoom-in');
+  assert.ok(indexHtml.includes('id="site-zoom-val"'), 'index.html must contain #site-zoom-val');
+  assert.ok(indexHtml.includes('id="site-zoom-reset"'), 'index.html must contain #site-zoom-reset');
+
+  // Verify app.js wires setupSiteZoom
+  assert.match(appJs, /setupSiteZoom/);
+  assert.match(appJs, /document\.body\.style\.zoom/);
+  assert.match(appJs, /lamplighter-site-zoom/);
+
+  // Verify runner.js does NOT duplicate the site-zoom-control
+  assert.ok(!runnerJs.includes('class="site-zoom-control"'), 'runner.js must not duplicate site-zoom-control');
+
+  // Verify CSS styles
+  assert.ok(homeCss.includes('.header-zoom-control'), 'home.css must style .header-zoom-control');
+  assert.ok(homeCss.includes('.site-zoom-btn'), 'home.css must style .site-zoom-btn');
+  assert.ok(homeCss.includes('.site-zoom-val'), 'home.css must style .site-zoom-val');
+});
+
+test('trash button uses custom in-game confirmation instead of native alert/confirm', async () => {
+  const fs = await import('node:fs');
+  const path = await import('node:path');
+  const runnerJs = fs.readFileSync(path.resolve('runner.js'), 'utf8');
+  const gameCss = fs.readFileSync(path.resolve('game.css'), 'utf8');
+
+  // Must not use window.confirm or alert for trash
+  assert.ok(!runnerJs.includes('confirm('), 'runner.js must not use window.confirm');
+  assert.ok(!runnerJs.includes('alert('), 'runner.js must not use window.alert');
+
+  // Must contain custom in-game confirmation markup
+  assert.ok(runnerJs.includes('id="trash-confirm"'), 'runner.js must contain #trash-confirm');
+  assert.ok(runnerJs.includes('id="trash-confirm-yes"'), 'runner.js must contain #trash-confirm-yes');
+  assert.ok(runnerJs.includes('id="trash-confirm-no"'), 'runner.js must contain #trash-confirm-no');
+
+  // Verify styles in game.css
+  assert.ok(gameCss.includes('.trash-confirm'), 'game.css must style .trash-confirm');
+  assert.ok(gameCss.includes('.btn-trash-yes'), 'game.css must style .btn-trash-yes');
+  assert.ok(gameCss.includes('.btn-trash-no'), 'game.css must style .btn-trash-no');
+  assert.ok(gameCss.includes('.trash-confirm[hidden]'), 'game.css must support hidden trash-confirm');
+});
+
+test('palette command buttons have centered icons without rightward offset', async () => {
+  const fs = await import('node:fs');
+  const path = await import('node:path');
+  const blocksCss = fs.readFileSync(path.resolve('blocks.css'), 'utf8');
+  const gameCss = fs.readFileSync(path.resolve('game.css'), 'utf8');
+
+  // Verify command icon styling in blocks.css and game.css
+  assert.match(blocksCss, /\.program-panel\s+\.command\s+\.icon\s*\{[^}]*width:\s*26px/);
+  assert.match(blocksCss, /\.program-panel\s+\.command\s+\.icon\s*\{[^}]*display:\s*flex/);
+  assert.match(blocksCss, /\.program-panel\s+\.command\s+\.icon\s*\{[^}]*justify-content:\s*center/);
+
+  assert.match(gameCss, /\.program-panel\s+\.command\s+\.icon\s*\{[^}]*width:\s*26px/);
+  assert.match(gameCss, /\.program-panel\s+\.command\s+\.icon\s*\{[^}]*display:\s*flex/);
+  assert.match(gameCss, /\.program-panel\s+\.command\s+\.icon\s*\{[^}]*justify-content:\s*center/);
+});
+
+
+
