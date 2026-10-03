@@ -114,6 +114,11 @@ export function startGame(container, l, preview, options) {
             <span class="run-icon">▶</span> <span>Запустити</span>
           </button>
           <button id="reset" aria-label="Скинути програму" title="Скинути програму">↺</button>
+          <button id="compact-btn" class="compact-btn" type="button" aria-label="Стиснути блоки" title="Стиснути блоки (компактний режим)">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M4 4h16M4 20h16M12 8v3m0 0-2-2m2 2 2-2M12 16v-3m0 0-2 2m2-2 2 2"/>
+            </svg>
+          </button>
         </div>
         <div class="section-label"><span id="count" class="count"></span></div>
         <div id="program" class="program" aria-label="Програма"></div>
@@ -157,6 +162,25 @@ export function startGame(container, l, preview, options) {
     saveProgram(l.id, preview, data);
     help.refresh();
   };
+
+  const compactBtn = $('#compact-btn');
+  const programPanel = container.querySelector('.program-panel');
+  let isCompact = false;
+  try { isCompact = localStorage.getItem('lamplighter-compact-blocks') === '1'; } catch {}
+
+  function setCompact(compact) {
+    isCompact = compact;
+    programPanel?.classList.toggle('compact-blocks', isCompact);
+    compactBtn?.classList.toggle('active', isCompact);
+    compactBtn?.setAttribute('title', isCompact ? 'Звичайний вигляд блоків' : 'Стиснути блоки (компактний режим)');
+    compactBtn?.setAttribute('aria-pressed', isCompact ? 'true' : 'false');
+    try { localStorage.setItem('lamplighter-compact-blocks', isCompact ? '1' : '0'); } catch {}
+  }
+
+  if (isCompact) setCompact(true);
+  if (compactBtn) {
+    compactBtn.onclick = () => setCompact(!isCompact);
+  }
 
   $('#trash').onclick = () => {
     if (editor.blocks.length && confirm('Очистити всі складені блоки програми?')) {

@@ -9,6 +9,54 @@ import { startGame } from './runner.js';
 const app = document.querySelector('#app');
 setupMusic(document.querySelector('#music'));
 const effects = setupEffects(document.querySelector('#sound'));
+setupFullscreen(document.querySelector('#fullscreen'));
+
+function setupFullscreen(button) {
+  if (!button) return;
+
+  function isFullscreen() {
+    return Boolean(
+      document.fullscreenElement ||
+      document.webkitFullscreenElement ||
+      document.mozFullScreenElement ||
+      document.msFullscreenElement
+    );
+  }
+
+  function update() {
+    const fs = isFullscreen();
+    button.setAttribute('aria-pressed', fs ? 'true' : 'false');
+    button.textContent = fs ? '🗗 Згорнути' : '⛶ Повний екран';
+    button.title = fs ? 'Вийти з повного екрана' : 'Увімкнути повний екран';
+  }
+
+  button.onclick = async () => {
+    try {
+      if (!isFullscreen()) {
+        const root = document.documentElement || document.body;
+        if (root?.requestFullscreen) await root.requestFullscreen();
+        else if (root?.webkitRequestFullscreen) await root.webkitRequestFullscreen();
+        else if (root?.msRequestFullscreen) await root.msRequestFullscreen();
+      } else {
+        if (document.exitFullscreen) await document.exitFullscreen();
+        else if (document.webkitExitFullscreen) await document.webkitExitFullscreen();
+        else if (document.msExitFullscreen) await document.msExitFullscreen();
+      }
+    } catch {}
+    update();
+  };
+
+  const addDocListener = (event, fn) => {
+    document.addEventListener?.(event, fn);
+  };
+
+  addDocListener('fullscreenchange', update);
+  addDocListener('webkitfullscreenchange', update);
+  addDocListener('mozfullscreenchange', update);
+  addDocListener('MSFullscreenChange', update);
+
+  update();
+}
 
 const esc = (s) =>
   String(s).replace(/[&<>"']/g, (c) => ({

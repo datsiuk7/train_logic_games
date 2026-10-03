@@ -220,6 +220,10 @@
   min-width: 124px;
 }
 
+#fullscreen {
+  min-width: 124px;
+}
+
 #reset-progress {
   min-width: 132px;
   color: #d18282;
@@ -252,6 +256,9 @@
     min-width: 108px;
   }
   #music {
+    min-width: 108px;
+  }
+  #fullscreen {
     min-width: 108px;
   }
 }
@@ -356,7 +363,7 @@
   }
 
   .header-audio button,
-  #theme, #sound, #music, #reset-progress {
+  #theme, #sound, #music, #reset-progress, #fullscreen {
     min-width: 0;
     width: 100%;
     min-height: 44px;
@@ -366,7 +373,8 @@
   #theme { order: 1; }
   #sound { order: 2; }
   #music { order: 3; }
-  #reset-progress { order: 4; }
+  #fullscreen { order: 4; }
+  #reset-progress { order: 5; grid-column: span 2; }
 
   .hero-copy { padding: 26px 20px; }
   .hero h1 { font-size: clamp(28px, 7vw, 38px); }
